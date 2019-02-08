@@ -2,6 +2,7 @@ package frc.robot.subsystems;
 
 import com.kauailabs.navx.frc.AHRS;
 import frc.robot.*;
+import frc.robot.commands.ResetNavx;
 import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -12,23 +13,11 @@ public class NavX extends Subsystem
 	public double initAngle = 0.0;
 	public AHRS navx;
 
-	@Override
-	protected void initDefaultCommand() {}
-
 	public NavX() 
 	{
 		navx = new AHRS(SerialPort.Port.kUSB1);
 		navx.reset();
 		initAngle = navx.getFusedHeading();
-	}
-
-	public static NavX initializeNavX() 
-	{
-		if (instance == null) 
-		{
-			instance = new NavX();
-		}
-		return instance;
 	}
 
 	public void reset() 
@@ -44,5 +33,9 @@ public class NavX extends Subsystem
 	public void periodic() 
 	{
 		SmartDashboard.putNumber("Robot Angle", Robot.navx.getFusedAngle());
+		SmartDashboard.putData("Reset Navx", new ResetNavx());
 	}
+	public static NavX initializeNavX() {if (instance == null) {instance = new NavX();}return instance;}
+	@Override
+	protected void initDefaultCommand() {}
 }

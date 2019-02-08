@@ -9,58 +9,35 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.*;
 import frc.robot.*;
-import frc.robot.RobotMap;
+import frc.robot.RobotMap.Robot.KLift;
 
 public class Lift extends Subsystem 
 {
-
     public static Lift instance;
     
     public TalonSRX LeftLiftTalon, RightLiftTalon;
     public VictorSPX LeftLiftVictor, RightLiftVictor;
-
-	public static TalonSRX LeadMotor;
-   
    
     private Lift()
     {
-    
-    LeftLiftTalon = new TalonSRX(RobotMap.Robot.Lift.LIFT_LEFT_TALON);
-    RightLiftTalon = new TalonSRX(RobotMap.Robot.Lift.LIFT_RIGHT_TALON);
-    LeftLiftVictor = new VictorSPX(RobotMap.Robot.Lift.LIFT_LEFT_VICTOR);
-    RightLiftVictor = new VictorSPX(RobotMap.Robot.Lift.LIFT_RIGHT_VICTOR);
-
-		LeadMotor = LeftLiftTalon;
+		LeftLiftTalon = new TalonSRX(KLift.LIFT_LEFT_TALON);
+		RightLiftTalon = new TalonSRX(KLift.LIFT_RIGHT_TALON);
+		LeftLiftVictor = new VictorSPX(KLift.LIFT_LEFT_VICTOR);
+		RightLiftVictor = new VictorSPX(KLift.LIFT_RIGHT_VICTOR);
 		
-		initializeTalon(LeftLiftTalon , RobotMap.Robot.Lift.LIFT_LEFT_TALON);
+		initializeMotorController(RightLiftTalon , KLift.LIFT_LEFT_TALON);
     }
 
-    public static Lift initializeLift()
+	public void initializeMotorController(TalonSRX talon, int Talon_id)
 	{
-		if (instance == null)
-		{
-			instance = new Lift();
-		}
-		return instance; 
+		talon.setNeutralMode(NeutralMode.Brake);
+		talon.follow(LeftLiftTalon);
 	}
-	public void initializeTalon(TalonSRX talon, int Talon_id)
-  {
-	  talon.setNeutralMode(NeutralMode.Brake);
-	if(!(Talon_id == LeadMotor.getDeviceID()))
+	public void initializeVictor(VictorSPX victor, int Victor_id)
 	{
-		talon.follow(LeadMotor);
+		victor.follow(LeftLiftTalon);
 	}
-  }
-  public void initializeVictor(VictorSPX victor, int Victor_id)
-  {
-	  victor.setNeutralMode(NeutralMode.Brake);
-	if(!(Victor_id == LeadMotor.getDeviceID()))
-	{
-		victor.follow(LeadMotor);
-	}
-  }
 	
-
 	public double getEncoderVelocity()
 	{
 		return (double)LeftLiftTalon.getSelectedSensorVelocity(0);
@@ -75,13 +52,15 @@ public class Lift extends Subsystem
 	{
 		LeftLiftTalon.set(ControlMode.PercentOutput, power);
 	}
+
 	public void periodic() 
 	{
 		SmartDashboard.putNumber("ManipJoystick Y ", Robot.oi.GetJoystickYValue(RobotMap.OI.MANIP_JOYSTICK));
 		SmartDashboard.putNumber("Lift Value", LeftLiftTalon.getMotorOutputPercent());
+		SmartDashboard.putNumber("Lift Encoder Position", getEncoderPosition());
+		SmartDashboard.putNumber("Lift Encoder Velocity", getEncoderVelocity());
 	}
 	@Override
-	protected void initDefaultCommand() {
-		setDefaultCommand(new RunLift());
-	}
+	protected void initDefaultCommand() {setDefaultCommand(new RunLift());}
+	public static Lift getInstance(){if (instance == null){instance = new Lift();}return instance; }
 }

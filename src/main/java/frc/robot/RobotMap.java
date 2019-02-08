@@ -26,17 +26,17 @@ public class RobotMap {
 
 public interface Robot
 {
-	public interface DriveTrain 
+	public interface KDrivetrain 
 	{
-	public static final int DRIVE_TRAIN_FRONT_LEFT_SPARK_ID = 0;
-	public static final int DRIVE_TRAIN_FRONT_RIGHT_SPARK_ID = 1;
-	public static final int DRIVE_TRAIN_REAR_LEFT_SPARK_ID = 2;
-	public static final int DRIVE_TRAIN_REAR_RIGHT_SPARK_ID = 3;
+	public static final int FRONT_LEFT_SPARK_ID = 0;
+	public static final int FRONT_RIGHT_SPARK_ID = 1;
+	public static final int REAR_LEFT_SPARK_ID = 2;
+	public static final int REAR_RIGHT_SPARK_ID = 3;
 
 	public static final int CONTROL_FRAME_PERIOD = 1000;
 	}
 
-	public interface Lift 
+	public interface KLift 
 	{
 		public static final int LIFT_LEFT_TALON = 1;
 		public static final int LIFT_RIGHT_TALON = 2;
@@ -44,12 +44,15 @@ public interface Robot
 		public static final int LIFT_RIGHT_VICTOR = 3;
 	}
 
-	public interface Intake
+	public interface KIntake
 	{
-		public static final int INTAKE_ELBOW_TALON =0;
-		public static final int LEFT_INTAKE_VICTOR =2;
-		public static final int RIGHT_INTAKE_VICTOR =0;
-		public static final int VEX_BUTTON_ID =0;
+		public static final int INTAKE_ELBOW_TALON = 0;
+		public static final int LEFT_INTAKE_VICTOR = 2;
+		public static final int RIGHT_INTAKE_VICTOR = 0;
+		public static final int VEX_BUTTON_ID = 0;
+
+		public static final boolean leftInverted = false;
+		public static final boolean rightInverted = false; 
 	}
 	public interface EndGame
 	{
@@ -59,7 +62,7 @@ public interface Robot
 	public interface Pneumatics
 	{
 		public static final int INTAKE_SOLENOID = 0;
-		public static final int COMPRESSOR_ID	=7;
+		public static final int COMPRESSOR_ID	= 7;
 	}
 	public interface Timeouts
 	{

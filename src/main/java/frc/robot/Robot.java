@@ -25,10 +25,10 @@ public class Robot extends TimedRobot
 	public void robotInit() 
 	{
 		oi = OI.initializeOperatorInterface();
-		driveTrain = DriveTrain.initializeDriveTrain();
-		lift = Lift.initializeLift();
-		intake = Intake.initializeIntake();
-		endgame = EndGame.initializeEndGame();
+		driveTrain = DriveTrain.getInstance();
+		lift = Lift.getInstance();
+		intake = Intake.getInstance();
+		endgame = EndGame.getInstance();
 		limelight = Limelight.initializeLimelight();
 		navx = NavX.initializeNavX();
 		OI.initializeButtonsWithCommands();
