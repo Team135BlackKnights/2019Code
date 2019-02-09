@@ -6,14 +6,13 @@ import frc.robot.subsystems.*;
 
 public class DriveandSteer extends CommandGroup 
 {
-	public DriveandSteer(boolean TurnLeft) 
+	public DriveandSteer(boolean TurnLeft, int pipeline) 
 	{
-		
     	requires(Robot.driveTrain);
 		requires(Robot.limelight);
 		Robot.limelight.SetLEDMode(Limelight.LED_ON);
-        	addSequential(new LineUp(TurnLeft));
-			addParallel(new DriveToward());
+        	addSequential(new LineUp(TurnLeft, pipeline));
+			addParallel(new DriveToward(pipeline));
     	}
     }
 

@@ -26,6 +26,6 @@ public class EndGame extends Subsystem
 	}
 
 	@Override
-	protected void initDefaultCommand() {setDefaultCommand(new RunEndGame());}
+	protected void initDefaultCommand() {}
 	public static EndGame getInstance(){if (instance == null){instance = new EndGame();}return instance; }
 }

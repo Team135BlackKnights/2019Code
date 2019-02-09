@@ -3,6 +3,7 @@ package frc.robot.commands;
 import frc.robot.Robot;
 import frc.robot.subsystems.Limelight;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class GetLimelightData extends Command 
 {
@@ -23,7 +24,7 @@ public class GetLimelightData extends Command
 
     protected void execute()
     {
-    	limelightData = Robot.limelight.GetLimelightData();
+        limelightData = Robot.limelight.GetLimelightData();
     }
 
     protected boolean isFinished()

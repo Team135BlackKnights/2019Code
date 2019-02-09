@@ -6,13 +6,15 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class RunEndGame extends Command
 {
-	public RunEndGame()
+	private double _power;
+	public RunEndGame(double power)
 	{
-        requires(Robot.endgame);
+		requires(Robot.endgame);
+		_power = power;
 	}
 	protected void execute()
 	{
-		Robot.endgame.RunEndGame(.75);
+		Robot.endgame.RunEndGame(_power);
 	}
 	@Override
 	protected boolean isFinished() 

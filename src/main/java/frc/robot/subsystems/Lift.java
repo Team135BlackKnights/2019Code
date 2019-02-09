@@ -5,6 +5,7 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.*;
@@ -18,6 +19,9 @@ public class Lift extends Subsystem
     public TalonSRX LeftLiftTalon, RightLiftTalon;
     public VictorSPX LeftLiftVictor, RightLiftVictor;
    
+	public double kP = 0.2;
+	public double setpoint;
+
     private Lift()
     {
 		LeftLiftTalon = new TalonSRX(KLift.LIFT_LEFT_TALON);
@@ -28,6 +32,9 @@ public class Lift extends Subsystem
 		initializeMotorController(RightLiftTalon);
 		initializeMotorController(LeftLiftVictor);
 		initializeMotorController(RightLiftVictor);
+
+		//LeftLiftTalon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 10);
+		//LeftLiftTalon.setSelectedSensorPosition(0, 0, 10);
     }
 
 	public void initializeMotorController(TalonSRX talon)
@@ -37,6 +44,7 @@ public class Lift extends Subsystem
 	}
 	public void initializeMotorController(VictorSPX victor)
 	{
+		victor.setNeutralMode(NeutralMode.Brake);
 		victor.follow(LeftLiftTalon);
 	}
 	
@@ -55,10 +63,23 @@ public class Lift extends Subsystem
 		LeftLiftTalon.set(ControlMode.PercentOutput, power);
 	}
 
+	public void setToPosition(int targetPosition, double timeout)
+	{
+		double encoderPosition = getEncoderPosition();
+		double direction = (targetPosition - encoderPosition) < 0 ? -1.0 : 1.0;
+		Timer timer = new Timer();
+		timer.start();
+		while (Math.abs(targetPosition - encoderPosition)  < KLift.LIFT_TOLERANCE && timer.get() < timeout)
+		{
+			
+			RunLift(kP * (targetPosition - encoderPosition) + kP * direction);
+		}
+	}
+
 	public void periodic() 
 	{
 		SmartDashboard.putNumber("ManipJoystick Y ", Robot.oi.GetJoystickYValue(RobotMap.KOI.MANIP_JOYSTICK));
-		SmartDashboard.putNumber("Lift Value", LeftLiftTalon.getMotorOutputPercent());
+		SmartDashboard.putNumber("Lift Motor Output Percent", LeftLiftTalon.getMotorOutputPercent());
 		SmartDashboard.putNumber("Lift Encoder Position", getEncoderPosition());
 		SmartDashboard.putNumber("Lift Encoder Velocity", getEncoderVelocity());
 	}

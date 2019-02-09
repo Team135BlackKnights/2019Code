@@ -30,7 +30,7 @@ public class Robot extends TimedRobot
 		intake = Intake.getInstance();
 		endgame = EndGame.getInstance();
 		limelight = Limelight.initializeLimelight();
-		navx = NavX.initializeNavX();
+		navx = NavX.getInstance();
 		Robot.limelight.SetLEDMode(Limelight.LED_OFF);
 	}
 	

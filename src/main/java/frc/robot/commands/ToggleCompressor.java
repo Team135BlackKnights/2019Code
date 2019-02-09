@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj.command.InstantCommand;
 
 public class ToggleCompressor extends InstantCommand
 {
-    private boolean isCompressorOn = true;
+    private static boolean isCompressorOn = true;
 	public ToggleCompressor()
 	{
         requires(Robot.intake);

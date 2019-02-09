@@ -35,7 +35,7 @@ public class NavX extends Subsystem
 		SmartDashboard.putNumber("Robot Angle", Robot.navx.getFusedAngle());
 		SmartDashboard.putData("Reset Navx", new ResetNavx());
 	}
-	public static NavX initializeNavX() {if (instance == null) {instance = new NavX();}return instance;}
+	public static NavX getInstance() {if (instance == null) {instance = new NavX();}return instance;}
 	@Override
 	protected void initDefaultCommand() {}
 }

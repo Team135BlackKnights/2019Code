@@ -9,10 +9,11 @@ public class RunIntakeWheels extends Command
 	
 	public RunIntakeWheels(double power)
 	{
-        this.power = power;
+        	this.power = power;
 	}
-	public boolean isSwitchSet() {
-        return Robot.intake.vexButton.get();
+	public boolean isSwitchSet() 
+	{
+        	return Robot.intake.vexButton.get();
 	}
 	protected void execute()
 	{

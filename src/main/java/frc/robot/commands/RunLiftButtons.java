@@ -8,32 +8,34 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.RobotMap.Robot;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.Robot;
+import frc.robot.RobotMap.Robot.KLift;
 
 public class RunLiftButtons extends Command {
-  public RunLiftButtons() {
-    requires(frc.robot.Robot.lift);
+  private int setPointIndex;
+  public RunLiftButtons(int upOrDown) {
+    requires(Robot.lift);
+    setPointIndex = (setPointIndex + upOrDown ) < 0 ? 0 : setPointIndex + upOrDown;
+    setPointIndex = setPointIndex > 4 ? 4 : setPointIndex;
   }
 
-  // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    
+    SmartDashboard.putNumber("Setpoint Value", KLift.LIFT_SETPOINTS[setPointIndex]);
+    Robot.lift.setToPosition(KLift.LIFT_SETPOINTS[setPointIndex], 3.0);
   }
 
-  // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
     return false;
   }
 
-  // Called once after isFinished returns true
   @Override
   protected void end() {
+    Robot.lift.RunLift(0);
   }
 
-  // Called when another command which requires one or more of the same
-  // subsystems is scheduled to run
   @Override
   protected void interrupted() {
   }

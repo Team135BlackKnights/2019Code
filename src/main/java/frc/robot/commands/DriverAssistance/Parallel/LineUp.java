@@ -12,22 +12,30 @@ public class LineUp extends Command
 	private double[] limelightData = new double[Limelight.NUMBER_OF_LIMELIGHT_CHARACTERISTICS];
 	
 	private boolean targetExists = false;
-	private final double TURNING_MOTOR_POWER = .1;
-	private final double X_THRESHOLD_TO_STOP_TURNING = 15;
+	private final double TURNING_MOTOR_POWER = .1
+	;
+	private final double X_THRESHOLD_TO_STOP_TURNING = 10;
 	boolean TurnLeft;
-	
-	public LineUp(boolean TurnLeft)
-    {
-      
-    	requires(Robot.limelight);
-    	requires(Robot.driveTrain);
-    }
 
+	private int _pipeline;
+    public LineUp(boolean Turnleft, int pipeline)
+    {
+		requires(Robot.limelight);
+		requires(Robot.driveTrain);
+        this._pipeline =pipeline;
+    }
     protected void initialize() 
     {
-    	Robot.limelight.SetCameraPipeline(Limelight.HATCH_PIPELINE);
-    	Robot.limelight.SetCameraMode(Limelight.VISION_PROCESSOR);
-    	Robot.limelight.SetLEDMode(Limelight.LED_ON);  
+    	Robot.limelight.SetCameraPipeline(_pipeline);
+		Robot.limelight.SetCameraMode(Limelight.VISION_PROCESSOR);
+		if (_pipeline == 2)
+		{
+			Robot.limelight.SetLEDMode(Limelight.LED_OFF);  
+
+		}
+		else {
+		Robot.limelight.SetLEDMode(Limelight.LED_ON);  
+		}
     	targetExists = false;
     }
 
@@ -37,7 +45,7 @@ public class LineUp extends Command
         SmartDashboard.putBoolean("doestargetexist", targetExists);
     	limelightData = Robot.limelight.GetLimelightData();
 		
-    /*	if (targetExists == false)  
+    	if (targetExists == false)  
     	{
 			if (TurnLeft)
 			{
@@ -46,7 +54,7 @@ public class LineUp extends Command
 			else {
     		Robot.driveTrain.TurnDriveTrain(TURNING_MOTOR_POWER, DriveTrain.DirectionToTurn.Right);
 			}
-			*/
+			
 		
     	if (targetExists && limelightData[Limelight.HORIZONTAL_OFFSET]  > 0.0)  // If Target is to the Right, turn to the Right
     	{
@@ -60,7 +68,7 @@ public class LineUp extends Command
     	{
     		Robot.driveTrain.StopMotors();
     	}
-    	
+	}
     }
 
     protected boolean isFinished()
