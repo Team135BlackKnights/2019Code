@@ -9,16 +9,15 @@ public class MoveIntakeElbow extends Command
 	public MoveIntakeElbow()
 	{
 		requires(Robot.intake);
-        setTimeout(RobotMap.Robot.Timeouts.INTAKE_TIMEOUT);
 	}
 	protected void execute()
 	{
-		Robot.intake.RunElbow(.25 * Robot.oi.GetJoystickZValue(RobotMap.OI.MANIP_JOYSTICK));
+		Robot.intake.RunElbow(.25 * Robot.oi.GetJoystickZValue(RobotMap.KOI.MANIP_JOYSTICK));
 	}
 	@Override
 	protected boolean isFinished() 
 	{
-		return isTimedOut();
+		return false;
 	}	
 	protected void end()
 	{

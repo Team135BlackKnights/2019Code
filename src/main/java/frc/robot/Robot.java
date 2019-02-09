@@ -24,20 +24,19 @@ public class Robot extends TimedRobot
 	@Override
 	public void robotInit() 
 	{
-		oi = OI.initializeOperatorInterface();
+		oi = OI.getInstance();
 		driveTrain = DriveTrain.getInstance();
 		lift = Lift.getInstance();
 		intake = Intake.getInstance();
 		endgame = EndGame.getInstance();
 		limelight = Limelight.initializeLimelight();
 		navx = NavX.initializeNavX();
-		OI.initializeButtonsWithCommands();
+		Robot.limelight.SetLEDMode(Limelight.LED_OFF);
 	}
 	
 
 	@Override
 	public void disabledInit() {
-		Robot.limelight.SetLEDMode(Limelight.LED_OFF);
 	}
 
 	@Override

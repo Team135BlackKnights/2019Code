@@ -2,36 +2,25 @@ package frc.robot.commands;
 
 import frc.robot.*;
 
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.InstantCommand;
 
-public class ToggleCompressor extends Command
+public class ToggleCompressor extends InstantCommand
 {
-    private boolean _isOn;
-	public ToggleCompressor(boolean isOn)
+    private boolean isCompressorOn = true;
+	public ToggleCompressor()
 	{
         requires(Robot.intake);
-        this._isOn = isOn;
 	}
 	protected void execute()
 	{
-        if(this._isOn == true)
+		isCompressorOn = !isCompressorOn;
+        if(isCompressorOn)
         {
             Robot.intake.setCompressorOn();
         }
-        else {
+		else 
+		{
             Robot.intake.setCompressorOff();
         }
-	}
-	@Override
-	protected boolean isFinished() 
-	{
-		return false;
-	}	
-	protected void end()
-	{
-	}
-	protected void interrupted()
-	{
-		end();
 	}
 }

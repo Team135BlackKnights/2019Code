@@ -20,11 +20,11 @@ public class DriveTrain extends Subsystem
 
 	MecanumDrive chassis = new MecanumDrive(frontLeftMotor, rearLeftMotor, frontRightMotor, rearRightMotor);
 	
-	public void CartesianDrive(double x, double y, double z)
+	public void cartesianDrive(double x, double y, double z)
 	{
 		chassis.driveCartesian(x, y, z);
 	}
-	public void CartesianDrive(double x, double y, double z, double gyro)
+	public void cartesianDrive(double x, double y, double z, double gyro)
 	{
 		chassis.driveCartesian(x, y, z, gyro);
 	}
@@ -37,11 +37,11 @@ public class DriveTrain extends Subsystem
     {	
     	if (directionToTurn == DirectionToTurn.Left)
     	{
-    		this.CartesianDrive(0, 0, driveTrainMotorPower, 0);
+    		this.cartesianDrive(0, 0, driveTrainMotorPower, 0);
     	}
     	else if (directionToTurn == DirectionToTurn.Right)
     	{
-    		this.CartesianDrive(0, 0, -driveTrainMotorPower, 0);
+    		this.cartesianDrive(0, 0, -driveTrainMotorPower, 0);
     	}
     	return;
 	}
@@ -53,13 +53,13 @@ public class DriveTrain extends Subsystem
 	
 	public void DriveStraightWVision(double motorPower, double xValue, double pValue) 
 	{
-		CartesianDrive(0, motorPower, xValue * pValue * .75, 0);
+		cartesianDrive(0, motorPower, xValue * pValue * .75, 0);
 		return;
 	}
 	
 	public void StopMotors()
 	{
-		CartesianDrive(0, 0, 0);
+		cartesianDrive(0, 0, 0);
 	}
 
 	public static DriveTrain getInstance() {if (instance == null) {instance = new DriveTrain();}return instance;}

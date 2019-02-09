@@ -6,15 +6,15 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class ReleaseHatch extends Command
 {
-    private boolean _TF;
-	public ReleaseHatch(boolean TF)
+    private boolean solenoidPosition;
+	public ReleaseHatch(boolean pistonsInOut)
 	{
-        this._TF = TF;
+        solenoidPosition = pistonsInOut;
         setTimeout(RobotMap.Robot.Timeouts.INTAKE_TIMEOUT);
 	}
 	protected void execute()
 	{
-		Robot.intake.MoveSolenoid(this._TF);
+		Robot.intake.MoveSolenoid(solenoidPosition);
 	}
 	@Override
 	protected boolean isFinished() 
@@ -23,7 +23,7 @@ public class ReleaseHatch extends Command
 	}	
 	protected void end()
 	{
-		Robot.intake.MoveSolenoid(false);;
+		Robot.intake.MoveSolenoid(false);
 	}
 	protected void interrupted()
 	{

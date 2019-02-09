@@ -25,15 +25,17 @@ public class Lift extends Subsystem
 		LeftLiftVictor = new VictorSPX(KLift.LIFT_LEFT_VICTOR);
 		RightLiftVictor = new VictorSPX(KLift.LIFT_RIGHT_VICTOR);
 		
-		initializeMotorController(RightLiftTalon , KLift.LIFT_LEFT_TALON);
+		initializeMotorController(RightLiftTalon);
+		initializeMotorController(LeftLiftVictor);
+		initializeMotorController(RightLiftVictor);
     }
 
-	public void initializeMotorController(TalonSRX talon, int Talon_id)
+	public void initializeMotorController(TalonSRX talon)
 	{
 		talon.setNeutralMode(NeutralMode.Brake);
 		talon.follow(LeftLiftTalon);
 	}
-	public void initializeVictor(VictorSPX victor, int Victor_id)
+	public void initializeMotorController(VictorSPX victor)
 	{
 		victor.follow(LeftLiftTalon);
 	}
@@ -55,12 +57,12 @@ public class Lift extends Subsystem
 
 	public void periodic() 
 	{
-		SmartDashboard.putNumber("ManipJoystick Y ", Robot.oi.GetJoystickYValue(RobotMap.OI.MANIP_JOYSTICK));
+		SmartDashboard.putNumber("ManipJoystick Y ", Robot.oi.GetJoystickYValue(RobotMap.KOI.MANIP_JOYSTICK));
 		SmartDashboard.putNumber("Lift Value", LeftLiftTalon.getMotorOutputPercent());
 		SmartDashboard.putNumber("Lift Encoder Position", getEncoderPosition());
 		SmartDashboard.putNumber("Lift Encoder Velocity", getEncoderVelocity());
 	}
 	@Override
-	protected void initDefaultCommand() {setDefaultCommand(new RunLift());}
+	protected void initDefaultCommand() {setDefaultCommand(new RunLiftAnalog());}
 	public static Lift getInstance(){if (instance == null){instance = new Lift();}return instance; }
 }

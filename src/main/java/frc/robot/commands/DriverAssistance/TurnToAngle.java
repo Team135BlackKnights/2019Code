@@ -49,7 +49,7 @@ public class TurnToAngle extends TimedCommand {
     
     protected void execute()
     {
-		Robot.driveTrain.driveCartesian(0, 0, pidOut.output, 0);
+		Robot.driveTrain.cartesianDrive(0, 0, pidOut.output, 0);
 		SmartDashboard.putString("NavXisturning", "Robot is Turning");
     }
     

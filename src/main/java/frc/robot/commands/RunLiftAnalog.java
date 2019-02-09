@@ -5,16 +5,16 @@ import frc.robot.*;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class RunLift extends Command
+public class RunLiftAnalog extends Command
 {
-	public RunLift()
+	public RunLiftAnalog()
 	{
 		requires(Robot.lift);
 	}
 	protected void execute()
 	{
-		SmartDashboard.putString("Command Running", "Run lift");
-		Robot.lift.RunLift(Robot.oi.GetJoystickYValue(RobotMap.OI.MANIP_JOYSTICK));
+		SmartDashboard.putBoolean("Is Lift Running", true);
+		Robot.lift.RunLift(Robot.oi.GetJoystickYValue(RobotMap.KOI.MANIP_JOYSTICK));
 	}
 	@Override
 	protected boolean isFinished() 
