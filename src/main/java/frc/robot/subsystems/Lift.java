@@ -26,7 +26,7 @@ public class Lift extends Subsystem
 	public Encoder encoder;
 
 	public double kP = 0.3;
-	public double setpoint;
+	public static double setpoint;
 	public static int setpointIndex = 0;
 
     private Lift()
@@ -88,11 +88,13 @@ public class Lift extends Subsystem
 		{
 			SmartDashboard.putNumber("RunLiftValue", kP * (targetPosition - encoderPosition) / targetPosition + kP * direction);
 			SmartDashboard.putNumber("Error", (targetPosition - encoderPosition) / targetPosition);
+			SmartDashboard.putNumber("Timer", timer.get());
+			SmartDashboard.putBoolean("Is SetToPositionRunning", true);
 			RunLift(kP * (targetPosition - encoderPosition) / targetPosition + kP * direction);
 			encoderPosition = getEncoderPosition();	
-			
 		}
 		RunLift(0);
+		SmartDashboard.putBoolean("Is SetToPositionRunning", false);
 	}
 
 	public void periodic() 
@@ -101,9 +103,10 @@ public class Lift extends Subsystem
 		SmartDashboard.putNumber("Lift Motor Output Percent", LeftLiftTalon.getMotorOutputPercent());
 		SmartDashboard.putNumber("Lift Encoder Position", getEncoderPosition());
 		SmartDashboard.putNumber("Lift Encoder Velocity", getEncoderVelocity());
+
 		SmartDashboard.putData("Reset Lift Encoder", new resetEncoderLift());
-		SmartDashboard.putData("Move Lift Up", new RunLiftButtons(2));
-		SmartDashboard.putData("Move Lift Down", new RunLiftButtons(1));
+		SmartDashboard.putData("Move Lift Up", new RunLiftButtons(1));
+		SmartDashboard.putData("Move Lift Down", new RunLiftButtons(-1));
 	}
 	@Override
 	protected void initDefaultCommand() {setDefaultCommand(new RunLiftAnalog());}

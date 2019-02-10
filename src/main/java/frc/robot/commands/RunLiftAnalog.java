@@ -13,7 +13,7 @@ public class RunLiftAnalog extends Command
 	}
 	protected void execute()
 	{
-		SmartDashboard.putBoolean("Is Lift Running", true);
+		SmartDashboard.putBoolean("Is AnalogLift Running", true);
 		Robot.lift.RunLift(Robot.oi.GetJoystickYValue(RobotMap.KOI.MANIP_JOYSTICK));
 	}
 	@Override
@@ -23,6 +23,7 @@ public class RunLiftAnalog extends Command
 	}	
 	protected void end()
 	{
+		SmartDashboard.putBoolean("Is AnalogLift Running", false);
 	}
 	protected void interrupted()
 	{

@@ -17,12 +17,15 @@ import frc.robot.subsystems.Lift;
 public class RunLiftButtons extends InstantCommand {
   public RunLiftButtons(int upOrDown) {
     requires(Robot.lift);
-    Lift.setpointIndex = upOrDown;
+    Lift.setpointIndex += upOrDown;
+    if (Lift.setpointIndex < 0){Lift.setpointIndex = 0;}
+    if (Lift.setpointIndex > 4){Lift.setpointIndex = 4;}
   }
 
   @Override
   protected void execute() {
     SmartDashboard.putNumber("Setpoint Value", KLift.LIFT_SETPOINTS[Lift.setpointIndex]);
+    SmartDashboard.putBoolean("Is ButtonLift Running", true);
     Robot.lift.setToPosition(KLift.LIFT_SETPOINTS[Lift.setpointIndex], 1.0);
   }
 
@@ -33,7 +36,7 @@ public class RunLiftButtons extends InstantCommand {
 
   @Override
   protected void end() {
-    
+    SmartDashboard.putBoolean("Is ButtonLift Running", false);
   }
 
   @Override
