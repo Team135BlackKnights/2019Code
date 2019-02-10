@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.robot.commands.*;
 import frc.robot.commands.DriverAssistance.*;
 import frc.robot.commands.DriverAssistance.Parallel.*;
+import frc.robot.subsystems.Limelight;
 import frc.robot.RobotMap.KOI;
 
 public class OI {
@@ -28,8 +29,10 @@ public class OI {
 
 	RunElbowUp = new JoystickButton(manipJoystick, KOI.BUTTON_4),
 	RunElbowDown = new JoystickButton(manipJoystick, KOI.BUTTON_6),
-
+ 
 	ReleaseHatch = new JoystickButton(manipJoystick, KOI.BUTTON_3),
+	ReleaseEndGame = new JoystickButton(rightJoystick, KOI.BUTTON_3),
+
 	RunEndGame = new JoystickButton(manipJoystick, KOI.THUMB_BUTTON),
 	CompressorToggle = new JoystickButton(manipJoystick, KOI.BUTTON_7),
 	moveLiftUp = new JoystickButton(manipJoystick, KOI.BUTTON_11),
@@ -39,11 +42,13 @@ public class OI {
 
 	public OI()
 	{
-		rightTrigger.toggleWhenPressed(new DriveandSteer(KOI.TurnRight));
-		leftTrigger.toggleWhenPressed(new DriveandSteer(KOI.TurnLeft));
-		resetButton.toggleWhenActive(new ResetNavx());
+		rightTrigger.toggleWhenPressed(new DriveandSteer(KOI.TurnRight, Limelight.HATCH_PIPELINE));
+		leftTrigger.toggleWhenPressed(new DriveandSteer(KOI.TurnLeft, Limelight.BALL_PIPELINE));
+		resetButton.toggleWhenActive(new ResetNavX());
 		turnButton.toggleWhenPressed(new TurnToAngle(0, 4));
+
 		ReleaseHatch.whenActive(new ReleaseHatch(true));
+		ReleaseEndGame.whenActive(new ReleaseEndgame(true));
 
 		RunWheelsIn.whileHeld(new RunIntakeWheels(-0.5) );
 		RunWheelsOut.whileHeld(new RunIntakeWheels(0.5) );
@@ -51,12 +56,12 @@ public class OI {
 		RunEndgameUp.whileHeld(new RunEndGame(0.5));
 		RunEndgameDown.whileHeld(new RunEndGame(-0.5));
 
-		RunElbowDown.whileHeld(new MoveIntakeElbow(-0.5));
-		RunElbowUp.whileHeld(new MoveIntakeElbow(0.5));
+		RunElbowDown.whileHeld(new MoveIntakeElbow(-1));
+		RunElbowUp.whileHeld(new MoveIntakeElbow(1));
 
 		CompressorToggle.toggleWhenPressed(new ToggleCompressor());
-		moveLiftUp.whenPressed(new RunLiftButtons(-1));
-		moveLiftDown.whenPressed(new RunLiftButtons(1));
+		moveLiftUp.whenPressed(new RunLiftButtons(1));
+		moveLiftDown.whenPressed(new RunLiftButtons(-1));
 	}
 
 	private double DeadbandJoystickValue(double joystickValue) 

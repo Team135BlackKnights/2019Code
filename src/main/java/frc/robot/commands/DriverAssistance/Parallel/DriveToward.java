@@ -12,8 +12,6 @@ public class DriveToward extends Command
     private final double AREA_THRESHOLD = 8;
     private static boolean VALID_TARGET = false;
     private double DRIVE_TRAIN_MOTOR_POWER;
-    private double VroomSped;
-
 	
     private int _pipeline;
     public DriveToward(int pipeline)

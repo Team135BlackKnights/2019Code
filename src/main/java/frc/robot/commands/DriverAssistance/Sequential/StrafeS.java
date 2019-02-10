@@ -41,11 +41,11 @@ private boolean VALID_TARGET;
 
      if (VALID_TARGET && limelightData[Limelight.HORIZONTAL_OFFSET] +8 >0) 
     {
-      Robot.driveTrain.CartesianDrive(0, Strafe_POWER,0, 0);
+      Robot.driveTrain.cartesianDrive(0, Strafe_POWER,0, 0);
     } 
     else if (VALID_TARGET && limelightData[Limelight.HORIZONTAL_OFFSET] < 0) 
     {
-      Robot.driveTrain.CartesianDrive(0, -Strafe_POWER,0, 0);
+      Robot.driveTrain.cartesianDrive(0, -Strafe_POWER,0, 0);
     } 
     else 
     {

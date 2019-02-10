@@ -10,7 +10,6 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.commands.*;
 import frc.robot.RobotMap.Robot.KIntake;
 import frc.robot.RobotMap.Robot.Pneumatics;
 public class Intake extends Subsystem 
@@ -31,13 +30,14 @@ public class Intake extends Subsystem
 
 		intakeElbow.setNeutralMode(NeutralMode.Brake);
 
-		intake.setNeutralMode(NeutralMode.Coast);
+		intake.setNeutralMode(NeutralMode.Brake);
 		intake.setInverted(KIntake.leftInverted);
 
 		solenoid = new Solenoid(Pneumatics.INTAKE_SOLENOID);
-		compressor = new Compressor(Pneumatics.COMPRESSOR_ID);
+		compressor = new Compressor();
 
 		compressor.setClosedLoopControl(true);
+		compressor.start();
 	}
 	public void setCompressorOff()
 	{

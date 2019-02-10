@@ -9,9 +9,9 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.InstantCommand;
 import frc.robot.Robot;
-public class ResetNavx extends InstantCommand {
+public class ResetNavX extends InstantCommand {
 
-  public ResetNavx() {
+  public ResetNavX() {
     requires(Robot.navx);
   }
 

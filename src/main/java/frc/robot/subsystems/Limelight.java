@@ -41,6 +41,7 @@ public class Limelight extends Subsystem
 
 	public static int VISION_PIPELINE = 0;
 	public static int HATCH_PIPELINE = 1;
+	public static int BALL_PIPELINE =2;
 
   public double[] GetLimelightData()
   {

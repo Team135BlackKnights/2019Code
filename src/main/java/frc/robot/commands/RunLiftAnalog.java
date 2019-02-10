@@ -23,7 +23,6 @@ public class RunLiftAnalog extends Command
 	}	
 	protected void end()
 	{
-		Robot.lift.RunLift(0);
 	}
 	protected void interrupted()
 	{

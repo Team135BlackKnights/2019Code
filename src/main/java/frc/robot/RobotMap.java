@@ -58,10 +58,10 @@ public interface Robot
 			LIFT_TOLERANCE = 50; // ticks
 		public static final int 
 			LIFT_SETPOINT_0 = 0,
-			LIFT_SETPOINT_1 = 1000,
-			LIFT_SETPOINT_2 = 2000,
-			LIFT_SETPOINT_3 = 3000,
-			LIFT_SETPOINT_4 = 4000;
+			LIFT_SETPOINT_1 = 161,
+			LIFT_SETPOINT_2 = 249,
+			LIFT_SETPOINT_3 = 443,
+			LIFT_SETPOINT_4 = 501;
 		public static final int[] 
 			LIFT_SETPOINTS = {LIFT_SETPOINT_0, LIFT_SETPOINT_1, LIFT_SETPOINT_2, LIFT_SETPOINT_3, LIFT_SETPOINT_4};
 	}
@@ -86,7 +86,8 @@ public interface Robot
 	{
 		public static final int 
 			INTAKE_SOLENOID = 0,
-			COMPRESSOR_ID	= 7;
+			COMPRESSOR_ID	= 7,
+			ENDGAME_PISTON =1;
 	}
 	public interface Timeouts
 	{

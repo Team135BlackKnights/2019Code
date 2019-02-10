@@ -41,7 +41,7 @@ public class DriveTrain extends Subsystem
 
 	public void cartesianDrive(double x, double y, double z)
 	{
-		chassis.driveCartesian(x, y, z);
+		chassis.driveCartesian(-x, y, z);
 	}
 	public void cartesianDrive(double x, double y, double z, double gyro)
 	{
