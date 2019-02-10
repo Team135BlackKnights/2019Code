@@ -84,7 +84,7 @@ public class Lift extends Subsystem
 		double direction = (targetPosition - encoderPosition) < 0 ? -1.0 : 1.0;
 		Timer timer = new Timer();
 		timer.start();
-		while ( (Math.abs(targetPosition - encoderPosition) > 10) && timer.get() < timeout)
+		while ( (Math.abs(targetPosition - encoderPosition) > 3) && timer.get() < timeout)
 		{
 			SmartDashboard.putNumber("RunLiftValue", kP * (targetPosition - encoderPosition) / targetPosition + kP * direction);
 			SmartDashboard.putNumber("Error", (targetPosition - encoderPosition) / targetPosition);
@@ -100,13 +100,15 @@ public class Lift extends Subsystem
 	public void periodic() 
 	{
 		SmartDashboard.putNumber("ManipJoystick Y ", Robot.oi.GetJoystickYValue(RobotMap.KOI.MANIP_JOYSTICK));
-		SmartDashboard.putNumber("Lift Motor Output Percent", LeftLiftTalon.getMotorOutputPercent());
+		SmartDashboard.putNumber("Lift Motor POutput Percent", LeftLiftTalon.getMotorOutputPercent());
 		SmartDashboard.putNumber("Lift Encoder Position", getEncoderPosition());
 		SmartDashboard.putNumber("Lift Encoder Velocity", getEncoderVelocity());
 
 		SmartDashboard.putData("Reset Lift Encoder", new resetEncoderLift());
-		SmartDashboard.putData("Move Lift Up", new RunLiftButtons(1));
-		SmartDashboard.putData("Move Lift Down", new RunLiftButtons(-1));
+		SmartDashboard.putData("Move Lift 0", new RunLiftButtons(20));
+		SmartDashboard.putData("Move Lift 161", new RunLiftButtons(161));
+		SmartDashboard.putData("Move Lift 249", new RunLiftButtons(249));
+		SmartDashboard.putData("Move Lift 443", new RunLiftButtons(443));
 	}
 	@Override
 	protected void initDefaultCommand() {setDefaultCommand(new RunLiftAnalog());}
