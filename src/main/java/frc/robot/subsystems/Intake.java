@@ -22,6 +22,7 @@ public class Intake extends Subsystem
 	public Compressor compressor;
 	public DigitalInput vexButton;
 
+
     private Intake()
     {
 		intakeElbow = new TalonSRX(KIntake.INTAKE_ELBOW_TALON);
@@ -41,7 +42,7 @@ public class Intake extends Subsystem
 	}
 	public void setCompressorOff()
 	{
-		compressor.setClosedLoopControl(false);
+	compressor.setClosedLoopControl(false);
 		compressor.stop();
 	}
 	public void setCompressorOn()

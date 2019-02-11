@@ -21,7 +21,7 @@ public class DriveWithJoysticks extends Command
     {
         Robot.limelight.SetCameraPipeline(Limelight.VISION_PIPELINE);
         Robot.limelight.SetCameraMode(Limelight.VISION_PROCESSOR);
-        Robot.limelight.SetLEDMode(Limelight.LED_ON);
+        Robot.limelight.SetLEDMode(Limelight.LED_OFF);
    }
 
    protected double shouldControlsBeNegative()

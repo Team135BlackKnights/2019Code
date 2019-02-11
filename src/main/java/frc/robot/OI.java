@@ -35,8 +35,14 @@ public class OI {
 
 	RunEndGame = new JoystickButton(manipJoystick, KOI.THUMB_BUTTON),
 	CompressorToggle = new JoystickButton(manipJoystick, KOI.BUTTON_7),
-	moveLiftUp = new JoystickButton(manipJoystick, KOI.BUTTON_11),
-	moveLiftDown = new JoystickButton(manipJoystick, KOI.BUTTON_12);
+
+	moveLiftUp = new JoystickButton(manipJoystick, KOI.BUTTON_7),
+	moveLiftDown = new JoystickButton(manipJoystick, KOI.BUTTON_8),
+
+	LifttoPos0 = new JoystickButton(manipJoystick, KOI.BUTTON_11),
+	LifttoPos1 = new JoystickButton(manipJoystick, KOI.BUTTON_12),
+	LifttoPos2 = new JoystickButton(manipJoystick, KOI.BUTTON_9),
+	LifttoPos3 = new JoystickButton(manipJoystick, KOI.BUTTON_10);
 
 	public static OI instance;
 
@@ -48,20 +54,27 @@ public class OI {
 		turnButton.toggleWhenPressed(new TurnToAngle(0, 4));
 
 		ReleaseHatch.whenActive(new ReleaseHatch(true));
-		ReleaseEndGame.whenActive(new ReleaseEndgame(true));
+		ReleaseEndGame.whenActive(new ReleaseEndgame(false));
 
-		RunWheelsIn.whileHeld(new RunIntakeWheels(-0.5) );
-		RunWheelsOut.whileHeld(new RunIntakeWheels(0.5) );
+		RunWheelsIn.whileHeld(new RunIntakeWheels(-1) );
+		RunWheelsOut.whileHeld(new RunIntakeWheels(1) );
 
-		RunEndgameUp.whileHeld(new RunEndGame(0.5));
-		RunEndgameDown.whileHeld(new RunEndGame(-0.5));
+		RunEndgameUp.whileHeld(new RunEndGame(1));
+		RunEndgameDown.whileHeld(new RunEndGame(-1));
 
-		RunElbowDown.whileHeld(new MoveIntakeElbow(-1));
-		RunElbowUp.whileHeld(new MoveIntakeElbow(1));
+		RunElbowDown.whileHeld(new MoveIntakeElbow(-.75));
+		RunElbowUp.whileHeld(new MoveIntakeElbow(.754));
 
 		CompressorToggle.toggleWhenPressed(new ToggleCompressor());
+
 		moveLiftUp.whenPressed(new RunLiftButtons(1));
 		moveLiftDown.whenPressed(new RunLiftButtons(-1));
+
+		LifttoPos0.whenPressed(new RunLiftButtons(20));
+		LifttoPos1.whenPressed(new RunLiftButtons(161));
+		LifttoPos2.whenPressed(new RunLiftButtons(249));
+		LifttoPos3.whenPressed(new RunLiftButtons(443));
+
 	}
 
 	private double DeadbandJoystickValue(double joystickValue) 

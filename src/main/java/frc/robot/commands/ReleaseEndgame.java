@@ -23,7 +23,7 @@ public class ReleaseEndgame extends Command
 	}	
 	protected void end()
 	{
-		Robot.endgame.movePiston(false);
+		Robot.endgame.movePiston(true);
 	}
 	protected void interrupted()
 	{

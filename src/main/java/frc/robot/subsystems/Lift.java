@@ -5,11 +5,8 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
-import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.DigitalSource;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.Watchdog;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.*;
@@ -40,8 +37,6 @@ public class Lift extends Subsystem
 		initializeMotorController(LeftLiftVictor);
 		initializeMotorController(RightLiftVictor);
 		encoder = new Encoder(5, 6);
-		//LeftLiftTalon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 10);
-		//LeftLiftTalon.setSelectedSensorPosition(0, 0, 10);
     }
 
 	public void initializeMotorController(TalonSRX talon)
