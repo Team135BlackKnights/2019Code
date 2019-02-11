@@ -79,38 +79,33 @@ public class Lift extends Subsystem
 		double encoderPosition = getEncoderPosition();
 		double targetPosition = setpoint;
 		double direction = (targetPosition - encoderPosition) < 0 ? -1.0 : 1.0;
-		Timer timer = new Timer();
-		timer.start();
 		if ( (Math.abs(targetPosition - encoderPosition) > 15))
 		{
 			SmartDashboard.putNumber("RunLiftValue", kP * (targetPosition - encoderPosition) / targetPosition + kP * direction);
 			SmartDashboard.putNumber("Error", (targetPosition - encoderPosition) / targetPosition);
-			SmartDashboard.putNumber("Timer", timer.get());
-			SmartDashboard.putBoolean("Is SetToPositionRunning", true);
 			RunLift(kP * (targetPosition - encoderPosition) / targetPosition + kP * direction);
 			encoderPosition = getEncoderPosition();	
 			motorValue = kP * (targetPosition - encoderPosition) / targetPosition + kP * direction;
 		}
-		SmartDashboard.putBoolean("Is SetToPositionRunning", false);
 		RunLift(motorValue);
 	}
 
 	public void periodic() 
 	{
-		SmartDashboard.putNumber("ManipJoystick Y ", Robot.oi.GetJoystickYValue(RobotMap.KOI.MANIP_JOYSTICK));
 		SmartDashboard.putNumber("Lift Motor Output Percent", LeftLiftTalon.getMotorOutputPercent());
 		SmartDashboard.putNumber("Setpoint", setpoint);
 		SmartDashboard.putNumber("Lift Encoder Position", getEncoderPosition());
 		SmartDashboard.putNumber("Lift Encoder Velocity", getEncoderVelocity());
 
 		SmartDashboard.putData("Reset Lift Encoder", new resetEncoderLift());
-		SmartDashboard.putData("Move Lift 0", new RunLiftButtons(0));
-		SmartDashboard.putData("Move Lift 50", new RunLiftButtons(50));
-		SmartDashboard.putData("Move Lift 100", new RunLiftButtons(100));
+
+		SmartDashboard.putData("Move Lift 0(9)", new RunLiftButtons(0));
+		SmartDashboard.putData("Move Lift 50(10)", new RunLiftButtons(1));
+		SmartDashboard.putData("Move Lift 100(11)", new RunLiftButtons(2));
 
 		setToPosition();
 	}
 	@Override
-	protected void initDefaultCommand() {setDefaultCommand(new RunLiftAnalog());}
+	protected void initDefaultCommand() {setDefaultCommand(new RunLift(-1));}
 	public static Lift getInstance(){if (instance == null){instance = new Lift();}return instance; }
 }

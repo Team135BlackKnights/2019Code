@@ -36,13 +36,10 @@ public class OI {
 	RunEndGame = new JoystickButton(manipJoystick, KOI.THUMB_BUTTON),
 	CompressorToggle = new JoystickButton(manipJoystick, KOI.BUTTON_7),
 
-	moveLiftUp = new JoystickButton(manipJoystick, KOI.BUTTON_7),
-	moveLiftDown = new JoystickButton(manipJoystick, KOI.BUTTON_8),
-
-	LifttoPos0 = new JoystickButton(manipJoystick, KOI.BUTTON_11),
-	LifttoPos1 = new JoystickButton(manipJoystick, KOI.BUTTON_12),
-	LifttoPos2 = new JoystickButton(manipJoystick, KOI.BUTTON_9),
-	LifttoPos3 = new JoystickButton(manipJoystick, KOI.BUTTON_10);
+	LifttoPos0 = new JoystickButton(manipJoystick, KOI.BUTTON_9),
+	LifttoPos1 = new JoystickButton(manipJoystick, KOI.BUTTON_10),
+	LifttoPos2 = new JoystickButton(manipJoystick, KOI.BUTTON_11),
+	LifttoPos3 = new JoystickButton(manipJoystick, KOI.BUTTON_12);
 
 	public static OI instance;
 
@@ -67,13 +64,10 @@ public class OI {
 
 		CompressorToggle.toggleWhenPressed(new ToggleCompressor());
 
-		moveLiftUp.whenPressed(new RunLiftButtons(1));
-		moveLiftDown.whenPressed(new RunLiftButtons(-1));
-
-		LifttoPos0.whenPressed(new RunLiftButtons(20));
-		LifttoPos1.whenPressed(new RunLiftButtons(161));
-		LifttoPos2.whenPressed(new RunLiftButtons(249));
-		LifttoPos3.whenPressed(new RunLiftButtons(443));
+		LifttoPos0.whenPressed(new RunLift(0));
+		LifttoPos1.whenPressed(new RunLift(1));
+		LifttoPos2.whenPressed(new RunLift(2));
+		LifttoPos3.whenPressed(new RunLift(3));
 
 	}
 
@@ -128,6 +122,15 @@ public class OI {
 	public static boolean isSwapPressed()
 	{
 		return swapButton.get();
+	}
+
+	public static int liftButtons()
+	{
+		if (LifttoPos0.get()){return 0;}
+		if (LifttoPos1.get()){return 1;}
+		if (LifttoPos2.get()){return 2;}
+		if (LifttoPos3.get()){return 3;}
+		return -1;
 	}
 
 	public static OI getInstance() {if (instance == null) {instance = new OI();}return instance;}

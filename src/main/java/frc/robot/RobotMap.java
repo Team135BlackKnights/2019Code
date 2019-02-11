@@ -58,8 +58,8 @@ public interface Robot
 			LIFT_TOLERANCE = 50; // ticks
 		public static final int 
 			LIFT_SETPOINT_0 = 0,
-			LIFT_SETPOINT_1 = 161,
-			LIFT_SETPOINT_2 = 249,
+			LIFT_SETPOINT_1 = 50,
+			LIFT_SETPOINT_2 = 100,
 			LIFT_SETPOINT_3 = 443,
 			LIFT_SETPOINT_4 = 501;
 		public static final int[] 
