@@ -23,7 +23,7 @@ public class Lift extends Subsystem
 	public Encoder encoder;
 
 	public double kP = 0.3;
-	public static double setpoint;
+	public static double setpoint = 0;
 	public static int setpointIndex = 0;
 
     private Lift()
@@ -73,9 +73,10 @@ public class Lift extends Subsystem
 		RightLiftVictor.set(ControlMode.PercentOutput, power);
 	}
 
-	public void setToPosition(int targetPosition, double timeout)
+	public void setToPosition(double timeout)
 	{
 		double encoderPosition = getEncoderPosition();
+		double targetPosition = setpoint;
 		double direction = (targetPosition - encoderPosition) < 0 ? -1.0 : 1.0;
 		Timer timer = new Timer();
 		timer.start();
@@ -88,22 +89,24 @@ public class Lift extends Subsystem
 			RunLift(kP * (targetPosition - encoderPosition) / targetPosition + kP * direction);
 			encoderPosition = getEncoderPosition();	
 		}
-		RunLift(0);
 		SmartDashboard.putBoolean("Is SetToPositionRunning", false);
 	}
 
 	public void periodic() 
 	{
 		SmartDashboard.putNumber("ManipJoystick Y ", Robot.oi.GetJoystickYValue(RobotMap.KOI.MANIP_JOYSTICK));
-		SmartDashboard.putNumber("Lift Motor POutput Percent", LeftLiftTalon.getMotorOutputPercent());
+		SmartDashboard.putNumber("Lift Motor Output Percent", LeftLiftTalon.getMotorOutputPercent());
+		SmartDashboard.putNumber("Setpoint", setpoint);
 		SmartDashboard.putNumber("Lift Encoder Position", getEncoderPosition());
 		SmartDashboard.putNumber("Lift Encoder Velocity", getEncoderVelocity());
 
 		SmartDashboard.putData("Reset Lift Encoder", new resetEncoderLift());
-		SmartDashboard.putData("Move Lift 0", new RunLiftButtons(20));
-		SmartDashboard.putData("Move Lift 161", new RunLiftButtons(161));
-		SmartDashboard.putData("Move Lift 249", new RunLiftButtons(249));
-		SmartDashboard.putData("Move Lift 443", new RunLiftButtons(443));
+		SmartDashboard.putData("Move Lift 0", new RunLiftButtons(1));
+		SmartDashboard.putData("Move Lift 161", new RunLiftButtons(2));
+		SmartDashboard.putData("Move Lift 249", new RunLiftButtons(3));
+		SmartDashboard.putData("Move Lift 443", new RunLiftButtons(4));
+
+		setToPosition(0.1);
 	}
 	@Override
 	protected void initDefaultCommand() {setDefaultCommand(new RunLiftAnalog());}

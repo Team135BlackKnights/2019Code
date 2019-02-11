@@ -1,11 +1,12 @@
 package frc.robot.commands;
 
 import frc.robot.*;
-
-import edu.wpi.first.wpilibj.command.Command;
+import frc.robot.subsystems.Lift;
+import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.command.InstantCommand;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class RunLiftAnalog extends Command
+public class RunLiftAnalog extends InstantCommand
 {
 	public RunLiftAnalog()
 	{
@@ -13,20 +14,9 @@ public class RunLiftAnalog extends Command
 	}
 	protected void execute()
 	{
-		SmartDashboard.putBoolean("Is AnalogLift Running", true);
-		Robot.lift.RunLift(Robot.oi.GetJoystickYValue(RobotMap.KOI.MANIP_JOYSTICK));
-	}
-	@Override
-	protected boolean isFinished() 
-	{
-		return false;
-	}	
-	protected void end()
-	{
-		SmartDashboard.putBoolean("Is AnalogLift Running", false);
-	}
-	protected void interrupted()
-	{
-		end();
+		Timer timer = new Timer();
+		timer.start();
+		Lift.setpoint += Robot.oi.GetJoystickYValue(RobotMap.KOI.MANIP_JOYSTICK) * 50 * timer.get(); //50 ticks/second * seconds = speed
+		SmartDashboard.putNumber("Joystick Setpoint Add", Robot.oi.GetJoystickYValue(RobotMap.KOI.MANIP_JOYSTICK) * 50 * timer.get());
 	}
 }
