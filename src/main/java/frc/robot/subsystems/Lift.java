@@ -22,9 +22,10 @@ public class Lift extends Subsystem
    
 	public Encoder encoder;
 
-	public double kP = 0.3;
+	public double kP = 0.4;
 	public static double setpoint = 0;
 	public static int setpointIndex = 0;
+	public double motorValue = 0;
 
     private Lift()
     {
@@ -73,14 +74,14 @@ public class Lift extends Subsystem
 		RightLiftVictor.set(ControlMode.PercentOutput, power);
 	}
 
-	public void setToPosition(double timeout)
+	public void setToPosition()
 	{
 		double encoderPosition = getEncoderPosition();
 		double targetPosition = setpoint;
 		double direction = (targetPosition - encoderPosition) < 0 ? -1.0 : 1.0;
 		Timer timer = new Timer();
 		timer.start();
-		while ( (Math.abs(targetPosition - encoderPosition) > 3) && timer.get() < timeout)
+		if ( (Math.abs(targetPosition - encoderPosition) > 15))
 		{
 			SmartDashboard.putNumber("RunLiftValue", kP * (targetPosition - encoderPosition) / targetPosition + kP * direction);
 			SmartDashboard.putNumber("Error", (targetPosition - encoderPosition) / targetPosition);
@@ -88,8 +89,10 @@ public class Lift extends Subsystem
 			SmartDashboard.putBoolean("Is SetToPositionRunning", true);
 			RunLift(kP * (targetPosition - encoderPosition) / targetPosition + kP * direction);
 			encoderPosition = getEncoderPosition();	
+			motorValue = kP * (targetPosition - encoderPosition) / targetPosition + kP * direction;
 		}
 		SmartDashboard.putBoolean("Is SetToPositionRunning", false);
+		RunLift(motorValue);
 	}
 
 	public void periodic() 
@@ -101,12 +104,11 @@ public class Lift extends Subsystem
 		SmartDashboard.putNumber("Lift Encoder Velocity", getEncoderVelocity());
 
 		SmartDashboard.putData("Reset Lift Encoder", new resetEncoderLift());
-		SmartDashboard.putData("Move Lift 0", new RunLiftButtons(1));
-		SmartDashboard.putData("Move Lift 161", new RunLiftButtons(2));
-		SmartDashboard.putData("Move Lift 249", new RunLiftButtons(3));
-		SmartDashboard.putData("Move Lift 443", new RunLiftButtons(4));
+		SmartDashboard.putData("Move Lift 0", new RunLiftButtons(0));
+		SmartDashboard.putData("Move Lift 50", new RunLiftButtons(50));
+		SmartDashboard.putData("Move Lift 100", new RunLiftButtons(100));
 
-		setToPosition(0.1);
+		setToPosition();
 	}
 	@Override
 	protected void initDefaultCommand() {setDefaultCommand(new RunLiftAnalog());}

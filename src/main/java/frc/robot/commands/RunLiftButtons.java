@@ -17,14 +17,14 @@ public class RunLiftButtons extends InstantCommand {
   public RunLiftButtons(int upOrDown) {
     requires(Robot.lift);
     Lift.setpointIndex = upOrDown;
-    if (Lift.setpointIndex < 0){Lift.setpointIndex = 0;}
-    if (Lift.setpointIndex > 4){Lift.setpointIndex = 4;}
+    //if (Lift.setpointIndex < 0){Lift.setpointIndex = 0;}
+    //if (Lift.setpointIndex > 4){Lift.setpointIndex = 4;}
   }
 
   @Override
   protected void execute() {
-    SmartDashboard.putNumber("Setpoint Value", KLift.LIFT_SETPOINTS[Lift.setpointIndex]);
-    Lift.setpoint = KLift.LIFT_SETPOINTS[Lift.setpointIndex];
+    SmartDashboard.putNumber("Setpoint Value", Lift.setpointIndex);
+    Lift.setpoint = Lift.setpointIndex;
   }
 
   @Override

@@ -16,7 +16,7 @@ public class RunLiftAnalog extends InstantCommand
 	{
 		Timer timer = new Timer();
 		timer.start();
-		Lift.setpoint += Robot.oi.GetJoystickYValue(RobotMap.KOI.MANIP_JOYSTICK) * 50 * timer.get(); //50 ticks/second * seconds = speed
+		Lift.setpoint += Robot.oi.GetJoystickYValue(RobotMap.KOI.MANIP_JOYSTICK) * 5000 * timer.get(); //50 ticks/second * seconds = speed
 		SmartDashboard.putNumber("Joystick Setpoint Add", Robot.oi.GetJoystickYValue(RobotMap.KOI.MANIP_JOYSTICK) * 50 * timer.get());
 	}
 }
