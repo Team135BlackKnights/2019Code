@@ -26,7 +26,10 @@ public class RunLift extends Command {
 
   @Override
   protected void initialize() {
-		Lift.setpoint += Robot.oi.GetJoystickYValue(RobotMap.KOI.MANIP_JOYSTICK) * 5;
+		
+  }
+  protected void execute() {
+    Lift.setpoint += Robot.oi.GetJoystickYValue(RobotMap.KOI.MANIP_JOYSTICK) * 5;
     SmartDashboard.putNumber("Joystick Setpoint Add", Robot.oi.GetJoystickYValue(RobotMap.KOI.MANIP_JOYSTICK) * 5);
 
     int whichButtonPressed = OI.liftButtons();
@@ -36,6 +39,7 @@ public class RunLift extends Command {
       SmartDashboard.putNumber("Setpoint Value", Lift.setpointIndex);
       Lift.setpoint = KLift.LIFT_SETPOINTS[Lift.setpointIndex];
     }
+    
   }
 
   @Override

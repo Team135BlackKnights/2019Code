@@ -106,6 +106,6 @@ public class Lift extends Subsystem
 		setToPosition();
 	}
 	@Override
-	protected void initDefaultCommand() {setDefaultCommand(new RunLift(-1));}
+	protected void initDefaultCommand() {setDefaultCommand(new RunLiftAnalog());}//setDefaultCommand(new RunLift(-1));}
 	public static Lift getInstance(){if (instance == null){instance = new Lift();}return instance; }
 }
