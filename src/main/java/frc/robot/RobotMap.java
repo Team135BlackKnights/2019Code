@@ -71,7 +71,7 @@ public interface Robot
 		public static final int 
 			INTAKE_ELBOW_TALON = 0,
 			INTAKE_VICTOR = 0,
-			VEX_BUTTON_ID = 2;
+			VEX_BUTTON_ID = 9;
 
 		public static final boolean 
 			leftInverted = false,
@@ -88,6 +88,19 @@ public interface Robot
 			INTAKE_SOLENOID = 0,
 			COMPRESSOR_ID	= 7,
 			ENDGAME_PISTON =1;
+	}
+	public interface Sensors 
+	{
+		
+		public static final int RIGHT_SONAR_TRIG_PORT = 5;
+		public static final int RIGHT_SONAR_ECHO_PORT = 8;
+		
+		public static final int LEFT_SONAR_TRIG_PORT = 4;
+		public static final int LEFT_SONAR_ECHO_PORT = 2;
+		
+		public static final int INTAKE_SONAR_TRIG_PORT = 1;
+		public static final int INTAKE_SONAR_ECHO_PORT = 0;
+		
 	}
 	public interface Timeouts
 	{

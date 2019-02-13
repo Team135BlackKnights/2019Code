@@ -20,7 +20,7 @@ public class Lift extends Subsystem
     public TalonSRX LeftLiftTalon, RightLiftTalon;
     public VictorSPX LeftLiftVictor, RightLiftVictor;
    
-	public Encoder encoder;
+	//public Encoder encoder;
 
 	public double kP = 0.4;
 	public static double setpoint = 0;
@@ -37,7 +37,7 @@ public class Lift extends Subsystem
 		initializeMotorController(RightLiftTalon);
 		initializeMotorController(LeftLiftVictor);
 		initializeMotorController(RightLiftVictor);
-		encoder = new Encoder(5, 6);
+		//encoder = new Encoder(5, 6);
     }
 
 	public void initializeMotorController(TalonSRX talon)
@@ -50,7 +50,7 @@ public class Lift extends Subsystem
 		victor.setNeutralMode(NeutralMode.Brake);
 		victor.follow(LeftLiftTalon);
 	}
-
+/*
 	public double getEncoderVelocity()
 	{
 		return encoder.getRate();
@@ -65,7 +65,7 @@ public class Lift extends Subsystem
 	{
 		encoder.reset();
 	}
-
+*/
 	public void RunLift(double power) 
 	{
 		LeftLiftTalon.set(ControlMode.PercentOutput, power);
@@ -73,7 +73,7 @@ public class Lift extends Subsystem
 		LeftLiftVictor.set(ControlMode.PercentOutput, power);
 		RightLiftVictor.set(ControlMode.PercentOutput, power);
 	}
-
+/*
 	public void setToPosition()
 	{
 		double encoderPosition = getEncoderPosition();
@@ -105,6 +105,7 @@ public class Lift extends Subsystem
 
 		setToPosition();
 	}
+	*/
 	@Override
 	protected void initDefaultCommand() {setDefaultCommand(new RunLiftAnalog());}//setDefaultCommand(new RunLift(-1));}
 	public static Lift getInstance(){if (instance == null){instance = new Lift();}return instance; }

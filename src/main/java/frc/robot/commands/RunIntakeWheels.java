@@ -6,15 +6,16 @@ import edu.wpi.first.wpilibj.command.Command;
 public class RunIntakeWheels extends Command
 {
 	private double power;
-	
+	private boolean isBallinIntake;
+
+
 	public RunIntakeWheels(double power)
 	{
-        	this.power = power;
+			this.power = power;
+			isBallinIntake = Robot.ultra.isBallinIntake();
+
 	}
-	public boolean isSwitchSet() 
-	{
-        	return Robot.intake.vexButton.get();
-	}
+	
 	protected void execute()
 	{
 		Robot.intake.RunIntake(this.power);
@@ -22,7 +23,7 @@ public class RunIntakeWheels extends Command
 	@Override
 	protected boolean isFinished() 
 	{
-		return isSwitchSet();
+		return isBallinIntake;
 	}	
 	protected void end()
 	{

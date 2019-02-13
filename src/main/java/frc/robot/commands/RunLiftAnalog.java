@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.command.InstantCommand;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class RunLiftAnalog extends InstantCommand
-{
+{ 
 	public RunLiftAnalog()
 	{
 		requires(Robot.lift);
