@@ -12,7 +12,7 @@ public class RunIntakeWheels extends Command
 	public RunIntakeWheels(double power)
 	{
 			this.power = power;
-			isBallinIntake = Robot.ultra.isBallinIntake();
+		//	isBallinIntake = Robot.ultra.isBallinIntake();
 
 	}
 	

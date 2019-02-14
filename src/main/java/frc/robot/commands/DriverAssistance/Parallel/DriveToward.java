@@ -12,7 +12,7 @@ public class DriveToward extends Command
     private final double AREA_THRESHOLD = 8;
     private static boolean VALID_TARGET = false;
     private double DRIVE_TRAIN_MOTOR_POWER;
-    private double DISTANCE_THRESHOLD = 4;
+    //private double DISTANCE_THRESHOLD = 4;
 
 	
     private int _pipeline;
@@ -55,7 +55,7 @@ public class DriveToward extends Command
     protected boolean isFinished()
     {
         return (limelightData[Limelight.TARGET_AREA] >= AREA_THRESHOLD )
-        || VALID_TARGET == false || Robot.ultra.leftSonar.getRangeInches() < DISTANCE_THRESHOLD;    
+        || VALID_TARGET == false ;//|| //Robot.ultra.leftSonar.getRangeInches() < DISTANCE_THRESHOLD;    
     }
 
     protected void end()

@@ -37,7 +37,7 @@ public class Lift extends Subsystem
 		initializeMotorController(RightLiftTalon);
 		initializeMotorController(LeftLiftVictor);
 		initializeMotorController(RightLiftVictor);
-		//encoder = new Encoder(5, 6);
+		//encoder = new Encoder(7, 8);
     }
 
 	public void initializeMotorController(TalonSRX talon)

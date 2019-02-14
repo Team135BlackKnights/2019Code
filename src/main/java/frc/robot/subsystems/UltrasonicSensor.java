@@ -3,6 +3,8 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.RobotMap;
+
+
 import edu.wpi.first.wpilibj.*;
 
 /**
@@ -10,12 +12,12 @@ import edu.wpi.first.wpilibj.*;
  */
 public class UltrasonicSensor extends Subsystem {
 
-
+	public Ultrasonic intakeSonar, rightSonar;
+	/*public Ultrasonic intakeSonar = new Ultrasonic(RobotMap.Robot.Sensors.INTAKE_SONAR_TRIG_PORT, RobotMap.Robot.Sensors.INTAKE_SONAR_ECHO_PORT);
 
     public Ultrasonic rightSonar = new Ultrasonic(RobotMap.Robot.Sensors.RIGHT_SONAR_TRIG_PORT, RobotMap.Robot.Sensors.RIGHT_SONAR_ECHO_PORT);
 	public Ultrasonic leftSonar = new Ultrasonic(RobotMap.Robot.Sensors.LEFT_SONAR_TRIG_PORT, RobotMap.Robot.Sensors.LEFT_SONAR_ECHO_PORT);
-	public Ultrasonic intakeSonar = new Ultrasonic(RobotMap.Robot.Sensors.INTAKE_SONAR_TRIG_PORT, RobotMap.Robot.Sensors.INTAKE_SONAR_ECHO_PORT);
-
+*/
     private static UltrasonicSensor instance;
     
     public static UltrasonicSensor getInstance()
@@ -29,10 +31,13 @@ public class UltrasonicSensor extends Subsystem {
     
     public UltrasonicSensor()
     {
-    	rightSonar.setAutomaticMode(true);
-		leftSonar.setAutomaticMode(true);
+		intakeSonar = new Ultrasonic(3, 2);
+		rightSonar = new Ultrasonic(1, 0);
+		rightSonar.setAutomaticMode(true);
+	//	leftSonar.setAutomaticMode(true);
 		intakeSonar.setAutomaticMode(true);
-    	
+		intakeSonar.setEnabled(false);
+
     }
     
 	public double getRightSonarINCHES() {
@@ -45,23 +50,25 @@ public class UltrasonicSensor extends Subsystem {
 		double RightSonarFET = rightSonar.getRangeInches()/12;
 		SmartDashboard.putNumber("Right Sonar Feet ", RightSonarFET);
 		return RightSonarFET;
-	}	
-
-	public double getLeftSonarINCHES() {
-		double LeftSonarDistance = leftSonar.getRangeInches();
-		SmartDashboard.putNumber("Left Sonar Distance: ", LeftSonarDistance);
-		return LeftSonarDistance;
-	}
-	public double getLeftSonarFEET()
-	{
-		double LeftSonarFET = leftSonar.getRangeInches()/12;
-		SmartDashboard.putNumber("Left Sonar Feet", LeftSonarFET);
-		return LeftSonarFET;
-	}
+}	
+ 
+	//public double getLeftSonarINCHES() {
+	//	double LeftSonarDistance = leftSonar.getRangeInches();
+	//	SmartDashboard.putNumber("Left Sonar Distance: ", LeftSonarDistance);
+	//	return LeftSonarDistance;
+	//}
+	
+	//public double getLeftSonarFEET()
+	//{
+	//	double LeftSonarFET = leftSonar.getRangeInches()/12;
+	//	SmartDashboard.putNumber("Left Sonar Feet", LeftSonarFET);
+	//	return LeftSonarFET;
+	//}
 	
 	public double getIntakeSonarValue() {
 		double IntakeSonarInches = intakeSonar.getRangeInches();
 		SmartDashboard.putNumber("Intake Sonar Inches: ", IntakeSonarInches);
+		System.out.println(IntakeSonarInches);
 		return IntakeSonarInches;
 	}
 
@@ -76,12 +83,12 @@ public class UltrasonicSensor extends Subsystem {
     
     public void periodic()
     {
-		SmartDashboard.putBoolean("Ball in Intake", isBallinIntake());
+		double IntakeSonarInches = intakeSonar.getRangeInches();
+		SmartDashboard.putNumber("Intake Sonar Inches: ", IntakeSonarInches);
 		getRightSonarINCHES();
-		getLeftSonarINCHES();
-		getLeftSonarFEET();
+		//getLeftSonarINCHES();
+		//getLeftSonarFEET();
 		getRightSonarFEET();
-    
     }
 
 }
