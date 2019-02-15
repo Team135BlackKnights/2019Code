@@ -7,35 +7,38 @@ import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class NavX extends Subsystem 
-{
+public class NavX extends Subsystem {
 	private static NavX instance;
 	public double initAngle = 0.0;
 	public AHRS navx;
 
-	public NavX() 
-	{
+	public NavX() {
 		navx = new AHRS(SerialPort.Port.kUSB1);
 		navx.reset();
 		initAngle = navx.getFusedHeading();
 	}
 
-	public void reset() 
-	{
+	public void reset() {
 		navx.reset();
 	}
 
-	public double getFusedAngle() 
-	{
+	public double getFusedAngle() {
 		return ((navx.getFusedHeading() + initAngle) % 360.0);
 	}
 
-	public void periodic() 
-	{
+	public void periodic() {
 		SmartDashboard.putNumber("Robot Angle", Robot.navx.getFusedAngle());
 		SmartDashboard.putData("Reset Navx", new ResetNavX());
 	}
-	public static NavX getInstance() {if (instance == null) {instance = new NavX();}return instance;}
+
+	public static NavX getInstance() {
+		if (instance == null) {
+			instance = new NavX();
+		}
+		return instance;
+	}
+
 	@Override
-	protected void initDefaultCommand() {}
+	protected void initDefaultCommand() {
+	}
 }

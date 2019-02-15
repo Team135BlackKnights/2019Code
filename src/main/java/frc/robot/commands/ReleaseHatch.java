@@ -4,29 +4,28 @@ import frc.robot.*;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class ReleaseHatch extends Command
-{
-    private boolean solenoidPosition;
-	public ReleaseHatch(boolean pistonsInOut)
-	{
-        solenoidPosition = pistonsInOut;
-        setTimeout(RobotMap.Robot.Timeouts.INTAKE_TIMEOUT);
+public class ReleaseHatch extends Command {
+	private boolean solenoidPosition;
+
+	public ReleaseHatch(boolean pistonsInOut) {
+		solenoidPosition = pistonsInOut;
+		setTimeout(RobotMap.Robot.Timeouts.INTAKE_TIMEOUT);
 	}
-	protected void execute()
-	{
+
+	protected void execute() {
 		Robot.intake.MoveSolenoid(solenoidPosition);
 	}
+
 	@Override
-	protected boolean isFinished() 
-	{
+	protected boolean isFinished() {
 		return isTimedOut();
-	}	
-	protected void end()
-	{
+	}
+
+	protected void end() {
 		Robot.intake.MoveSolenoid(false);
 	}
-	protected void interrupted()
-	{
+
+	protected void interrupted() {
 		end();
 	}
 }

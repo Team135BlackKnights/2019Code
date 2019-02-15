@@ -14,58 +14,54 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  *
  */
 public class TurnToAngle extends TimedCommand {
-	
+
 	private double _initSignError = 0;
-	
 
 	private PIDController angleController;
 	private PIDIn pidIn;
 	private PIDOut pidOut;
-	
-    public TurnToAngle(double angle, double timeout) {
-    	super(timeout);
-    	requires(Robot.driveTrain);
-    	
-    	pidIn = new PIDIn(() -> Robot.navx.getFusedAngle(), PIDSourceType.kDisplacement);
-    	pidOut = new PIDOut();
-    	
-    	angleController = new PIDController(1/90.0, 0, 0, pidIn, pidOut);
-    	
-    	angleController.setInputRange(0, 360);
-    	angleController.setContinuous();
-    	angleController.setOutputRange(-1, 1);
-    	
-    	angleController.setSetpoint(angle);
-    	
-    	this._initSignError = Math.signum(angleController.getError());
 
-    }
+	public TurnToAngle(double angle, double timeout) {
+		super(timeout);
+		requires(Robot.driveTrain);
 
-    // Called once when the command executes
-    protected void initialize() {
-    	angleController.enable();
-    	
-    }
-    
-    protected void execute()
-    {
+		pidIn = new PIDIn(() -> Robot.navx.getFusedAngle(), PIDSourceType.kDisplacement);
+		pidOut = new PIDOut();
+
+		angleController = new PIDController(1 / 90.0, 0, 0, pidIn, pidOut);
+
+		angleController.setInputRange(0, 360);
+		angleController.setContinuous();
+		angleController.setOutputRange(-1, 1);
+
+		angleController.setSetpoint(angle);
+
+		this._initSignError = Math.signum(angleController.getError());
+
+	}
+
+	// Called once when the command executes
+	protected void initialize() {
+		angleController.enable();
+
+	}
+
+	protected void execute() {
 		Robot.driveTrain.cartesianDrive(0, 0, pidOut.output, 0);
 		SmartDashboard.putString("NavXisturning", "Robot is Turning");
-    }
-    
-    protected boolean isFinished()
-    {
-    	return this._initSignError != Math.signum(angleController.getError()) || !DriverStation.getInstance().isAutonomous();
-    }
-    
-    protected void interupted()
-    {
-    	Robot.driveTrain.StopMotors();
-    }
-    
-    protected void end()
-    {
-    	Robot.driveTrain.StopMotors();
-    }
+	}
+
+	protected boolean isFinished() {
+		return this._initSignError != Math.signum(angleController.getError())
+				|| !DriverStation.getInstance().isAutonomous();
+	}
+
+	protected void interupted() {
+		Robot.driveTrain.StopMotors();
+	}
+
+	protected void end() {
+		Robot.driveTrain.StopMotors();
+	}
 
 }

@@ -10,24 +10,21 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.RobotMap.Robot.KIntake;
-import frc.robot.RobotMap.Robot.Pneumatics;
-public class Intake extends Subsystem 
-{
-    public static Intake instance;
-    
-    public TalonSRX intakeElbow;
+import frc.robot.RobotMap.Robot.*;
+
+public class Intake extends Subsystem {
+	public static Intake instance;
+
+	public TalonSRX intakeElbow;
 	public VictorSPX intake;
 	public Solenoid solenoid;
 	public Compressor compressor;
 	public DigitalInput vexButton;
 
-
-    private Intake()
-    {
+	private Intake() {
 		intakeElbow = new TalonSRX(KIntake.INTAKE_ELBOW_TALON);
 		intake = new VictorSPX(KIntake.INTAKE_VICTOR);
-		vexButton = new DigitalInput(KIntake.VEX_BUTTON_ID);	
+		vexButton = new DigitalInput(Sensors.INTAKE_BUTTON_ID);
 
 		intakeElbow.setNeutralMode(NeutralMode.Brake);
 
@@ -40,31 +37,40 @@ public class Intake extends Subsystem
 		compressor.setClosedLoopControl(true);
 		compressor.start();
 	}
-	public void setCompressorOff()
-	{
+
+	public void setCompressorOff() {
 		compressor.setClosedLoopControl(false);
 		compressor.stop();
 	}
-	public void setCompressorOn()
-	{
+
+	public void setCompressorOn() {
 		compressor.setClosedLoopControl(true);
 	}
-	public void RunIntake(double power)
-	{
+
+	public void RunIntake(double power) {
 		intake.set(ControlMode.PercentOutput, power);
 	}
-	public void RunElbow(double power)
-	{
-		intakeElbow.set(ControlMode.PercentOutput, power);	
+
+	public void RunElbow(double power) {
+		intakeElbow.set(ControlMode.PercentOutput, power);
 	}
-	public void MoveSolenoid(boolean position)
-	{
+
+	public void MoveSolenoid(boolean position) {
 		solenoid.set(position);
 	}
+
 	public void periodic() {
 		SmartDashboard.putBoolean("Button Pressed", vexButton.get());
 	}
+
 	@Override
-	protected void initDefaultCommand() {}
-	public static Intake getInstance(){if (instance == null){instance = new Intake();}return instance; }
+	protected void initDefaultCommand() {
+	}
+
+	public static Intake getInstance() {
+		if (instance == null) {
+			instance = new Intake();
+		}
+		return instance;
+	}
 }
