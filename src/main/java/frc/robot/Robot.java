@@ -17,7 +17,6 @@ public class Robot extends TimedRobot {
 	public static Limelight limelight;
 	public static NavX navx;
 	public static UltrasonicSensor ultra;
-	public static Lidar lidar;
 
 	Command autonomousCommand;
 	SendableChooser<String> chooser = new SendableChooser<>();
@@ -31,7 +30,6 @@ public class Robot extends TimedRobot {
 		limelight = Limelight.initializeLimelight();
 		navx = NavX.getInstance();
 		ultra = UltrasonicSensor.getInstance();
-		lidar = Lidar.getInstance();
 		oi = OI.getInstance();
 	}
 
@@ -63,7 +61,6 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void teleopPeriodic() {
-		lidar.getDistanceReadOuts();
 		Scheduler.getInstance().run();
 	}
 

@@ -55,11 +55,12 @@ public class OI {
 		RunWheelsIn.whileHeld(new RunIntakeWheels(-1));
 		RunWheelsOut.whileHeld(new RunIntakeWheels(1));
 
+		RunElbowDown.whileHeld(new MoveIntakeElbow(-.75));
+		RunElbowUp.whileHeld(new MoveIntakeElbow(.75));
+		
 		RunEndgameUp.whileHeld(new RunEndGame(1));
 		RunEndgameDown.whileHeld(new RunEndGame(-1));
 
-		RunElbowDown.whileHeld(new MoveIntakeElbow(-.75));
-		RunElbowUp.whileHeld(new MoveIntakeElbow(.754));
 
 		CompressorToggle.toggleWhenPressed(new ToggleCompressor());
 
