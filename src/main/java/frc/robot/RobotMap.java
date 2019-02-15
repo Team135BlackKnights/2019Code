@@ -64,6 +64,9 @@ public interface Robot
 			LIFT_SETPOINT_4 = 501;
 		public static final int[] 
 			LIFT_SETPOINTS = {LIFT_SETPOINT_0, LIFT_SETPOINT_1, LIFT_SETPOINT_2, LIFT_SETPOINT_3, LIFT_SETPOINT_4};
+		public static final int 
+			ENCODER_A = 7,
+			ENCODER_B = 8;
 	}
 
 	public interface KIntake
@@ -91,16 +94,11 @@ public interface Robot
 	}
 	public interface Sensors 
 	{
-		
-		public static final int RIGHT_SONAR_TRIG_PORT = 5;
-		public static final int RIGHT_SONAR_ECHO_PORT = 4;
-		
-		public static final int LEFT_SONAR_TRIG_PORT = 1;
-		public static final int LEFT_SONAR_ECHO_PORT = 0;
-		
-		public static final int INTAKE_SONAR_TRIG_PORT = 3;
-		public static final int INTAKE_SONAR_ECHO_PORT = 2;
-		
+		public static final int 
+			DRIVETRAIN_TRIG = 3,
+			DRIVETRAIN_ECHO = 2,
+			INTAKE_TRIG = 1,
+			INTAKE_ECHO = 0;
 	}
 	public interface Timeouts
 	{

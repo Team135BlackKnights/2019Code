@@ -2,7 +2,7 @@ package frc.robot.subsystems;
 
 import com.kauailabs.navx.frc.AHRS;
 import frc.robot.*;
-import frc.robot.commands.ResetNavX;
+import frc.robot.commands.Sensors.ResetNavX;
 import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;

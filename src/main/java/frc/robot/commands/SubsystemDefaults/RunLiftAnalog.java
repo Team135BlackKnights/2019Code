@@ -1,11 +1,8 @@
-package frc.robot.commands;
+package frc.robot.commands.SubsystemDefaults;
 
 import frc.robot.*;
 import frc.robot.RobotMap.KOI;
-import frc.robot.subsystems.Lift;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.InstantCommand;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class RunLiftAnalog extends InstantCommand
 { 

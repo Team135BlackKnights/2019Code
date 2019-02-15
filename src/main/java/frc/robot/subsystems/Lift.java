@@ -6,11 +6,11 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.commands.*;
-import frc.robot.*;
+import frc.robot.commands.RunLift;
+import frc.robot.commands.SubsystemDefaults.*;
+import frc.robot.commands.Sensors.*;
 import frc.robot.RobotMap.Robot.KLift;
 
 public class Lift extends Subsystem 
@@ -20,7 +20,7 @@ public class Lift extends Subsystem
     public TalonSRX LeftLiftTalon, RightLiftTalon;
     public VictorSPX LeftLiftVictor, RightLiftVictor;
    
-	//public Encoder encoder;
+	public Encoder encoder;
 
 	public double kP = 0.4;
 	public static double setpoint = 0;
@@ -37,7 +37,7 @@ public class Lift extends Subsystem
 		initializeMotorController(RightLiftTalon);
 		initializeMotorController(LeftLiftVictor);
 		initializeMotorController(RightLiftVictor);
-		//encoder = new Encoder(7, 8);
+		encoder = new Encoder(KLift.ENCODER_A, KLift.ENCODER_B);
     }
 
 	public void initializeMotorController(TalonSRX talon)
@@ -50,7 +50,7 @@ public class Lift extends Subsystem
 		victor.setNeutralMode(NeutralMode.Brake);
 		victor.follow(LeftLiftTalon);
 	}
-/*
+
 	public double getEncoderVelocity()
 	{
 		return encoder.getRate();
@@ -65,7 +65,7 @@ public class Lift extends Subsystem
 	{
 		encoder.reset();
 	}
-*/
+
 	public void RunLift(double power) 
 	{
 		LeftLiftTalon.set(ControlMode.PercentOutput, power);
@@ -73,7 +73,7 @@ public class Lift extends Subsystem
 		LeftLiftVictor.set(ControlMode.PercentOutput, power);
 		RightLiftVictor.set(ControlMode.PercentOutput, power);
 	}
-/*
+
 	public void setToPosition()
 	{
 		double encoderPosition = getEncoderPosition();
@@ -99,13 +99,13 @@ public class Lift extends Subsystem
 
 		SmartDashboard.putData("Reset Lift Encoder", new resetEncoderLift());
 
-		SmartDashboard.putData("Move Lift 0(9)", new RunLiftButtons(0));
-		SmartDashboard.putData("Move Lift 50(10)", new RunLiftButtons(1));
-		SmartDashboard.putData("Move Lift 100(11)", new RunLiftButtons(2));
+		SmartDashboard.putData("Move Lift 0(9)", new RunLift(0));
+		SmartDashboard.putData("Move Lift 50(10)", new RunLift(1));
+		SmartDashboard.putData("Move Lift 100(11)", new RunLift(2));
 
-		setToPosition();
+		//setToPosition();
 	}
-	*/
+	
 	@Override
 	protected void initDefaultCommand() {setDefaultCommand(new RunLiftAnalog());}//setDefaultCommand(new RunLift(-1));}
 	public static Lift getInstance(){if (instance == null){instance = new Lift();}return instance; }
