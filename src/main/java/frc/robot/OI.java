@@ -52,11 +52,11 @@ public class OI {
 		ReleaseHatch.whenActive(new ReleaseHatch(true));
 		ReleaseEndGame.whenActive(new ReleaseEndgame(false));
 
-		RunWheelsIn.whileHeld(new RunIntakeWheels(-1));
+		RunWheelsIn.whileHeld(new RunIntakeWheels(-.75));
 		RunWheelsOut.whileHeld(new RunIntakeWheels(1));
 
-		RunElbowDown.whileHeld(new MoveIntakeElbow(-.75));
-		RunElbowUp.whileHeld(new MoveIntakeElbow(.75));
+		RunElbowDown.whileHeld(new MoveIntakeElbow(-1));
+		RunElbowUp.whileHeld(new MoveIntakeElbow(1));
 		
 		RunEndgameUp.whileHeld(new RunEndGame(1));
 		RunEndgameDown.whileHeld(new RunEndGame(-1));

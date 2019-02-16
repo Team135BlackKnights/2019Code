@@ -50,7 +50,7 @@ public class UltrasonicSensor extends Subsystem {
 	}
 
 	public boolean isBallinIntake() {
-		return (getIntakeSonarIn() < 3);
+		return (getIntakeSonarIn() < 3 && getIntakeSonarIn() != 0);
 	}
 
 	public void periodic() {
