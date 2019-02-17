@@ -41,6 +41,8 @@ public class Robot extends TimedRobot {
 	@Override
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
+		Robot.limelight.SetLEDMode(Limelight.LED_OFF);
+
 	}
 
 	@Override
@@ -62,6 +64,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
+		oi.periodic();
 	}
 
 	@Override

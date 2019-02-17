@@ -21,7 +21,7 @@ public class Lift extends Subsystem {
 
 	public Encoder encoder;
 
-	public double kP = 0.4;
+	public double kP = 1.0;
 	public static double setpoint = 0;
 	public static int setpointIndex = 0;
 	public double motorValue = 0;
@@ -70,16 +70,21 @@ public class Lift extends Subsystem {
 	public void setToPosition() {
 		double encoderPosition = getEncoderPosition();
 		double targetPosition = setpoint;
+		SmartDashboard.putNumber("targetposition", targetPosition);
 		double direction = (targetPosition - encoderPosition) < 0 ? -1.0 : 1.0;
-		if ((Math.abs(targetPosition - encoderPosition) > 15)) {
-			SmartDashboard.putNumber("RunLiftValue",
-					kP * (targetPosition - encoderPosition) / targetPosition + kP * direction);
-			SmartDashboard.putNumber("Error", (targetPosition - encoderPosition) / targetPosition);
-			RunLift(kP * (targetPosition - encoderPosition) / targetPosition + kP * direction);
+		setpoint = setpoint < -20 ? -20 : setpoint;
+		double error = targetPosition - encoderPosition;
+		if ((Math.abs(error) > 15)) {
+			double dividevalue = Math.abs(targetPosition) < 1.0 ? 1.0 : Math.abs(targetPosition);
+			dividevalue /= Math.abs(error) > 100 ? 2.0 : 1.0;
+			SmartDashboard.putNumber("RunLiftValue", kP * (error) / dividevalue / 1.2 + 0.1 * direction);
+			SmartDashboard.putNumber("Error", (error) / dividevalue);
+			RunLift(kP * (error) / dividevalue / 1.2 + 0.1 * direction);
 			encoderPosition = getEncoderPosition();
-			motorValue = kP * (targetPosition - encoderPosition) / targetPosition + kP * direction;
+			error = targetPosition - encoderPosition;
+		} else {
+			RunLift(0);
 		}
-		RunLift(motorValue);
 	}
 
 	public void periodic() {
@@ -93,14 +98,14 @@ public class Lift extends Subsystem {
 		SmartDashboard.putData("Move Lift 0(9)", new RunLift(0));
 		SmartDashboard.putData("Move Lift 50(10)", new RunLift(1));
 		SmartDashboard.putData("Move Lift 100(11)", new RunLift(2));
-
-		// setToPosition();
+		SmartDashboard.putData("Back to Joysticks", new RunLiftAnalog());
+		setToPosition();
 	}
 
 	@Override
 	protected void initDefaultCommand() {
-		setDefaultCommand(new RunLiftAnalog());
-	}// setDefaultCommand(new RunLift(-1));}
+		setDefaultCommand(new RunLift(-1));
+	}
 
 	public static Lift getInstance() {
 		if (instance == null) {

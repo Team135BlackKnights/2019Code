@@ -16,7 +16,7 @@ public class resetEncoderLift extends InstantCommand {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    // Robot.lift.resetEncoders();
+    Robot.lift.resetEncoders();
   }
 
   // Make this return true when this Command no longer needs to run execute()

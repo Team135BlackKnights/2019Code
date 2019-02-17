@@ -22,16 +22,17 @@ public class RunLift extends Command {
   }
 
   protected void execute() {
-    Lift.setpoint += Robot.oi.GetJoystickYValue(RobotMap.KOI.MANIP_JOYSTICK) * 5;
+    Lift.setpoint += Robot.oi.GetJoystickYValue(RobotMap.KOI.MANIP_JOYSTICK) * 5 * (Robot.oi.returnManipSlider());
     SmartDashboard.putNumber("Joystick Setpoint Add", Robot.oi.GetJoystickYValue(RobotMap.KOI.MANIP_JOYSTICK) * 5);
 
     int whichButtonPressed = OI.liftButtons();
     if (whichButtonPressed == -1) {
     } else {
+      Lift.setpointIndex = whichButtonPressed;
       SmartDashboard.putNumber("Setpoint Value", Lift.setpointIndex);
       Lift.setpoint = KLift.LIFT_SETPOINTS[Lift.setpointIndex];
     }
-
+    // Robot.lift.RunLift((Robot.oi.manipJoystick.getRawAxis(3) + 1) / 2);
   }
 
   @Override

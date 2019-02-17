@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
+import com.revrobotics.CANSparkMax.IdleMode;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import com.revrobotics.CANSparkMax;
@@ -23,6 +24,7 @@ public class DriveTrain extends Subsystem {
 	public CANSparkMax frontRightMotor = new CANSparkMax(KDrivetrain.FRONT_RIGHT_SPARK_ID, MotorType.kBrushless);
 	public CANSparkMax rearRightMotor = new CANSparkMax(KDrivetrain.REAR_RIGHT_SPARK_ID, MotorType.kBrushless);
 
+	
 	MecanumDrive chassis = new MecanumDrive(frontLeftMotor, rearLeftMotor, frontRightMotor, rearRightMotor);
 
 	PIDOut turner = new PIDOut();
@@ -35,6 +37,11 @@ public class DriveTrain extends Subsystem {
 		turnController.setOutputRange(-0.3, 0.3);
 		turnController.setAbsoluteTolerance(5);
 		turnController.setContinuous(true);
+		frontLeftMotor.setIdleMode(IdleMode.kBrake);
+		rearLeftMotor.setIdleMode(IdleMode.kBrake);
+		frontRightMotor.setIdleMode(IdleMode.kBrake);
+		rearRightMotor.setIdleMode(IdleMode.kBrake);
+
 	}
 
 	public void cartesianDrive(double x, double y, double z) {

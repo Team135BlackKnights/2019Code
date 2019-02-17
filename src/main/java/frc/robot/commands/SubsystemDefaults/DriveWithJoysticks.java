@@ -1,7 +1,7 @@
 package frc.robot.commands.SubsystemDefaults;
 
 import edu.wpi.first.wpilibj.command.Command;
-
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.*;
 import frc.robot.subsystems.*;
 
@@ -26,10 +26,12 @@ public class DriveWithJoysticks extends Command {
     }
 
     protected void execute() {
-        RightJoystickYValue = Robot.oi.GetJoystickYValue(RobotMap.KOI.RIGHT_JOYSTICK);
-        RightJoystickXValue = Robot.oi.GetJoystickXValue(RobotMap.KOI.RIGHT_JOYSTICK);
-        leftJoystickZValue = Robot.oi.GetJoystickZValue(RobotMap.KOI.LEFT_JOYSTICK);
-
+        RightJoystickYValue = Robot.oi.GetJoystickYValue(RobotMap.KOI.RIGHT_JOYSTICK) * Robot.oi.returnRightSlider();
+        RightJoystickXValue = Robot.oi.GetJoystickXValue(RobotMap.KOI.RIGHT_JOYSTICK) * Robot.oi.returnRightSlider();
+        leftJoystickZValue = Robot.oi.GetJoystickZValue(RobotMap.KOI.LEFT_JOYSTICK) * Robot.oi.returnLeftSlider();
+        SmartDashboard.putNumber("RightX", RightJoystickXValue);
+        SmartDashboard.putNumber("RightY", RightJoystickYValue);
+        SmartDashboard.putNumber("LeftZ", leftJoystickZValue);
         if (OI.isSwapPressed()) {
             RightJoystickXValue *= shouldControlsBeNegative();
             RightJoystickYValue *= shouldControlsBeNegative();

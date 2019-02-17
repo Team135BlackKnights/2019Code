@@ -2,7 +2,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.*;
 import frc.robot.commands.Sensors.*;
 import frc.robot.commands.DriverAssistance.*;
@@ -13,7 +13,7 @@ import frc.robot.RobotMap.KOI;
 public class OI {
 	private static Joystick leftJoystick = new Joystick(KOI.LEFT_JOYSTICK);
 	private static Joystick rightJoystick = new Joystick(KOI.RIGHT_JOYSTICK);
-	private static Joystick manipJoystick = new Joystick(KOI.MANIP_JOYSTICK);
+	public static Joystick manipJoystick = new Joystick(KOI.MANIP_JOYSTICK);
 
 	public static JoystickButton leftTrigger = new JoystickButton(leftJoystick, KOI.TRIGGER_BUTTON),
 			rightTrigger = new JoystickButton(rightJoystick, KOI.TRIGGER_BUTTON),
@@ -27,11 +27,12 @@ public class OI {
 			RunWheelsIn = new JoystickButton(manipJoystick, KOI.TRIGGER_BUTTON),
 			RunWheelsOut = new JoystickButton(manipJoystick, KOI.THUMB_BUTTON),
 
-			RunElbowUp = new JoystickButton(manipJoystick, KOI.BUTTON_4),
-			RunElbowDown = new JoystickButton(manipJoystick, KOI.BUTTON_6),
+			RunElbowUp = new JoystickButton(manipJoystick, KOI.BUTTON_6),
+			RunElbowDown = new JoystickButton(manipJoystick, KOI.BUTTON_4),
 
 			ReleaseHatch = new JoystickButton(manipJoystick, KOI.BUTTON_3),
 			ReleaseEndGame = new JoystickButton(rightJoystick, KOI.BUTTON_3),
+			IntakeEndGame = new JoystickButton(rightJoystick, KOI.BUTTON_5),
 
 			RunEndGame = new JoystickButton(manipJoystick, KOI.THUMB_BUTTON),
 			CompressorToggle = new JoystickButton(manipJoystick, KOI.BUTTON_7),
@@ -51,23 +52,18 @@ public class OI {
 
 		ReleaseHatch.whenActive(new ReleaseHatch(true));
 		ReleaseEndGame.whenActive(new ReleaseEndgame(false));
+		IntakeEndGame.whenActive(new ReleaseEndgame(true));
 
 		RunWheelsIn.whileHeld(new RunIntakeWheels(-.75));
 		RunWheelsOut.whileHeld(new RunIntakeWheels(1));
 
 		RunElbowDown.whileHeld(new MoveIntakeElbow(-1));
 		RunElbowUp.whileHeld(new MoveIntakeElbow(1));
-		
+
 		RunEndgameUp.whileHeld(new RunEndGame(1));
 		RunEndgameDown.whileHeld(new RunEndGame(-1));
 
-
 		CompressorToggle.toggleWhenPressed(new ToggleCompressor());
-
-		LifttoPos0.whenPressed(new RunLift(0));
-		LifttoPos1.whenPressed(new RunLift(1));
-		LifttoPos2.whenPressed(new RunLift(2));
-		LifttoPos3.whenPressed(new RunLift(3));
 
 	}
 
@@ -133,6 +129,24 @@ public class OI {
 			return 3;
 		}
 		return -1;
+	}
+
+	public double returnManipSlider() {
+		return (-( (Math.abs(manipJoystick.getRawAxis(3)) < .15) ? 0 : manipJoystick.getRawAxis(3)) + 1) / 2;
+	}
+
+	public double returnLeftSlider() {
+		return (-( (Math.abs(leftJoystick.getRawAxis(3)) < .15) ? 0 : leftJoystick.getRawAxis(3)) + 1) / 2;
+	}
+
+	public double returnRightSlider() {
+		return (-( (Math.abs(rightJoystick.getRawAxis(3)) < .15) ? 0 : rightJoystick.getRawAxis(3)) + 1) / 2;
+	}
+
+	public void periodic() {
+		SmartDashboard.putNumber("Manip Joystick Throttle ", returnManipSlider());
+		SmartDashboard.putNumber("Right Joystick Throttle ", returnRightSlider());
+		SmartDashboard.putNumber("Left Joystick Throttle ", returnLeftSlider());
 	}
 
 	public static OI getInstance() {

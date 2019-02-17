@@ -26,11 +26,11 @@ public class RobotMap {
 					LIFT_RIGHT_VICTOR = 3;
 
 			public static final int LIFT_TOLERANCE = 50; // ticks
-			public static final int LIFT_SETPOINT_0 = 0, LIFT_SETPOINT_1 = 50, LIFT_SETPOINT_2 = 100,
-					LIFT_SETPOINT_3 = 443, LIFT_SETPOINT_4 = 501;
+			public static final int LIFT_SETPOINT_0 = 10, LIFT_SETPOINT_1 = 78, LIFT_SETPOINT_2 = 390,
+					LIFT_SETPOINT_3 = 681;
 			public static final int[] LIFT_SETPOINTS = { LIFT_SETPOINT_0, LIFT_SETPOINT_1, LIFT_SETPOINT_2,
-					LIFT_SETPOINT_3, LIFT_SETPOINT_4 };
-			public static final int ENCODER_A = 7, ENCODER_B = 8;
+					LIFT_SETPOINT_3 };
+			public static final int ENCODER_A = 1, ENCODER_B = 2;
 		}
 
 		public interface KIntake {
@@ -48,7 +48,7 @@ public class RobotMap {
 		}
 
 		public interface Sensors {
-			public static final int LEFT_TRIG = 1, LEFT_ECHO = 0, RIGHT_TRIG = 3, RIGHT_ECHO = 2, INTAKE_TRIG = 5,
+			public static final int LEFT_TRIG = 7, LEFT_ECHO = 0, RIGHT_TRIG = 3, RIGHT_ECHO = 8, INTAKE_TRIG = 5,
 					INTAKE_ECHO = 4,
 
 					INTAKE_BUTTON_ID = 9, ENDGAME_SWITCH_ID = 6;
