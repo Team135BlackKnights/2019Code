@@ -6,11 +6,11 @@ import frc.robot.Robot;
 public class ResetNavX extends InstantCommand {
 
   public ResetNavX() {
-    requires(Robot.navx);
+    requires(Robot.pigeon);
   }
 
   @Override
   protected void initialize() {
-    Robot.navx.reset();
+    Robot.pigeon.reset();
   }
 }

@@ -16,9 +16,12 @@ public class OI {
 	public static Joystick manipJoystick = new Joystick(KOI.MANIP_JOYSTICK);
 
 	public static JoystickButton leftTrigger = new JoystickButton(leftJoystick, KOI.TRIGGER_BUTTON),
+			turnTo0 = new JoystickButton(leftJoystick, KOI.BUTTON_3),
+			turnToRocketClose = new JoystickButton(leftJoystick, KOI.BUTTON_4),
+			turnToRocketFar = new JoystickButton(leftJoystick, KOI.BUTTON_5),
 			rightTrigger = new JoystickButton(rightJoystick, KOI.TRIGGER_BUTTON),
 
-			swapButton = new JoystickButton(rightJoystick, KOI.THUMB_BUTTON),
+			fieldOrientated = new JoystickButton(rightJoystick, KOI.THUMB_BUTTON),
 			resetButton = new JoystickButton(rightJoystick, KOI.BUTTON_12),
 			turnButton = new JoystickButton(rightJoystick, KOI.BUTTON_11),
 			RunEndgameUp = new JoystickButton(rightJoystick, KOI.BUTTON_4),
@@ -115,8 +118,8 @@ public class OI {
 
 	}
 
-	public static boolean isSwapPressed() {
-		return swapButton.get();
+	public static boolean fieldOrientated() {
+		return fieldOrientated.get();
 	}
 
 	public static int liftButtons() {
@@ -136,15 +139,15 @@ public class OI {
 	}
 
 	public double returnManipSlider() {
-		return (-( (Math.abs(manipJoystick.getRawAxis(3)) < .15) ? 0 : manipJoystick.getRawAxis(3)) + 1) / 2;
+		return (-((Math.abs(manipJoystick.getRawAxis(3)) < .15) ? 0 : manipJoystick.getRawAxis(3)) + 1) / 2;
 	}
 
 	public double returnLeftSlider() {
-		return (-( (Math.abs(leftJoystick.getRawAxis(3)) < .15) ? 0 : leftJoystick.getRawAxis(3)) + 1) / 2;
+		return (-((Math.abs(leftJoystick.getRawAxis(3)) < .15) ? 0 : leftJoystick.getRawAxis(3)) + 1) / 2;
 	}
 
 	public double returnRightSlider() {
-		return (-( (Math.abs(rightJoystick.getRawAxis(3)) < .15) ? 0 : rightJoystick.getRawAxis(3)) + 1) / 2;
+		return (-((Math.abs(rightJoystick.getRawAxis(3)) < .15) ? 0 : rightJoystick.getRawAxis(3)) + 1) / 2;
 	}
 
 	public void periodic() {

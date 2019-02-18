@@ -11,6 +11,8 @@ public class DriveWithJoysticks extends Command {
     private double RightJoystickYValue;
     private double leftJoystickZValue;
 
+    public static boolean isFieldOrientated;
+
     public DriveWithJoysticks() {
         requires(Robot.driveTrain);
     }
@@ -22,22 +24,29 @@ public class DriveWithJoysticks extends Command {
     }
 
     protected double shouldControlsBeNegative() {
-        return ((Robot.navx.getFusedAngle() % 180) > 45) && ((Robot.navx.getFusedAngle() % 180) < 135) ? -1 : 1;
+        return ((Robot.pigeon.getFusedAngle() % 180) < 45) || ((Robot.pigeon.getFusedAngle() % 180) > 135) ? -1 : 1;
     }
 
     protected void execute() {
         RightJoystickYValue = Robot.oi.GetJoystickYValue(RobotMap.KOI.RIGHT_JOYSTICK) * Robot.oi.returnRightSlider();
         RightJoystickXValue = Robot.oi.GetJoystickXValue(RobotMap.KOI.RIGHT_JOYSTICK) * Robot.oi.returnRightSlider();
         leftJoystickZValue = Robot.oi.GetJoystickZValue(RobotMap.KOI.LEFT_JOYSTICK) * Robot.oi.returnLeftSlider();
-        SmartDashboard.putNumber("RightX", RightJoystickXValue);
-        SmartDashboard.putNumber("RightY", RightJoystickYValue);
-        SmartDashboard.putNumber("LeftZ", leftJoystickZValue);
-        if (OI.isSwapPressed()) {
-            RightJoystickXValue *= shouldControlsBeNegative();
-            RightJoystickYValue *= shouldControlsBeNegative();
+        if (OI.turnTo0.get()) {
+            leftJoystickZValue += Robot.driveTrain.turnToAnglePID(90);
+        }
+        if (OI.turnToRocketClose.get()) {
+            leftJoystickZValue += Robot.driveTrain.turnToAnglePID(30);
+        }
+        if (OI.turnToRocketFar.get()) {
+            leftJoystickZValue += Robot.driveTrain.turnToAnglePID(145);
+        }
+        // SmartDashboard.putNumber("RightX", RightJoystickXValue);
+        // SmartDashboard.putNumber("RightY", RightJoystickYValue);
+        // SmartDashboard.putNumber("LeftZ", leftJoystickZValue);
+        if (OI.fieldOrientated()) {
             Robot.driveTrain.cartesianDrive(RightJoystickXValue * shouldControlsBeNegative(),
-                    RightJoystickYValue * shouldControlsBeNegative(), -leftJoystickZValue * .35,
-                    -Robot.navx.getFusedAngle());
+                    -RightJoystickYValue * shouldControlsBeNegative(), -leftJoystickZValue * .35,
+                    Robot.pigeon.getFusedAngle());
         } else {
             Robot.driveTrain.cartesianDrive(RightJoystickXValue, RightJoystickYValue, -leftJoystickZValue * .35);
         }

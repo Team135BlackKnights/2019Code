@@ -25,7 +25,7 @@ public class TurnToAngle extends TimedCommand {
 		super(timeout);
 		requires(Robot.driveTrain);
 
-		pidIn = new PIDIn(() -> Robot.navx.getFusedAngle(), PIDSourceType.kDisplacement);
+		pidIn = new PIDIn(() -> Robot.pigeon.getFusedAngle(), PIDSourceType.kDisplacement);
 		pidOut = new PIDOut();
 
 		angleController = new PIDController(1 / 90.0, 0, 0, pidIn, pidOut);

@@ -15,6 +15,7 @@ public class UltrasonicSensor extends Subsystem {
 	private static UltrasonicSensor instance;
 
 	public UltrasonicSensor() {
+		/*
 		leftSonar = new Ultrasonic(Sensors.LEFT_TRIG, Sensors.LEFT_ECHO);
 		rightSonar = new Ultrasonic(Sensors.RIGHT_TRIG, Sensors.RIGHT_ECHO);
 		intakeSonar = new Ultrasonic(Sensors.INTAKE_TRIG, Sensors.INTAKE_ECHO);
@@ -22,7 +23,7 @@ public class UltrasonicSensor extends Subsystem {
 		leftSonar.setAutomaticMode(true);
 		rightSonar.setAutomaticMode(true);
 		intakeSonar.setAutomaticMode(true);
-
+		*/
 	}
 
 	public double getLeftSonarIn() {
@@ -54,6 +55,7 @@ public class UltrasonicSensor extends Subsystem {
 	}
 
 	public void periodic() {
+		/*
 		SmartDashboard.putNumber("Left Sonar Inches: ", getLeftSonarIn());
 		SmartDashboard.putNumber("Left Sonar Feet: ", getLeftSonarFt());
 		SmartDashboard.putNumber("Right Sonar Inches: ", getRightSonarIn());
@@ -61,6 +63,7 @@ public class UltrasonicSensor extends Subsystem {
 		SmartDashboard.putNumber("Intake Sonar Inches: ", getIntakeSonarIn());
 		SmartDashboard.putNumber("Intake Sonar Feet: ", getIntakeSonarFt());
 		SmartDashboard.putBoolean("Is Ball in Intake:", isBallinIntake());
+		*/
 	}
 
 	public static UltrasonicSensor getInstance() {

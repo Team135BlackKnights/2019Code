@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import frc.robot.subsystems.*;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import frc.robot.subsystems.NavX;
+import frc.robot.subsystems.Pigeon;
 
 public class Robot extends TimedRobot {
 	public static OI oi;
@@ -15,7 +15,7 @@ public class Robot extends TimedRobot {
 	public static Intake intake;
 	public static EndGame endgame;
 	public static Limelight limelight;
-	public static NavX navx;
+	public static Pigeon pigeon;
 	public static UltrasonicSensor ultra;
 
 	Command autonomousCommand;
@@ -28,7 +28,7 @@ public class Robot extends TimedRobot {
 		intake = Intake.getInstance();
 		endgame = EndGame.getInstance();
 		limelight = Limelight.initializeLimelight();
-		navx = NavX.getInstance();
+		pigeon = Pigeon.getInstance();
 		ultra = UltrasonicSensor.getInstance();
 		oi = OI.getInstance();
 	}
