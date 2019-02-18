@@ -70,7 +70,6 @@ public class Lift extends Subsystem {
 	public void setToPosition() {
 		double encoderPosition = getEncoderPosition();
 		double targetPosition = setpoint;
-		SmartDashboard.putNumber("targetposition", targetPosition);
 		double direction = (targetPosition - encoderPosition) < 0 ? -1.0 : 1.0;
 		setpoint = setpoint < -20 ? -20 : setpoint;
 		double error = targetPosition - encoderPosition;
@@ -88,16 +87,11 @@ public class Lift extends Subsystem {
 	}
 
 	public void periodic() {
-		SmartDashboard.putNumber("Lift Motor Output Percent", LeftLiftTalon.getMotorOutputPercent());
 		SmartDashboard.putNumber("Setpoint", setpoint);
 		SmartDashboard.putNumber("Lift Encoder Position", getEncoderPosition());
 		SmartDashboard.putNumber("Lift Encoder Velocity", getEncoderVelocity());
 
 		SmartDashboard.putData("Reset Lift Encoder", new resetEncoderLift());
-
-		SmartDashboard.putData("Move Lift 0(9)", new RunLift(0));
-		SmartDashboard.putData("Move Lift 50(10)", new RunLift(1));
-		SmartDashboard.putData("Move Lift 100(11)", new RunLift(2));
 		SmartDashboard.putData("Back to Joysticks", new RunLiftAnalog());
 		setToPosition();
 	}

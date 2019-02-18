@@ -8,7 +8,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
-
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.RobotMap.Robot.*;
 
 public class EndGame extends Subsystem {
@@ -26,7 +26,7 @@ public class EndGame extends Subsystem {
 		endgameEncoder = endGameMotor.getEncoder();
 		piston = new Solenoid(Pneumatics.ENDGAME_PISTON);
 		piston.set(TF);
-		limitSwitch = new DigitalInput(Sensors.ENDGAME_SWITCH_ID);
+		limitSwitch = new DigitalInput(0);
 
 	}
 
@@ -57,5 +57,9 @@ public class EndGame extends Subsystem {
 			instance = new EndGame();
 		}
 		return instance;
+	}
+	@Override
+	public void periodic() {
+		SmartDashboard.putBoolean("Switch Pressed", isSwitchPressed());
 	}
 }

@@ -24,24 +24,22 @@ public class DriveTrain extends Subsystem {
 	public CANSparkMax frontRightMotor = new CANSparkMax(KDrivetrain.FRONT_RIGHT_SPARK_ID, MotorType.kBrushless);
 	public CANSparkMax rearRightMotor = new CANSparkMax(KDrivetrain.REAR_RIGHT_SPARK_ID, MotorType.kBrushless);
 
-	
 	MecanumDrive chassis = new MecanumDrive(frontLeftMotor, rearLeftMotor, frontRightMotor, rearRightMotor);
 
 	PIDOut turner = new PIDOut();
-	PIDIn navx = new PIDIn(() -> Robot.navx.getFusedAngle(), PIDSourceType.kDisplacement);
+	PIDIn navx = new PIDIn(() -> Robot.pigeon.getFusedAngle(), PIDSourceType.kDisplacement);
 
-	PIDController turnController = new PIDController(0.01f, 0, 0, navx, turner);
+	PIDController turnController = new PIDController(0.04f, .01f, 0.01f, navx, turner);
 
 	public DriveTrain() {
 		turnController.setInputRange(0.0, 360.0f);
-		turnController.setOutputRange(-0.3, 0.3);
-		turnController.setAbsoluteTolerance(5);
+		turnController.setOutputRange(-.5, .5);
+		turnController.setAbsoluteTolerance(10);
 		turnController.setContinuous(true);
 		frontLeftMotor.setIdleMode(IdleMode.kBrake);
 		rearLeftMotor.setIdleMode(IdleMode.kBrake);
 		frontRightMotor.setIdleMode(IdleMode.kBrake);
 		rearRightMotor.setIdleMode(IdleMode.kBrake);
-
 	}
 
 	public void cartesianDrive(double x, double y, double z) {
@@ -74,12 +72,12 @@ public class DriveTrain extends Subsystem {
 		return;
 	}
 
-	public void turnToAnglePID(double x, double y, double z, double angleSetpoint) {
+	public double turnToAnglePID(double angleSetpoint) {
 		turnController.setSetpoint(angleSetpoint);
 		turnController.enable();
 		double rotationRate = turnController.get();
 		SmartDashboard.putNumber("Drivetrain PID Rate", rotationRate);
-		cartesianDrive(x, y, z + rotationRate);
+		return rotationRate;
 	}
 
 	public void StopMotors() {
