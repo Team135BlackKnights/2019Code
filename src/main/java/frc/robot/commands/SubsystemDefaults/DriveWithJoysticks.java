@@ -1,7 +1,6 @@
 package frc.robot.commands.SubsystemDefaults;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.*;
 import frc.robot.subsystems.*;
 
@@ -12,9 +11,20 @@ public class DriveWithJoysticks extends Command {
     private double leftJoystickZValue;
 
     public static boolean isFieldOrientated;
+    public double robotAngle; 
+    public boolean isCompBot;
 
     public DriveWithJoysticks() {
         requires(Robot.driveTrain);
+        isCompBot = Robot.isCompBot();
+        if  (isCompBot)
+        {
+            robotAngle = Robot.navx.getFusedAngle();
+        }
+        else 
+        {
+            robotAngle = Robot.pigeon.getFusedAngle();
+        }
     }
 
     protected void initialize() {
@@ -24,7 +34,7 @@ public class DriveWithJoysticks extends Command {
     }
 
     protected double shouldControlsBeNegative() {
-        return ((Robot.pigeon.getFusedAngle() % 180) < 45) || ((Robot.pigeon.getFusedAngle() % 180) > 135) ? -1 : 1;
+        return ((robotAngle % 180) < 45) || ((robotAngle % 180) > 135) ? -1 : 1;
     }
 
     protected void execute() {

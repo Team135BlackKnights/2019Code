@@ -22,8 +22,7 @@ public class RobotMap {
 		}
 
 		public interface KLift {
-			public static final int LIFT_LEFT_TALON = 1, LIFT_RIGHT_TALON = 2, LIFT_LEFT_VICTOR = 1,
-					LIFT_RIGHT_VICTOR = 3;
+			public static final int LIFT_LEFT_TALON = 1, LIFT_RIGHT_TALON = 2, LIFT_LEFT_SPARK = 5, LIFT_RIGHT_SPARK = 6;
 
 			public static final int LIFT_TOLERANCE = 50; // ticks
 			public static final int LIFT_SETPOINT_0 = 10, LIFT_SETPOINT_1 = 78, LIFT_SETPOINT_2 = 390,

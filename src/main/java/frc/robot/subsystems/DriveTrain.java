@@ -18,6 +18,7 @@ import frc.robot.util.PIDOut;
 
 public class DriveTrain extends Subsystem {
 	public static DriveTrain instance;
+	public boolean isCompBot = Robot.isCompBot();
 
 	public CANSparkMax frontLeftMotor = new CANSparkMax(KDrivetrain.FRONT_LEFT_SPARK_ID, MotorType.kBrushless);
 	public CANSparkMax rearLeftMotor = new CANSparkMax(KDrivetrain.REAR_LEFT_SPARK_ID, MotorType.kBrushless);
@@ -25,13 +26,22 @@ public class DriveTrain extends Subsystem {
 	public CANSparkMax rearRightMotor = new CANSparkMax(KDrivetrain.REAR_RIGHT_SPARK_ID, MotorType.kBrushless);
 
 	MecanumDrive chassis = new MecanumDrive(frontLeftMotor, rearLeftMotor, frontRightMotor, rearRightMotor);
-
+	
+	PIDIn gyro;
 	PIDOut turner = new PIDOut();
-	PIDIn navx = new PIDIn(() -> Robot.pigeon.getFusedAngle(), PIDSourceType.kDisplacement);
-
-	PIDController turnController = new PIDController(0.04f, .01f, 0.01f, navx, turner);
-
+	PIDController turnController;
+	
 	public DriveTrain() {
+		
+		
+		if (isCompBot)
+		{
+			gyro = new PIDIn(() -> Robot.navx.getFusedAngle(), PIDSourceType.kDisplacement);
+		}
+		else {
+			gyro = new PIDIn(() -> Robot.pigeon.getFusedAngle(), PIDSourceType.kDisplacement);
+		}
+		turnController = new PIDController(0.04f, .01f, 0.01f, gyro, turner);
 		turnController.setInputRange(0.0, 360.0f);
 		turnController.setOutputRange(-.5, .5);
 		turnController.setAbsoluteTolerance(10);

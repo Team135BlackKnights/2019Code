@@ -4,6 +4,9 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMax.IdleMode;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -11,13 +14,14 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.RunLift;
 import frc.robot.commands.SubsystemDefaults.*;
 import frc.robot.commands.Sensors.*;
+import frc.robot.Robot;
 import frc.robot.RobotMap.Robot.*;
 
 public class Lift extends Subsystem {
 	public static Lift instance;
-
+	public boolean isCompBot;
 	public TalonSRX LeftLiftTalon, RightLiftTalon;
-	public VictorSPX LeftLiftVictor, RightLiftVictor;
+	public CANSparkMax LeftLiftSpark, RightLiftSpark;
 
 	public Encoder encoder;
 
@@ -27,14 +31,23 @@ public class Lift extends Subsystem {
 	public double motorValue = 0;
 
 	private Lift() {
-		LeftLiftTalon = new TalonSRX(KLift.LIFT_LEFT_TALON);
-		RightLiftTalon = new TalonSRX(KLift.LIFT_RIGHT_TALON);
-		LeftLiftVictor = new VictorSPX(KLift.LIFT_LEFT_VICTOR);
-		RightLiftVictor = new VictorSPX(KLift.LIFT_RIGHT_VICTOR);
+		isCompBot = Robot.isCompBot();
+		if (isCompBot)
+		{
+			LeftLiftSpark = new CANSparkMax(KLift.LIFT_LEFT_SPARK, MotorType.kBrushless);
+			RightLiftSpark = new CANSparkMax(KLift.LIFT_RIGHT_SPARK, MotorType.kBrushless);
 
-		initializeMotorController(RightLiftTalon);
-		initializeMotorController(LeftLiftVictor);
-		initializeMotorController(RightLiftVictor);
+			initializeMotorController(RightLiftSpark);
+			initializeMotorController(LeftLiftSpark);
+		}
+		else {
+			LeftLiftTalon = new TalonSRX(KLift.LIFT_LEFT_TALON);
+			RightLiftTalon = new TalonSRX(KLift.LIFT_RIGHT_TALON);
+			
+			initializeMotorController(RightLiftTalon);
+			
+		}
+		
 		encoder = new Encoder(KLift.ENCODER_A, KLift.ENCODER_B);
 	}
 
@@ -46,6 +59,10 @@ public class Lift extends Subsystem {
 	public void initializeMotorController(VictorSPX victor) {
 		victor.setNeutralMode(NeutralMode.Brake);
 		victor.follow(LeftLiftTalon);
+	}
+	public void initializeMotorController(CANSparkMax spark)
+	{
+		spark.setIdleMode(IdleMode.kBrake);
 	}
 
 	public double getEncoderVelocity() {
@@ -61,15 +78,21 @@ public class Lift extends Subsystem {
 	}
 
 	public void RunLift(double power) {
+		if (isCompBot)
+		{
+		LeftLiftSpark.set(power);
+		RightLiftSpark.set(power);
+		}
+		else {
 		LeftLiftTalon.set(ControlMode.PercentOutput, power);
 		RightLiftTalon.set(ControlMode.PercentOutput, power);
-		LeftLiftVictor.set(ControlMode.PercentOutput, power);
-		RightLiftVictor.set(ControlMode.PercentOutput, power);
-	}
+		}
+		}
 
 	public void setToPosition() {
 		double encoderPosition = getEncoderPosition();
 		double targetPosition = setpoint;
+		SmartDashboard.putNumber("targetposition", targetPosition);
 		double direction = (targetPosition - encoderPosition) < 0 ? -1.0 : 1.0;
 		setpoint = setpoint < -20 ? -20 : setpoint;
 		double error = targetPosition - encoderPosition;
@@ -87,11 +110,16 @@ public class Lift extends Subsystem {
 	}
 
 	public void periodic() {
+		//SmartDashboard.putNumber("Lift Motor Output Percent", LeftLiftTalon.getMotorOutputPercent());
 		SmartDashboard.putNumber("Setpoint", setpoint);
 		SmartDashboard.putNumber("Lift Encoder Position", getEncoderPosition());
 		SmartDashboard.putNumber("Lift Encoder Velocity", getEncoderVelocity());
 
 		SmartDashboard.putData("Reset Lift Encoder", new resetEncoderLift());
+
+		SmartDashboard.putData("Move Lift 0(9)", new RunLift(0));
+		SmartDashboard.putData("Move Lift 50(10)", new RunLift(1));
+		SmartDashboard.putData("Move Lift 100(11)", new RunLift(2));
 		SmartDashboard.putData("Back to Joysticks", new RunLiftAnalog());
 		setToPosition();
 	}

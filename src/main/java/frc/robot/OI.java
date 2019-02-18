@@ -52,7 +52,7 @@ public class OI {
 	public OI() {
 		rightTrigger.toggleWhenPressed(new DriveandSteer(KOI.TurnRight, Limelight.HATCH_PIPELINE));
 		leftTrigger.toggleWhenPressed(new DriveandSteer(KOI.TurnLeft, Limelight.BALL_PIPELINE));
-		resetButton.toggleWhenActive(new ResetNavX());
+		resetButton.toggleWhenActive(new ResetGyro());
 		turnButton.toggleWhenPressed(new TurnToAngle(0, 4));
 
 		ReleaseHatch.whenActive(new ReleaseHatch(true));

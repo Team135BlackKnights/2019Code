@@ -3,14 +3,16 @@ package frc.robot.commands.Sensors;
 import edu.wpi.first.wpilibj.command.InstantCommand;
 import frc.robot.Robot;
 
-public class ResetNavX extends InstantCommand {
+public class ResetGyro extends InstantCommand {
 
-  public ResetNavX() {
+  public ResetGyro() {
     requires(Robot.pigeon);
+    requires(Robot.navx);
   }
 
   @Override
   protected void initialize() {
     Robot.pigeon.reset();
+    Robot.navx.reset();
   }
 }
