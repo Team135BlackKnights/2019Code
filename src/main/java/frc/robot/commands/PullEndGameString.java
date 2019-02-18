@@ -4,17 +4,17 @@ import frc.robot.*;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class ReleaseEndgame extends Command {
+public class PullEndGameString extends Command {
 	private static boolean solenoidPosition = true;
 
-	public ReleaseEndgame(boolean pistonsInOut) {
+	public PullEndGameString(boolean pistonsInOut) {
 		//solenoidPosition = pistonsInOut;
 		setTimeout(RobotMap.Robot.Timeouts.INTAKE_TIMEOUT);
 	}
 
 	protected void execute() {
 		solenoidPosition = !solenoidPosition;
-		Robot.endgame.movePiston(solenoidPosition);
+		Robot.endgame.movePistoon(solenoidPosition);
 	}
 
 	@Override

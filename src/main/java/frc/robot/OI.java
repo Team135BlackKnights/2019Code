@@ -31,8 +31,10 @@ public class OI {
 			RunElbowDown = new JoystickButton(manipJoystick, KOI.BUTTON_4),
 
 			ReleaseHatch = new JoystickButton(manipJoystick, KOI.BUTTON_3),
-			ReleaseEndGame = new JoystickButton(rightJoystick, KOI.BUTTON_3),
-			IntakeEndGame = new JoystickButton(rightJoystick, KOI.BUTTON_5),
+
+			ReleaseEndGame = new JoystickButton(rightJoystick, KOI.BUTTON_5),
+
+			PullString = new JoystickButton(rightJoystick, KOI.BUTTON_3),
 
 			RunEndGame = new JoystickButton(manipJoystick, KOI.THUMB_BUTTON),
 			CompressorToggle = new JoystickButton(manipJoystick, KOI.BUTTON_7),
@@ -51,8 +53,10 @@ public class OI {
 		turnButton.toggleWhenPressed(new TurnToAngle(0, 4));
 
 		ReleaseHatch.whenActive(new ReleaseHatch(true));
-		ReleaseEndGame.whenActive(new ReleaseEndgame(false));
-		IntakeEndGame.whenActive(new ReleaseEndgame(true));
+
+		ReleaseEndGame.whenPressed(new ReleaseEndgame(true));
+
+		PullString.whenPressed(new PullEndGameString(false));
 
 		RunWheelsIn.whileHeld(new RunIntakeWheels(-.75));
 		RunWheelsOut.whileHeld(new RunIntakeWheels(1));

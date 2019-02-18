@@ -44,7 +44,7 @@ public class RobotMap {
 		}
 
 		public interface Pneumatics {
-			public static final int INTAKE_SOLENOID = 0, COMPRESSOR_ID = 7, ENDGAME_PISTON = 1;
+			public static final int INTAKE_SOLENOID = 2, COMPRESSOR_ID = 7, ENDGAME_PISTON = 0, ENDGAME_PISTOON =1;
 		}
 
 		public interface Sensors {

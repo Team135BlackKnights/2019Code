@@ -18,7 +18,7 @@ public class RunEndGame extends Command {
 
 	@Override
 	protected boolean isFinished() {
-		return false;
+		return Robot.endgame.isSwitchPressed();
 	}
 
 	protected void end() {
