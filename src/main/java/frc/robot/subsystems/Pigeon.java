@@ -3,7 +3,7 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.sensors.PigeonIMU;
 import com.kauailabs.navx.frc.AHRS;
 import frc.robot.*;
-import frc.robot.commands.Sensors.ResetNavX;
+import frc.robot.commands.Sensors.*;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -32,8 +32,8 @@ public class Pigeon extends Subsystem {
 
 	public void periodic() {
 		SmartDashboard.putNumber("Robot Angle", Robot.pigeon.getFusedAngle());
-		SmartDashboard.putData("Reset Navx", new ResetNavX());
-		// SmartDashboard.putNumber("Pigeon Angle", pigeon.getFusedHeading());
+		SmartDashboard.putData("Reset Navx", new ResetGyro());
+		SmartDashboard.putNumber("Pigeon Angle", pigeon.getFusedHeading());
 	}
 
 	public static Pigeon getInstance() {

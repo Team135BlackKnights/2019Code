@@ -15,26 +15,25 @@ public class RobotMap {
 
 	public interface Robot {
 		public interface KDrivetrain {
-			public static final int FRONT_LEFT_SPARK_ID = 0, FRONT_RIGHT_SPARK_ID = 1, REAR_LEFT_SPARK_ID = 2,
+			public static final int FRONT_LEFT_SPARK_ID = 7, FRONT_RIGHT_SPARK_ID = 1, REAR_LEFT_SPARK_ID = 2,
 					REAR_RIGHT_SPARK_ID = 3;
 
 			public static final int CONTROL_FRAME_PERIOD = 1000;
 		}
 
 		public interface KLift {
-			public static final int LIFT_LEFT_TALON = 1, LIFT_RIGHT_TALON = 2, LIFT_LEFT_VICTOR = 1,
-					LIFT_RIGHT_VICTOR = 3;
+			public static final int LIFT_LEFT_TALON = 1, LIFT_RIGHT_TALON = 2, LIFT_LEFT_SPARK = 5, LIFT_RIGHT_SPARK = 6;
 
 			public static final int LIFT_TOLERANCE = 50; // ticks
 			public static final int LIFT_SETPOINT_0 = 10, LIFT_SETPOINT_1 = 48, LIFT_SETPOINT_2 = 342,
 					LIFT_SETPOINT_3 = 674;
 			public static final int[] LIFT_SETPOINTS = { LIFT_SETPOINT_0, LIFT_SETPOINT_1, LIFT_SETPOINT_2,
 					LIFT_SETPOINT_3 };
-			public static final int ENCODER_A = 1, ENCODER_B = 2;
+			public static final int ENCODER_A = 8, ENCODER_B = 7;
 		}
 
 		public interface KIntake {
-			public static final int INTAKE_ELBOW_TALON = 0, INTAKE_VICTOR = 0;
+			public static final int INTAKE_ELBOW_TALON = 0, INTAKE_VICTOR = 2;
 
 			public static final boolean leftInverted = false, rightInverted = false;
 		}
@@ -44,11 +43,11 @@ public class RobotMap {
 		}
 
 		public interface Pneumatics {
-			public static final int INTAKE_SOLENOID = 0, COMPRESSOR_ID = 7, ENDGAME_PISTON = 1;
+			public static final int INTAKE_SOLENOID = 2, COMPRESSOR_ID = 7, ENDGAME_PISTON = 0, ENDGAME_PISTOON =1;
 		}
 
 		public interface Sensors {
-			public static final int LEFT_TRIG = 7, LEFT_ECHO = 0, RIGHT_TRIG = 3, RIGHT_ECHO = 8, INTAKE_TRIG = 5,
+			public static final int LEFT_TRIG = 1, LEFT_ECHO = 0, RIGHT_TRIG = 3, RIGHT_ECHO = 2, INTAKE_TRIG = 5,
 					INTAKE_ECHO = 4,
 
 					INTAKE_BUTTON_ID = 9, ENDGAME_SWITCH_ID = 6;

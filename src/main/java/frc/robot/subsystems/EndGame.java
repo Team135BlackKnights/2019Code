@@ -17,6 +17,7 @@ public class EndGame extends Subsystem {
 	public CANSparkMax endGameMotor;
 	public CANEncoder endgameEncoder;
 	public Solenoid piston;
+	public Solenoid pistoon;
 	public boolean TF = false;
 	public DigitalInput limitSwitch;
 
@@ -25,8 +26,10 @@ public class EndGame extends Subsystem {
 		initializeMotor();
 		endgameEncoder = endGameMotor.getEncoder();
 		piston = new Solenoid(Pneumatics.ENDGAME_PISTON);
-		piston.set(TF);
-		limitSwitch = new DigitalInput(0);
+		pistoon = new Solenoid(Pneumatics.ENDGAME_PISTOON);
+		piston.set(true);
+		pistoon.set(false);
+		limitSwitch = new DigitalInput(Sensors.ENDGAME_SWITCH_ID);
 
 	}
 
@@ -42,10 +45,25 @@ public class EndGame extends Subsystem {
 	public void movePiston(boolean TF) {
 		piston.set(TF);
 	}
+	public void movePistoon(boolean TF)
+	{
+		pistoon.set(TF);
+	}
 	
 	public boolean isSwitchPressed()
 	{
 		return limitSwitch.get();
+	}
+	public void getData()
+	{
+		double endGameVel = endgameEncoder.getVelocity();
+		double endGamePos = endgameEncoder.getPosition();
+		boolean switchPos = isSwitchPressed();
+
+		SmartDashboard.putNumber("EndGame Velocity: ", endGameVel);
+		SmartDashboard.putNumber("EndGame Position: ", endGamePos);
+
+		SmartDashboard.putBoolean("Is Switch Set", switchPos);
 	}
 
 	@Override
@@ -58,8 +76,8 @@ public class EndGame extends Subsystem {
 		}
 		return instance;
 	}
-	@Override
-	public void periodic() {
-		SmartDashboard.putBoolean("Switch Pressed", isSwitchPressed());
+	public void periodic()
+	{
+		getData();
 	}
 }
