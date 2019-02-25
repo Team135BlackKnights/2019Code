@@ -4,7 +4,6 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.OI;
 import frc.robot.Robot;
-import frc.robot.RobotMap;
 import frc.robot.RobotMap.Robot.KLift;
 import frc.robot.subsystems.Lift;
 
@@ -22,8 +21,8 @@ public class RunLift extends Command {
   }
 
   protected void execute() {
-    Lift.setpoint += Robot.oi.GetJoystickYValue(RobotMap.KOI.MANIP_JOYSTICK) * 5 * (Robot.oi.returnManipSlider());
-    SmartDashboard.putNumber("Joystick Setpoint Add", Robot.oi.GetJoystickYValue(RobotMap.KOI.MANIP_JOYSTICK) * 5);
+    //Lift.setpoint += Robot.oi.GetJoystickYValue(RobotMap.KOI.MANIP_JOYSTICK) * 5 * (Robot.oi.returnManipSlider());
+    //SmartDashboard.putNumber("Joystick Setpoint Add", Robot.oi.GetJoystickYValue(RobotMap.KOI.MANIP_JOYSTICK) * 5);
 
     int whichButtonPressed = OI.liftButtons();
     if (whichButtonPressed == -1) {

@@ -58,8 +58,7 @@ public class OI {
 		ReleaseHatch.whenActive(new ReleaseHatch(true));
 
 		ReleaseEndGame.whenPressed(new ReleaseEndgame(true));
-
-		PullString.whenPressed(new PullEndGameString(false));
+		ReleaseEndGame.whenPressed(new PullEndGameString(true));
 
 		RunWheelsIn.whileHeld(new RunIntakeWheels(-.75));
 		RunWheelsOut.whileHeld(new RunIntakeWheels(1));

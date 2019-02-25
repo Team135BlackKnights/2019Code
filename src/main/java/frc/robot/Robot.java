@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import frc.robot.subsystems.*;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Robot extends TimedRobot {
 	public static OI oi;
@@ -24,9 +25,8 @@ public class Robot extends TimedRobot {
 	static SendableChooser<Boolean> isCompBot = new SendableChooser<>();
 	@Override
 	public void robotInit() {
-		isCompBot.addDefault("IsCompBot",true);
-		isCompBot.addObject("IsCompBot", true);
-		isCompBot.addObject("IsPracticeBot", false);
+		isCompBot.setDefaultOption("IsCompBot",true); 
+		isCompBot.addOption("IsPracticeBot", false);
 		driveTrain = DriveTrain.getInstance();
 		lift = Lift.getInstance();
 		intake = Intake.getInstance();
@@ -36,7 +36,7 @@ public class Robot extends TimedRobot {
 		pigeon = Pigeon.getInstance();
 		ultra = UltrasonicSensor.getInstance();
 		oi = OI.getInstance();
-		
+		SmartDashboard.putData(isCompBot);
 	}
 	
 
@@ -49,7 +49,7 @@ public class Robot extends TimedRobot {
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
 		Robot.limelight.SetLEDMode(Limelight.LED_OFF);
-
+		
 	}
 
 	@Override

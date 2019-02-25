@@ -8,7 +8,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
-
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.RobotMap.Robot.*;
 
 public class EndGame extends Subsystem {
@@ -54,6 +54,17 @@ public class EndGame extends Subsystem {
 	{
 		return limitSwitch.get();
 	}
+	public void getData()
+	{
+		double endGameVel = endgameEncoder.getVelocity();
+		double endGamePos = endgameEncoder.getPosition();
+		boolean switchPos = isSwitchPressed();
+
+		SmartDashboard.putNumber("EndGame Velocity: ", endGameVel);
+		SmartDashboard.putNumber("EndGame Position: ", endGamePos);
+
+		SmartDashboard.putBoolean("Is Switch Set", switchPos);
+	}
 
 	@Override
 	protected void initDefaultCommand() {
@@ -64,5 +75,9 @@ public class EndGame extends Subsystem {
 			instance = new EndGame();
 		}
 		return instance;
+	}
+	public void periodic()
+	{
+		getData();
 	}
 }

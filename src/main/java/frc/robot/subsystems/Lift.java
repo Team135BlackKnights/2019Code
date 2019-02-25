@@ -15,6 +15,7 @@ import frc.robot.commands.RunLift;
 import frc.robot.commands.SubsystemDefaults.*;
 import frc.robot.commands.Sensors.*;
 import frc.robot.Robot;
+import frc.robot.RobotMap;
 import frc.robot.RobotMap.Robot.*;
 
 public class Lift extends Subsystem {
@@ -96,7 +97,12 @@ public class Lift extends Subsystem {
 		double direction = (targetPosition - encoderPosition) < 0 ? -1.0 : 1.0;
 		setpoint = setpoint < -20 ? -20 : setpoint;
 		double error = targetPosition - encoderPosition;
-		if ((Math.abs(error) > 15)) {
+		if (Math.abs(Robot.oi.GetJoystickYValue(RobotMap.KOI.MANIP_JOYSTICK)) > 0)
+		{
+			RunLift(Robot.oi.GetJoystickYValue(RobotMap.KOI.MANIP_JOYSTICK) * Robot.oi.returnManipSlider());
+			setpoint = getEncoderPosition();
+		}
+		else if ((Math.abs(error) > 15)) {
 			double dividevalue = Math.abs(targetPosition) < 1.0 ? 1.0 : Math.abs(targetPosition);
 			dividevalue /= Math.abs(error) > 100 ? 2.0 : 1.0;
 			SmartDashboard.putNumber("RunLiftValue", kP * (error) / dividevalue / 1.2 + 0.1 * direction);
@@ -104,7 +110,8 @@ public class Lift extends Subsystem {
 			RunLift(kP * (error) / dividevalue / 1.2 + 0.1 * direction);
 			encoderPosition = getEncoderPosition();
 			error = targetPosition - encoderPosition;
-		} else {
+		} 
+		else {
 			RunLift(0);
 		}
 	}
