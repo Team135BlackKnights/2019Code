@@ -27,6 +27,7 @@ public class Robot extends TimedRobot {
 	public void robotInit() {
 		isCompBot.setDefaultOption("IsCompBot",true); 
 		isCompBot.addOption("IsPracticeBot", false);
+		SmartDashboard.putData(isCompBot);
 		driveTrain = DriveTrain.getInstance();
 		lift = Lift.getInstance();
 		intake = Intake.getInstance();
@@ -36,7 +37,7 @@ public class Robot extends TimedRobot {
 		pigeon = Pigeon.getInstance();
 		ultra = UltrasonicSensor.getInstance();
 		oi = OI.getInstance();
-		SmartDashboard.putData(isCompBot);
+		
 	}
 	
 
@@ -72,7 +73,7 @@ public class Robot extends TimedRobot {
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
 		oi.periodic();
-		
+		SmartDashboard.putBoolean("isCompBot", isCompBot());
 	}
 
 	@Override

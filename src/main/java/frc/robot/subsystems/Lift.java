@@ -33,36 +33,28 @@ public class Lift extends Subsystem {
 
 	private Lift() {
 		isCompBot = Robot.isCompBot();
-		if (isCompBot)
-		{
+		if (isCompBot) {
 			LeftLiftSpark = new CANSparkMax(KLift.LIFT_LEFT_SPARK, MotorType.kBrushless);
 			RightLiftSpark = new CANSparkMax(KLift.LIFT_RIGHT_SPARK, MotorType.kBrushless);
 
 			initializeMotorController(RightLiftSpark);
 			initializeMotorController(LeftLiftSpark);
-		}
-		else {
+		} else {
 			LeftLiftTalon = new TalonSRX(KLift.LIFT_LEFT_TALON);
 			RightLiftTalon = new TalonSRX(KLift.LIFT_RIGHT_TALON);
-			
+
 			initializeMotorController(RightLiftTalon);
-			
+			initializeMotorController(LeftLiftTalon);
 		}
-		
+
 		encoder = new Encoder(KLift.ENCODER_A, KLift.ENCODER_B);
 	}
 
 	public void initializeMotorController(TalonSRX talon) {
 		talon.setNeutralMode(NeutralMode.Brake);
-		talon.follow(LeftLiftTalon);
 	}
 
-	public void initializeMotorController(VictorSPX victor) {
-		victor.setNeutralMode(NeutralMode.Brake);
-		victor.follow(LeftLiftTalon);
-	}
-	public void initializeMotorController(CANSparkMax spark)
-	{
+	public void initializeMotorController(CANSparkMax spark) {
 		spark.setIdleMode(IdleMode.kBrake);
 	}
 
@@ -79,16 +71,15 @@ public class Lift extends Subsystem {
 	}
 
 	public void RunLift(double power) {
-		if (isCompBot)
-		{
-		LeftLiftSpark.set(power);
-		RightLiftSpark.set(power);
+		if (isCompBot) {
+			LeftLiftSpark.set(power);
+			RightLiftSpark.set(power);
+		} else {
+			SmartDashboard.putNumber("lift power", power);
+			LeftLiftTalon.set(ControlMode.PercentOutput, power);
+			RightLiftTalon.set(ControlMode.PercentOutput, power);
 		}
-		else {
-		LeftLiftTalon.set(ControlMode.PercentOutput, power);
-		RightLiftTalon.set(ControlMode.PercentOutput, power);
-		}
-		}
+	}
 
 	public void setToPosition() {
 		double encoderPosition = getEncoderPosition();
@@ -108,8 +99,7 @@ public class Lift extends Subsystem {
 			RunLift(kP * (error) / dividevalue + 0.35 * direction);
 			encoderPosition = getEncoderPosition();
 			error = targetPosition - encoderPosition;
-		} 
-		else {
+		} else {
 			RunLift(0);
 		}
 	}
