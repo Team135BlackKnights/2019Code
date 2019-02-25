@@ -1,6 +1,7 @@
 package frc.robot.commands;
 
 import frc.robot.*;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class RunIntakeWheels extends Command {
@@ -16,7 +17,7 @@ public class RunIntakeWheels extends Command {
 
 	@Override
 	protected boolean isFinished() {
-		return Robot.ultra.isBallinIntake();
+		return false;// Robot.ultra.isBallinIntake();
 	}
 
 	protected void end() {

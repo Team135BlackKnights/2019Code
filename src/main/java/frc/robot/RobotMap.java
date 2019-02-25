@@ -26,8 +26,8 @@ public class RobotMap {
 					LIFT_RIGHT_VICTOR = 3;
 
 			public static final int LIFT_TOLERANCE = 50; // ticks
-			public static final int LIFT_SETPOINT_0 = 10, LIFT_SETPOINT_1 = 78, LIFT_SETPOINT_2 = 390,
-					LIFT_SETPOINT_3 = 681;
+			public static final int LIFT_SETPOINT_0 = 10, LIFT_SETPOINT_1 = 48, LIFT_SETPOINT_2 = 342,
+					LIFT_SETPOINT_3 = 674;
 			public static final int[] LIFT_SETPOINTS = { LIFT_SETPOINT_0, LIFT_SETPOINT_1, LIFT_SETPOINT_2,
 					LIFT_SETPOINT_3 };
 			public static final int ENCODER_A = 1, ENCODER_B = 2;

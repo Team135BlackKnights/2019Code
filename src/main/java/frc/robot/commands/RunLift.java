@@ -22,9 +22,6 @@ public class RunLift extends Command {
   }
 
   protected void execute() {
-    Lift.setpoint += Robot.oi.GetJoystickYValue(RobotMap.KOI.MANIP_JOYSTICK) * 5 * (Robot.oi.returnManipSlider());
-    SmartDashboard.putNumber("Joystick Setpoint Add", Robot.oi.GetJoystickYValue(RobotMap.KOI.MANIP_JOYSTICK) * 5);
-
     int whichButtonPressed = OI.liftButtons();
     if (whichButtonPressed == -1) {
     } else {

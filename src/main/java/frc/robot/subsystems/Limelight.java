@@ -48,10 +48,11 @@ public class Limelight extends Subsystem {
 		limelightData[TARGET_AREA] = targetAreaEntry.getDouble(0.0);
 		limelightData[TARGET_SKEW] = targetSkewEntry.getDouble(0.0);
 
-		SmartDashboard.putNumber("Valid Target", limelightData[VALID_TARGET]);
-		SmartDashboard.putNumber("Horizontal Offset", limelightData[HORIZONTAL_OFFSET]);
-		SmartDashboard.putNumber("Vertical Offset", limelightData[VERTICAL_OFFSET]);
-		SmartDashboard.putNumber("Target Area", limelightData[TARGET_AREA]);
+		// SmartDashboard.putNumber("Valid Target", limelightData[VALID_TARGET]);
+		// SmartDashboard.putNumber("Horizontal Offset",
+		// limelightData[HORIZONTAL_OFFSET]);
+		// SmartDashboard.putNumber("Vertical Offset", limelightData[VERTICAL_OFFSET]);
+		// SmartDashboard.putNumber("Target Area", limelightData[TARGET_AREA]);
 		return limelightData;
 	}
 
@@ -88,10 +89,11 @@ public class Limelight extends Subsystem {
 
 	@Override
 	public void periodic() {
-		SmartDashboard.putNumberArray("Limelight data values", limelightData);
-		SmartDashboard.putNumber("Valid Target?", limelightData[VALID_TARGET]);
-		SmartDashboard.putNumber("Horizontol Offset", limelightData[HORIZONTAL_OFFSET]);
-		SmartDashboard.putNumber("Target Area", limelightData[TARGET_AREA]);
+		// SmartDashboard.putNumberArray("Limelight data values", limelightData);
+		// SmartDashboard.putNumber("Valid Target?", limelightData[VALID_TARGET]);
+		// SmartDashboard.putNumber("Horizontol Offset",
+		// limelightData[HORIZONTAL_OFFSET]);
+		// SmartDashboard.putNumber("Target Area", limelightData[TARGET_AREA]);
 	}
 
 	public static Limelight initializeLimelight() {

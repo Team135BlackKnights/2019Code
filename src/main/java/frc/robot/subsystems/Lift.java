@@ -11,6 +11,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.RunLift;
 import frc.robot.commands.SubsystemDefaults.*;
 import frc.robot.commands.Sensors.*;
+import frc.robot.Robot;
+import frc.robot.RobotMap;
 import frc.robot.RobotMap.Robot.*;
 
 public class Lift extends Subsystem {
@@ -73,12 +75,15 @@ public class Lift extends Subsystem {
 		double direction = (targetPosition - encoderPosition) < 0 ? -1.0 : 1.0;
 		setpoint = setpoint < -20 ? -20 : setpoint;
 		double error = targetPosition - encoderPosition;
-		if ((Math.abs(error) > 15)) {
+		if (Math.abs(Robot.oi.GetJoystickYValue(RobotMap.KOI.MANIP_JOYSTICK)) > 0) {
+			RunLift(Robot.oi.GetJoystickYValue(RobotMap.KOI.MANIP_JOYSTICK));
+			setpoint = getEncoderPosition();
+		} else if ((Math.abs(error) > 15)) {
 			double dividevalue = Math.abs(targetPosition) < 1.0 ? 1.0 : Math.abs(targetPosition);
-			dividevalue /= Math.abs(error) > 100 ? 2.0 : 1.0;
-			SmartDashboard.putNumber("RunLiftValue", kP * (error) / dividevalue / 1.2 + 0.1 * direction);
+			dividevalue /= Math.abs(error) > 30 ? 2.0 : 1.0;
+			SmartDashboard.putNumber("RunLiftValue", kP * (error) / dividevalue + 0.35 * direction);
 			SmartDashboard.putNumber("Error", (error) / dividevalue);
-			RunLift(kP * (error) / dividevalue / 1.2 + 0.1 * direction);
+			RunLift(kP * (error) / dividevalue + 0.35 * direction);
 			encoderPosition = getEncoderPosition();
 			error = targetPosition - encoderPosition;
 		} else {
@@ -87,10 +92,10 @@ public class Lift extends Subsystem {
 	}
 
 	public void periodic() {
-		SmartDashboard.putNumber("Setpoint", setpoint);
+		// SmartDashboard.putNumber("Setpoint", setpoint);
 		SmartDashboard.putNumber("Lift Encoder Position", getEncoderPosition());
-		SmartDashboard.putNumber("Lift Encoder Velocity", getEncoderVelocity());
-
+		// SmartDashboard.putNumber("Lift Encoder Velocity", getEncoderVelocity());
+		Robot.driveTrain.chassis.feedWatchdog();
 		SmartDashboard.putData("Reset Lift Encoder", new resetEncoderLift());
 		SmartDashboard.putData("Back to Joysticks", new RunLiftAnalog());
 		setToPosition();

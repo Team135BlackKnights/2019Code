@@ -43,21 +43,22 @@ public class OI {
 			LifttoPos0 = new JoystickButton(manipJoystick, KOI.BUTTON_9),
 			LifttoPos1 = new JoystickButton(manipJoystick, KOI.BUTTON_10),
 			LifttoPos2 = new JoystickButton(manipJoystick, KOI.BUTTON_11),
-			LifttoPos3 = new JoystickButton(manipJoystick, KOI.BUTTON_12);
+			LifttoPos3 = new JoystickButton(manipJoystick, KOI.BUTTON_12),
+			resetEncoder = new JoystickButton(manipJoystick, KOI.BUTTON_6);
 
 	public static OI instance;
 
 	public OI() {
-		rightTrigger.toggleWhenPressed(new DriveandSteer(KOI.TurnRight, Limelight.HATCH_PIPELINE));
-		leftTrigger.toggleWhenPressed(new DriveandSteer(KOI.TurnLeft, Limelight.BALL_PIPELINE));
+		//rightTrigger.toggleWhenPressed(new DriveandSteer(KOI.TurnRight, Limelight.HATCH_PIPELINE));
+		//leftTrigger.toggleWhenPressed(new DriveandSteer(KOI.TurnLeft, Limelight.BALL_PIPELINE));
 		resetButton.toggleWhenActive(new ResetNavX());
-		turnButton.toggleWhenPressed(new TurnToAngle(0, 4));
+		//turnButton.toggleWhenPressed(new TurnToAngle(0, 4));
 
 		ReleaseHatch.whenActive(new ReleaseHatch(true));
 		ReleaseEndGame.whenActive(new ReleaseEndgame(false));
 		IntakeEndGame.whenActive(new ReleaseEndgame(true));
 
-		RunWheelsIn.whileHeld(new RunIntakeWheels(-.75));
+		RunWheelsIn.whileHeld(new RunIntakeWheels(-1));
 		RunWheelsOut.whileHeld(new RunIntakeWheels(1));
 
 		RunElbowDown.whileHeld(new MoveIntakeElbow(-1));
@@ -67,7 +68,7 @@ public class OI {
 		RunEndgameDown.whileHeld(new RunEndGame(-1));
 
 		CompressorToggle.toggleWhenPressed(new ToggleCompressor());
-
+		resetEncoder.whenPressed(new resetEncoderLift());
 	}
 
 	private double DeadbandJoystickValue(double joystickValue) {

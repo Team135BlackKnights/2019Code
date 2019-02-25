@@ -60,7 +60,7 @@ public class Intake extends Subsystem {
 	}
 
 	public void periodic() {
-		SmartDashboard.putBoolean("Button Pressed", vexButton.get());
+		//SmartDashboard.putBoolean("Button Pressed", vexButton.get());
 	}
 
 	@Override
