@@ -3,7 +3,6 @@ package frc.robot.commands;
 import frc.robot.*;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class RunEndGame extends Command {
 	private double _power;
@@ -21,17 +20,12 @@ public class RunEndGame extends Command {
 		}
 		if (beginingMatch)
 		{
-			if (!Robot.endgame.isSwitchPressed())
-			{
-				beginingMatch = false;
-			}
+			beginingMatch = Robot.endgame.isSwitchPressed();
 		}
 		else
 		{
 			disableEndgame = Robot.endgame.isSwitchPressed();
 		}
-		SmartDashboard.putBoolean("BeginingMatch", beginingMatch);
-		SmartDashboard.putBoolean("diableEngame", disableEndgame);
 	}
 
 	@Override

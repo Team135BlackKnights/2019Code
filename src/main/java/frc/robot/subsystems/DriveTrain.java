@@ -7,7 +7,6 @@ import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import com.revrobotics.CANSparkMax.IdleMode;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-import com.revrobotics.CANEncoder;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
@@ -19,7 +18,7 @@ import frc.robot.util.PIDOut;
 
 public class DriveTrain extends Subsystem {
 	public static DriveTrain instance;
-	public boolean isCompBot = Robot.isCompBot();
+	public boolean isCompBot = Robot.isComp;
 
 	public CANSparkMax frontLeftMotor = new CANSparkMax(KDrivetrain.FRONT_LEFT_SPARK_ID, MotorType.kBrushless);
 	public CANSparkMax rearLeftMotor = new CANSparkMax(KDrivetrain.REAR_LEFT_SPARK_ID, MotorType.kBrushless);
@@ -28,8 +27,6 @@ public class DriveTrain extends Subsystem {
 
 	MecanumDrive chassis = new MecanumDrive(frontLeftMotor, rearLeftMotor, frontRightMotor, rearRightMotor);
 	
-	public CANEncoder frontLeftEncoder, rearLeftEncoder, frontRightEncoder, rearRightEncoder; 
-
 	PIDIn gyro;
 	PIDOut turner = new PIDOut();
 	PIDController turnController;
@@ -52,11 +49,6 @@ public class DriveTrain extends Subsystem {
 		ConfigSpark(frontRightMotor);
 		ConfigSpark(rearLeftMotor);
 		ConfigSpark(rearRightMotor);
-
-		//frontLeftEncoder = frontLeftMotor.getEncoder();
-		//frontRightEncoder = frontRightMotor.getEncoder();
-		//rearLeftEncoder = rearLeftMotor.getEncoder();
-		//rearRightEncoder = rearRightMotor.getEncoder();
 	}
 
 	public void cartesianDrive(double x, double y, double z) {
@@ -71,53 +63,6 @@ public class DriveTrain extends Subsystem {
 	{
 	spark.setIdleMode(IdleMode.kBrake);
 	spark.setInverted(false);
-	}
-	public void getData()
-	{
-		double frontLeftVel = frontLeftEncoder.getVelocity();
-		double frontRightVel = frontRightEncoder.getVelocity();
-		double rearLeftVel = rearLeftEncoder.getVelocity();
-		double rearRightVel = rearRightEncoder.getVelocity();
-
-		double avgVel = (frontLeftVel + frontRightVel + rearLeftVel + rearRightVel)/4;
-
-		double frontLeftPos = frontLeftEncoder.getPosition();
-		double frontRightPos = frontRightEncoder.getPosition();
-		double rearLeftPos = rearLeftEncoder.getPosition();
-		double rearRightPos = rearRightEncoder.getPosition();
-
-		SmartDashboard.putNumber("FrontLeft Velocity: ", frontLeftVel);
-		SmartDashboard.putNumber("FrontRight Velocity: ", frontRightVel);
-		SmartDashboard.putNumber("RearLeft Velocity: ", rearLeftVel);
-		SmartDashboard.putNumber("RearRight Velocity: ", rearRightVel);
-
-		SmartDashboard.putNumber("Drivetrain Velocity: ", avgVel);
-
-		SmartDashboard.putNumber("FrontLeft Position: ", frontLeftPos);
-		SmartDashboard.putNumber("FrontRight Position: ", frontRightPos);
-		SmartDashboard.putNumber("RearLeft Position: ", rearLeftPos);
-		SmartDashboard.putNumber("RearRight Position: ", rearRightPos);
-	}
-	public static enum DirectionToTurn {
-		Left, Right
-	}
-
-	public void TurnDriveTrain(double driveTrainMotorPower, DirectionToTurn directionToTurn) {
-		if (directionToTurn == DirectionToTurn.Left) {
-			this.cartesianDrive(0, 0, driveTrainMotorPower, 0);
-		} else if (directionToTurn == DirectionToTurn.Right) {
-			this.cartesianDrive(0, 0, -driveTrainMotorPower, 0);
-		}
-		return;
-	}
-
-	public void TurnDriveTrain(double driveTrainMotorPower) {
-		this.TurnDriveTrain(driveTrainMotorPower, DirectionToTurn.Right);
-	}
-
-	public void DriveStraightWVision(double motorPower, double xValue, double pValue) {
-		cartesianDrive(0, motorPower, xValue * pValue * .75, 0);
-		return;
 	}
 
 	public double turnToAnglePID(double angleSetpoint) {
@@ -143,8 +88,4 @@ public class DriveTrain extends Subsystem {
 		setDefaultCommand(new DriveWithJoysticks());
 	}
 
-	public void periodic()
-	{
-		//getData();
-	}
 }

@@ -16,7 +16,7 @@ public class RunIntakeWheels extends Command {
 
 	@Override
 	protected boolean isFinished() {
-		return false;// Robot.ultra.isBallinIntake();
+		return false;
 	}
 
 	protected void end() {

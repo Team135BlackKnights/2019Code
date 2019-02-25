@@ -2,54 +2,54 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.*;
 import frc.robot.commands.Sensors.*;
 import frc.robot.RobotMap.KOI;
 
 public class OI {
-	private static Joystick leftJoystick = new Joystick(KOI.LEFT_JOYSTICK);
-	private static Joystick rightJoystick = new Joystick(KOI.RIGHT_JOYSTICK);
-	public static Joystick manipJoystick = new Joystick(KOI.MANIP_JOYSTICK);
+	private static Joystick 
+		leftJoystick = new Joystick(KOI.LEFT_JOYSTICK),
+		rightJoystick = new Joystick(KOI.RIGHT_JOYSTICK),
+		manipJoystick = new Joystick(KOI.MANIP_JOYSTICK);
 
-	public static JoystickButton leftTrigger = new JoystickButton(leftJoystick, KOI.TRIGGER_BUTTON),
-			turnTo0 = new JoystickButton(leftJoystick, KOI.BUTTON_3),
-			turnToRocketClose = new JoystickButton(leftJoystick, KOI.BUTTON_4),
-			turnToRocketFar = new JoystickButton(leftJoystick, KOI.BUTTON_5),
-			rightTrigger = new JoystickButton(rightJoystick, KOI.TRIGGER_BUTTON),
+	private static Joystick[] joysticks = {leftJoystick, rightJoystick, manipJoystick};
 
-			fieldOrientated = new JoystickButton(rightJoystick, KOI.THUMB_BUTTON),
-			resetButton = new JoystickButton(rightJoystick, KOI.BUTTON_12),
-			turnButton = new JoystickButton(rightJoystick, KOI.BUTTON_11),
-			RunEndgameUp = new JoystickButton(rightJoystick, KOI.BUTTON_4),
-			RunEndgameDown = new JoystickButton(rightJoystick, KOI.BUTTON_6),
+	public static JoystickButton 
+		leftTrigger = new JoystickButton(leftJoystick, KOI.TRIGGER_BUTTON),
+		turnTo0 = new JoystickButton(leftJoystick, KOI.BUTTON_3),
+		turnToRocketClose = new JoystickButton(leftJoystick, KOI.BUTTON_4),
+		turnToRocketFar = new JoystickButton(leftJoystick, KOI.BUTTON_5),
+		rightTrigger = new JoystickButton(rightJoystick, KOI.TRIGGER_BUTTON),
 
-			RunWheelsIn = new JoystickButton(manipJoystick, KOI.TRIGGER_BUTTON),
-			RunWheelsOut = new JoystickButton(manipJoystick, KOI.THUMB_BUTTON),
+		fieldOrientated = new JoystickButton(rightJoystick, KOI.THUMB_BUTTON),
+		resetButton = new JoystickButton(rightJoystick, KOI.BUTTON_12),
+		turnButton = new JoystickButton(rightJoystick, KOI.BUTTON_11),
+		RunEndgameUp = new JoystickButton(rightJoystick, KOI.BUTTON_4),
+		RunEndgameDown = new JoystickButton(rightJoystick, KOI.BUTTON_6),
 
-			RunElbowUp = new JoystickButton(manipJoystick, KOI.BUTTON_6),
-			RunElbowDown = new JoystickButton(manipJoystick, KOI.BUTTON_4),
+		RunWheelsIn = new JoystickButton(manipJoystick, KOI.TRIGGER_BUTTON),
+		RunWheelsOut = new JoystickButton(manipJoystick, KOI.THUMB_BUTTON),
 
-			ReleaseHatch = new JoystickButton(manipJoystick, KOI.BUTTON_3),
-			ReleaseEndGame = new JoystickButton(rightJoystick, KOI.BUTTON_3),
-			IntakeEndGame = new JoystickButton(rightJoystick, KOI.BUTTON_5),
+		RunElbowUp = new JoystickButton(manipJoystick, KOI.BUTTON_6),
+		RunElbowDown = new JoystickButton(manipJoystick, KOI.BUTTON_4),
 
-			RunEndGame = new JoystickButton(manipJoystick, KOI.THUMB_BUTTON),
-			CompressorToggle = new JoystickButton(manipJoystick, KOI.BUTTON_7),
+		ReleaseHatch = new JoystickButton(manipJoystick, KOI.BUTTON_3),
+		ReleaseEndGame = new JoystickButton(rightJoystick, KOI.BUTTON_3),
+		IntakeEndGame = new JoystickButton(rightJoystick, KOI.BUTTON_5),
 
-			LifttoPos0 = new JoystickButton(manipJoystick, KOI.BUTTON_9),
-			LifttoPos1 = new JoystickButton(manipJoystick, KOI.BUTTON_10),
-			LifttoPos2 = new JoystickButton(manipJoystick, KOI.BUTTON_11),
-			LifttoPos3 = new JoystickButton(manipJoystick, KOI.BUTTON_12),
-			resetEncoder = new JoystickButton(manipJoystick, KOI.BUTTON_6);
+		RunEndGame = new JoystickButton(manipJoystick, KOI.THUMB_BUTTON),
+		CompressorToggle = new JoystickButton(manipJoystick, KOI.BUTTON_7),
+
+		LifttoPos0 = new JoystickButton(manipJoystick, KOI.BUTTON_9),
+		LifttoPos1 = new JoystickButton(manipJoystick, KOI.BUTTON_10),
+		LifttoPos2 = new JoystickButton(manipJoystick, KOI.BUTTON_11),
+		LifttoPos3 = new JoystickButton(manipJoystick, KOI.BUTTON_12),
+		resetEncoder = new JoystickButton(manipJoystick, KOI.BUTTON_6);
 
 	public static OI instance;
 
 	public OI() {
-		//rightTrigger.toggleWhenPressed(new DriveandSteer(KOI.TurnRight, Limelight.HATCH_PIPELINE));
-		//leftTrigger.toggleWhenPressed(new DriveandSteer(KOI.TurnLeft, Limelight.BALL_PIPELINE));
 		resetButton.toggleWhenActive(new ResetGyro());
-		//turnButton.toggleWhenPressed(new TurnToAngle(0, 4));
 
 		ReleaseHatch.whenActive(new ReleaseHatch(true));
 		ReleaseEndGame.whenActive(new ReleaseEndgame(false));
@@ -69,47 +69,19 @@ public class OI {
 	}
 
 	private double DeadbandJoystickValue(double joystickValue) {
-		return (Math.abs(joystickValue) < KOI.DRIVE_TRAIN_JOYSTICK_DEADBAND ? 0.0 : joystickValue);
+		return (Math.abs(joystickValue) < KOI.JOYSTICK_DEADBAND ? 0.0 : joystickValue);
 	}
 
 	public double GetJoystickYValue(int joystickNumber) {
-		switch (joystickNumber) {
-		case KOI.LEFT_JOYSTICK:
-			return DeadbandJoystickValue(-leftJoystick.getY());
-		case KOI.RIGHT_JOYSTICK:
-			return DeadbandJoystickValue(-rightJoystick.getY());
-		case KOI.MANIP_JOYSTICK:
-			return DeadbandJoystickValue(-manipJoystick.getY());
-		default:
-			return 0.0;
-		}
+		return DeadbandJoystickValue( joysticks[joystickNumber].getY() );
 	}
 
 	public double GetJoystickXValue(int joystickNumber) {
-		switch (joystickNumber) {
-		case KOI.LEFT_JOYSTICK:
-			return DeadbandJoystickValue(-leftJoystick.getX());
-		case KOI.RIGHT_JOYSTICK:
-			return DeadbandJoystickValue(-rightJoystick.getX());
-		case KOI.MANIP_JOYSTICK:
-			return DeadbandJoystickValue(-manipJoystick.getX());
-		default:
-			return 0.0;
-		}
+		return DeadbandJoystickValue( joysticks[joystickNumber].getX() );
 	}
 
 	public double GetJoystickZValue(int joystickNumber) {
-		switch (joystickNumber) {
-		case KOI.LEFT_JOYSTICK:
-			return DeadbandJoystickValue(-leftJoystick.getZ());
-		case KOI.RIGHT_JOYSTICK:
-			return DeadbandJoystickValue(-rightJoystick.getZ());
-		case KOI.MANIP_JOYSTICK:
-			return DeadbandJoystickValue(-manipJoystick.getZ());
-		default:
-			return 0.0;
-		}
-
+		return DeadbandJoystickValue( joysticks[joystickNumber].getZ() );
 	}
 
 	public static boolean fieldOrientated() {
@@ -133,28 +105,19 @@ public class OI {
 	}
 
 	public double returnManipSlider() {
-		return (-((Math.abs(manipJoystick.getRawAxis(3)) < .15) ? 0 : manipJoystick.getRawAxis(3)) + 1) / 2;
+		return (-((Math.abs(manipJoystick.getRawAxis(3)) < KOI.JOYSTICK_DEADBAND) ?
+			0 : manipJoystick.getRawAxis(3)) + 1) / 2;
 	}
 
 	public double returnLeftSlider() {
-		return (-((Math.abs(leftJoystick.getRawAxis(3)) < .15) ? 0 : leftJoystick.getRawAxis(3)) + 1) / 2;
+		return (-((Math.abs(leftJoystick.getRawAxis(3)) < KOI.JOYSTICK_DEADBAND) ? 
+			0 : leftJoystick.getRawAxis(3)) + 1) / 2;
 	}
 
 	public double returnRightSlider() {
-		return (-((Math.abs(rightJoystick.getRawAxis(3)) < .15) ? 0 : rightJoystick.getRawAxis(3)) + 1) / 2;
+		return (-((Math.abs(rightJoystick.getRawAxis(3)) < KOI.JOYSTICK_DEADBAND) ? 
+			0 : rightJoystick.getRawAxis(3)) + 1) / 2;
 	}
 
-	public void periodic() {
-		SmartDashboard.putNumber("Manip Joystick Throttle ", returnManipSlider());
-		SmartDashboard.putNumber("Right Joystick Throttle ", returnRightSlider());
-		SmartDashboard.putNumber("Left Joystick Throttle ", returnLeftSlider());
-	}
-
-	public static OI getInstance() {
-		if (instance == null) {
-			instance = new OI();
-		}
-		return instance;
-	}
-
+	public static OI getInstance() {if (instance == null) {instance = new OI();}return instance;}
 }

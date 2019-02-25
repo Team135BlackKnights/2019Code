@@ -46,44 +46,19 @@ public class Limelight extends Subsystem {
 		limelightData[VERTICAL_OFFSET] = verticalOffsetEntry.getDouble(0.0);
 		limelightData[TARGET_AREA] = targetAreaEntry.getDouble(0.0);
 		limelightData[TARGET_SKEW] = targetSkewEntry.getDouble(0.0);
-
-		// SmartDashboard.putNumber("Valid Target", limelightData[VALID_TARGET]);
-		// SmartDashboard.putNumber("Horizontal Offset",
-		// limelightData[HORIZONTAL_OFFSET]);
-		// SmartDashboard.putNumber("Vertical Offset", limelightData[VERTICAL_OFFSET]);
-		// SmartDashboard.putNumber("Target Area", limelightData[TARGET_AREA]);
 		return limelightData;
 	}
 
 	public void SetLEDMode(int onOrOff) {
 		ledModeEntry.setNumber(onOrOff);
-		return;
 	}
 
 	public void SetCameraMode(int cameraMode) {
 		cameraModeEntry.setNumber(cameraMode);
-		return;
 	}
 
-	// Sets the Vision Pipeline to retrieve data from
 	public void SetCameraPipeline(int pipeline) {
 		limelightPipelineEntry.setNumber(pipeline);
-		return;
-	}
-
-	public boolean isTargetsExist() {
-		double numberOfValidTargets;
-		boolean targetsExist;
-
-		numberOfValidTargets = validTargetEntry.getDouble(0.0);
-
-		if (numberOfValidTargets > 0.0) {
-			targetsExist = true;
-		} else {
-			targetsExist = false;
-		}
-
-		return targetsExist;
 	}
 
 	@Override
@@ -95,14 +70,7 @@ public class Limelight extends Subsystem {
 		// SmartDashboard.putNumber("Target Area", limelightData[TARGET_AREA]);
 	}
 
-	public static Limelight initializeLimelight() {
-		if (instance == null) {
-			instance = new Limelight();
-		}
-		return instance;
-	}
+	public static Limelight getInstance() {if (instance == null) {instance = new Limelight();}return instance;}
 
-	public void initDefaultCommand() {
-		// setDefaultCommand(new GetLimelightData());
-	}
+	public void initDefaultCommand() {}
 }

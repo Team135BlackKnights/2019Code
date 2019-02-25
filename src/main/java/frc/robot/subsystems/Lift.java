@@ -3,7 +3,6 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
@@ -12,7 +11,6 @@ import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.RunLift;
-import frc.robot.commands.SubsystemDefaults.*;
 import frc.robot.commands.Sensors.*;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
@@ -32,30 +30,24 @@ public class Lift extends Subsystem {
 	public double motorValue = 0;
 
 	private Lift() {
-		isCompBot = Robot.isCompBot();
-		if (isCompBot) {
+		isCompBot = Robot.isComp;
+		if (isCompBot) 
+		{
 			LeftLiftSpark = new CANSparkMax(KLift.LIFT_LEFT_SPARK, MotorType.kBrushless);
 			RightLiftSpark = new CANSparkMax(KLift.LIFT_RIGHT_SPARK, MotorType.kBrushless);
 
-			initializeMotorController(RightLiftSpark);
-			initializeMotorController(LeftLiftSpark);
-		} else {
+			LeftLiftSpark.setIdleMode(IdleMode.kBrake);
+			RightLiftSpark.setIdleMode(IdleMode.kBrake);
+		} 
+		else 
+		{
 			LeftLiftTalon = new TalonSRX(KLift.LIFT_LEFT_TALON);
 			RightLiftTalon = new TalonSRX(KLift.LIFT_RIGHT_TALON);
 
-			initializeMotorController(RightLiftTalon);
-			initializeMotorController(LeftLiftTalon);
+			LeftLiftTalon.setNeutralMode(NeutralMode.Brake);
+			RightLiftTalon.setNeutralMode(NeutralMode.Brake);
 		}
-
 		encoder = new Encoder(KLift.ENCODER_A, KLift.ENCODER_B);
-	}
-
-	public void initializeMotorController(TalonSRX talon) {
-		talon.setNeutralMode(NeutralMode.Brake);
-	}
-
-	public void initializeMotorController(CANSparkMax spark) {
-		spark.setIdleMode(IdleMode.kBrake);
 	}
 
 	public double getEncoderVelocity() {
@@ -71,11 +63,13 @@ public class Lift extends Subsystem {
 	}
 
 	public void RunLift(double power) {
-		if (isCompBot) {
+		if (isCompBot) 
+		{
 			LeftLiftSpark.set(power);
 			RightLiftSpark.set(power);
-		} else {
-			SmartDashboard.putNumber("lift power", power);
+		} 
+		else
+		{
 			LeftLiftTalon.set(ControlMode.PercentOutput, power);
 			RightLiftTalon.set(ControlMode.PercentOutput, power);
 		}
@@ -88,10 +82,12 @@ public class Lift extends Subsystem {
 		double direction = (targetPosition - encoderPosition) < 0 ? -1.0 : 1.0;
 		setpoint = setpoint < -20 ? -20 : setpoint;
 		double error = targetPosition - encoderPosition;
-		if (Math.abs(Robot.oi.GetJoystickYValue(RobotMap.KOI.MANIP_JOYSTICK)) > 0) {
+		if (Math.abs(Robot.oi.GetJoystickYValue(RobotMap.KOI.MANIP_JOYSTICK)) > 0) 
+		{
 			RunLift(Robot.oi.GetJoystickYValue(RobotMap.KOI.MANIP_JOYSTICK));
 			setpoint = getEncoderPosition();
-		} else if ((Math.abs(error) > 15)) {
+		} 
+		else if ((Math.abs(error) > 15)) {
 			double dividevalue = Math.abs(targetPosition) < 1.0 ? 1.0 : Math.abs(targetPosition);
 			dividevalue /= Math.abs(error) > 30 ? 2.0 : 1.0;
 			SmartDashboard.putNumber("RunLiftValue", kP * (error) / dividevalue + 0.35 * direction);
@@ -99,22 +95,21 @@ public class Lift extends Subsystem {
 			RunLift(kP * (error) / dividevalue + 0.35 * direction);
 			encoderPosition = getEncoderPosition();
 			error = targetPosition - encoderPosition;
-		} else {
+		} 
+		else 
+		{
 			RunLift(0);
 		}
 	}
 
 	public void periodic() {
-		// SmartDashboard.putNumber("Setpoint", setpoint);
 		SmartDashboard.putNumber("Lift Encoder Position", getEncoderPosition());
-		// SmartDashboard.putNumber("Lift Encoder Velocity", getEncoderVelocity());
 		Robot.driveTrain.chassis.feedWatchdog();
 		SmartDashboard.putData("Reset Lift Encoder", new resetEncoderLift());
 
 		SmartDashboard.putData("Move Lift 0(9)", new RunLift(0));
 		SmartDashboard.putData("Move Lift 50(10)", new RunLift(1));
 		SmartDashboard.putData("Move Lift 100(11)", new RunLift(2));
-		SmartDashboard.putData("Back to Joysticks", new RunLiftAnalog());
 		setToPosition();
 	}
 
@@ -123,10 +118,5 @@ public class Lift extends Subsystem {
 		setDefaultCommand(new RunLift(-1));
 	}
 
-	public static Lift getInstance() {
-		if (instance == null) {
-			instance = new Lift();
-		}
-		return instance;
-	}
+	public static Lift getInstance() {if (instance == null) {instance = new Lift();}return instance;}
 }

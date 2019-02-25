@@ -28,7 +28,6 @@ public class RunLift extends Command {
       SmartDashboard.putNumber("Setpoint Value", Lift.setpointIndex);
       Lift.setpoint = KLift.LIFT_SETPOINTS[Lift.setpointIndex];
     }
-    // Robot.lift.RunLift((Robot.oi.manipJoystick.getRawAxis(3) + 1) / 2);
   }
 
   @Override

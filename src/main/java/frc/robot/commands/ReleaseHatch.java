@@ -8,8 +8,6 @@ public class ReleaseHatch extends Command {
 	private static boolean solenoidPosition = true;
 
 	public ReleaseHatch(boolean pistonsInOut) {
-		//solenoidPosition = pistonsInOut;
-		setTimeout(RobotMap.Robot.Timeouts.INTAKE_TIMEOUT);
 	}
 
 	protected void execute() {
@@ -23,7 +21,6 @@ public class ReleaseHatch extends Command {
 	}
 
 	protected void end() {
-		//Robot.intake.MoveSolenoid(false);
 	}
 
 	protected void interrupted() {

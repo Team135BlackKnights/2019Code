@@ -19,6 +19,7 @@ public class Robot extends TimedRobot {
 	public static Pigeon pigeon;
 	public static UltrasonicSensor ultra;
 
+	public static boolean isComp;
 
 	Command autonomousCommand;
 	SendableChooser<String> chooser = new SendableChooser<>();
@@ -28,34 +29,33 @@ public class Robot extends TimedRobot {
 		isCompBot.setDefaultOption("IsCompBot",true); 
 		isCompBot.addOption("IsPracticeBot", false);
 		SmartDashboard.putData(isCompBot);
+		isComp = isCompBot.getSelected();
 		driveTrain = DriveTrain.getInstance();
 		lift = Lift.getInstance();
 		intake = Intake.getInstance();
 		endgame = EndGame.getInstance();
-		limelight = Limelight.initializeLimelight();
-		navx = NavX.initializeNavX();
-		pigeon = Pigeon.getInstance();
+		limelight = Limelight.getInstance();
+		if (isComp)
+			navx = NavX.getInstance();
+		else
+			pigeon = Pigeon.getInstance();
 		ultra = UltrasonicSensor.getInstance();
 		oi = OI.getInstance();
-		
+
+		Robot.limelight.SetLEDMode(Limelight.LED_OFF);
 	}
 	
 
 	@Override
-	public void disabledInit() {
-		Robot.limelight.SetLEDMode(Limelight.LED_OFF);
-	}
+	public void disabledInit() {}
 
 	@Override
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
-		Robot.limelight.SetLEDMode(Limelight.LED_OFF);
-		
 	}
 
 	@Override
-	public void autonomousInit() {
-	}
+	public void autonomousInit() {}
 
 	@Override
 	public void autonomousPeriodic() {
@@ -72,16 +72,8 @@ public class Robot extends TimedRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
-		oi.periodic();
-		SmartDashboard.putBoolean("isCompBot", isCompBot());
 	}
 
 	@Override
-	public void testPeriodic() {
-	}
-
-	public static boolean isCompBot()
-	{
-		return isCompBot.getSelected();
-	}
+	public void testPeriodic() {}
 }

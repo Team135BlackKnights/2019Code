@@ -16,7 +16,7 @@ public class DriveWithJoysticks extends Command {
 
     public DriveWithJoysticks() {
         requires(Robot.driveTrain);
-        isCompBot = Robot.isCompBot();
+        isCompBot = Robot.isComp;
         if  (isCompBot)
         {
             robotAngle = Robot.navx.getFusedAngle();
@@ -50,9 +50,6 @@ public class DriveWithJoysticks extends Command {
         if (OI.turnToRocketFar.get()) {
             leftJoystickZValue += Robot.driveTrain.turnToAnglePID(145);
         }
-        // SmartDashboard.putNumber("RightX", RightJoystickXValue);
-        // SmartDashboard.putNumber("RightY", RightJoystickYValue);
-        // SmartDashboard.putNumber("LeftZ", leftJoystickZValue);
         if (OI.fieldOrientated()) {
             Robot.driveTrain.cartesianDrive(RightJoystickXValue * shouldControlsBeNegative(),
                     -RightJoystickYValue * shouldControlsBeNegative(), -leftJoystickZValue * .35,

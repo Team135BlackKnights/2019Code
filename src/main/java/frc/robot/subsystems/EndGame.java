@@ -16,8 +16,9 @@ public class EndGame extends Subsystem {
 	public static EndGame instance;
 	public CANSparkMax endGameMotor;
 	public CANEncoder endgameEncoder;
-	public Solenoid piston;
-	public Solenoid pistoon;
+	public Solenoid 
+	piston,
+	pistoon;
 	public boolean TF = false;
 	public DigitalInput limitSwitch;
 

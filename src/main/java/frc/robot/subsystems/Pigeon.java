@@ -33,17 +33,10 @@ public class Pigeon extends Subsystem {
 	public void periodic() {
 		SmartDashboard.putNumber("Robot Angle", Robot.pigeon.getFusedAngle());
 		SmartDashboard.putData("Reset Navx", new ResetGyro());
-		SmartDashboard.putNumber("Pigeon Angle", pigeon.getFusedHeading());
 	}
 
-	public static Pigeon getInstance() {
-		if (instance == null) {
-			instance = new Pigeon();
-		}
-		return instance;
-	}
+	public static Pigeon getInstance() {if (instance == null) {instance = new Pigeon();}return instance;}
 
 	@Override
-	protected void initDefaultCommand() {
-	}
+	protected void initDefaultCommand() {}
 }

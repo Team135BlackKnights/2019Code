@@ -6,7 +6,6 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 import edu.wpi.first.wpilibj.Compressor;
-import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap.Robot.*;
@@ -18,12 +17,10 @@ public class Intake extends Subsystem {
 	public VictorSPX intake;
 	public Solenoid solenoid;
 	public Compressor compressor;
-	public DigitalInput vexButton;
 
 	private Intake() {
 		intakeElbow = new TalonSRX(KIntake.INTAKE_ELBOW_TALON);
 		intake = new VictorSPX(KIntake.INTAKE_VICTOR);
-		vexButton = new DigitalInput(Sensors.INTAKE_BUTTON_ID);
 
 		intakeElbow.setNeutralMode(NeutralMode.Brake);
 
@@ -59,7 +56,6 @@ public class Intake extends Subsystem {
 	}
 
 	public void periodic() {
-		//SmartDashboard.putBoolean("Button Pressed", vexButton.get());
 	}
 
 	@Override
