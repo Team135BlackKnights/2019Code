@@ -4,7 +4,6 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.OI;
 import frc.robot.Robot;
-import frc.robot.RobotMap;
 import frc.robot.RobotMap.Robot.KLift;
 import frc.robot.subsystems.Lift;
 

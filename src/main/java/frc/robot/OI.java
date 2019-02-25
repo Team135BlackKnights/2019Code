@@ -5,9 +5,6 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.*;
 import frc.robot.commands.Sensors.*;
-import frc.robot.commands.DriverAssistance.*;
-import frc.robot.commands.DriverAssistance.Parallel.*;
-import frc.robot.subsystems.Limelight;
 import frc.robot.RobotMap.KOI;
 
 public class OI {
@@ -51,7 +48,7 @@ public class OI {
 	public OI() {
 		//rightTrigger.toggleWhenPressed(new DriveandSteer(KOI.TurnRight, Limelight.HATCH_PIPELINE));
 		//leftTrigger.toggleWhenPressed(new DriveandSteer(KOI.TurnLeft, Limelight.BALL_PIPELINE));
-		resetButton.toggleWhenActive(new ResetNavX());
+		resetButton.toggleWhenActive(new ResetGyro());
 		//turnButton.toggleWhenPressed(new TurnToAngle(0, 4));
 
 		ReleaseHatch.whenActive(new ReleaseHatch(true));

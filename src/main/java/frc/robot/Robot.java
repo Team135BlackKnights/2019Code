@@ -84,4 +84,3 @@ public class Robot extends TimedRobot {
 		return isCompBot.getSelected();
 	}
 }
-
