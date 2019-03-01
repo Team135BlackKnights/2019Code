@@ -15,8 +15,8 @@ public class OI {
 		manipJoystick = new Joystick(KOI.MANIP_JOYSTICK);
 
 	private static Joystick[] joysticks = {leftJoystick, rightJoystick, manipJoystick};
-
-	public static JoystickButton 
+	//Initiallizing all the joystick buttons to the correct ids.
+	public static JoystickButton  
 		leftTrigger = new JoystickButton(leftJoystick, KOI.TRIGGER_BUTTON),
 		turnTo0 = new JoystickButton(leftJoystick, KOI.BUTTON_3),
 		turnToRocketClose = new JoystickButton(leftJoystick, KOI.BUTTON_4),
@@ -42,7 +42,7 @@ public class OI {
 
 		RunEndGame = new JoystickButton(manipJoystick, KOI.THUMB_BUTTON),
 		CompressorToggle = new JoystickButton(manipJoystick, KOI.BUTTON_7),
-
+		
 		LifttoPos0 = new JoystickButton(manipJoystick, KOI.BUTTON_9),
 		LifttoPos1 = new JoystickButton(manipJoystick, KOI.BUTTON_10),
 		LifttoPos2 = new JoystickButton(manipJoystick, KOI.BUTTON_11),
@@ -52,6 +52,7 @@ public class OI {
 	public static OI instance;
 
 	public OI() {
+		//Setting the joystick buttons to run the appropriate commands. 
 		resetButton.toggleWhenActive(new ResetGyro());
 
 		ReleaseHatch.whenActive(new ReleaseHatch(true));
