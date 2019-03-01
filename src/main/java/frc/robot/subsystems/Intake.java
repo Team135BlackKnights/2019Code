@@ -32,6 +32,7 @@ public class Intake extends Subsystem {
 
 		compressor.setClosedLoopControl(true);
 		compressor.start();
+		MoveSolenoid(true);
 	}
 
 	public void setCompressorOff() {

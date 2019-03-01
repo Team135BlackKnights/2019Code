@@ -2,7 +2,9 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import frc.robot.commands.*;
+import frc.robot.commands.MotorCommands.*;
+import frc.robot.commands.PnuematicCommands.*;
+
 import frc.robot.commands.Sensors.*;
 import frc.robot.RobotMap.KOI;
 
@@ -22,6 +24,7 @@ public class OI {
 		rightTrigger = new JoystickButton(rightJoystick, KOI.TRIGGER_BUTTON),
 
 		fieldOrientated = new JoystickButton(rightJoystick, KOI.THUMB_BUTTON),
+		fullSpeedTurn = new JoystickButton(leftJoystick, KOI.THUMB_BUTTON),
 		resetButton = new JoystickButton(rightJoystick, KOI.BUTTON_12),
 		turnButton = new JoystickButton(rightJoystick, KOI.BUTTON_11),
 		RunEndgameUp = new JoystickButton(rightJoystick, KOI.BUTTON_4),
@@ -86,6 +89,11 @@ public class OI {
 
 	public static boolean fieldOrientated() {
 		return fieldOrientated.get();
+	}
+
+	public static boolean fullSpeedTurn()
+	{
+		return fullSpeedTurn.get();
 	}
 
 	public static int liftButtons() {

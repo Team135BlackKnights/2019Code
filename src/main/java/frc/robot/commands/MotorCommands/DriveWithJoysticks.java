@@ -1,4 +1,4 @@
-package frc.robot.commands.SubsystemDefaults;
+package frc.robot.commands.MotorCommands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.*;
@@ -54,7 +54,12 @@ public class DriveWithJoysticks extends Command {
             Robot.driveTrain.cartesianDrive(RightJoystickXValue * shouldControlsBeNegative(),
                     -RightJoystickYValue * shouldControlsBeNegative(), -leftJoystickZValue * .35,
                     Robot.pigeon.getFusedAngle());
-        } else {
+        }
+        else if (OI.fullSpeedTurn())
+        {
+            Robot.driveTrain.cartesianDrive(RightJoystickXValue, RightJoystickYValue, -leftJoystickZValue);
+        }
+         else {
             Robot.driveTrain.cartesianDrive(RightJoystickXValue, RightJoystickYValue, -leftJoystickZValue * .35);
         }
     }

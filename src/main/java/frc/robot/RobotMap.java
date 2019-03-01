@@ -32,7 +32,7 @@ public class RobotMap {
 	public interface Robot {
 		public interface KDrivetrain {
 			public static final int 
-				FRONT_LEFT_SPARK_ID = 0, 
+				FRONT_LEFT_SPARK_ID = 7, 
 				FRONT_RIGHT_SPARK_ID = 1, 
 				REAR_LEFT_SPARK_ID = 2,
 				REAR_RIGHT_SPARK_ID = 3;

@@ -28,7 +28,7 @@ public class EndGame extends Subsystem {
 		endgameEncoder = endGameMotor.getEncoder();
 		piston = new Solenoid(Pneumatics.ENDGAME_PISTON);
 		pistoon = new Solenoid(Pneumatics.ENDGAME_PISTOON);
-		piston.set(true);
+		piston.set(false);
 		pistoon.set(false);
 		limitSwitch = new DigitalInput(Sensors.ENDGAME_SWITCH_ID);
 

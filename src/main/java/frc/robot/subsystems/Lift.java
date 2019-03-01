@@ -4,13 +4,13 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkMax.IdleMode;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+//import com.revrobotics.CANSparkMax.IdleMode;
+//import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.commands.RunLift;
+import frc.robot.commands.MotorCommands.*;
 import frc.robot.commands.Sensors.*;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
@@ -30,8 +30,8 @@ public class Lift extends Subsystem {
 	public double motorValue = 0;
 
 	private Lift() {
-		isCompBot = Robot.isComp;
-		if (isCompBot) 
+		/*isCompBot = Robot.isCompBot();
+		if (false)
 		{
 			LeftLiftSpark = new CANSparkMax(KLift.LIFT_LEFT_SPARK, MotorType.kBrushless);
 			RightLiftSpark = new CANSparkMax(KLift.LIFT_RIGHT_SPARK, MotorType.kBrushless);
@@ -41,12 +41,13 @@ public class Lift extends Subsystem {
 		} 
 		else 
 		{
+		*/
 			LeftLiftTalon = new TalonSRX(KLift.LIFT_LEFT_TALON);
 			RightLiftTalon = new TalonSRX(KLift.LIFT_RIGHT_TALON);
 
 			LeftLiftTalon.setNeutralMode(NeutralMode.Brake);
 			RightLiftTalon.setNeutralMode(NeutralMode.Brake);
-		}
+	//	}
 		encoder = new Encoder(KLift.ENCODER_A, KLift.ENCODER_B);
 	}
 
@@ -63,16 +64,17 @@ public class Lift extends Subsystem {
 	}
 
 	public void RunLift(double power) {
-		if (isCompBot) 
+		/*if (false)
 		{
 			LeftLiftSpark.set(power);
 			RightLiftSpark.set(power);
 		} 
 		else
 		{
+		*/
 			LeftLiftTalon.set(ControlMode.PercentOutput, power);
 			RightLiftTalon.set(ControlMode.PercentOutput, power);
-		}
+	//	}
 	}
 
 	public void setToPosition() {

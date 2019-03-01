@@ -12,7 +12,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import frc.robot.Robot;
 import frc.robot.RobotMap.Robot.*;
-import frc.robot.commands.SubsystemDefaults.DriveWithJoysticks;
+import frc.robot.commands.MotorCommands.*;
 import frc.robot.util.PIDIn;
 import frc.robot.util.PIDOut;
 
