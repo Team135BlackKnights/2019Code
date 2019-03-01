@@ -13,6 +13,7 @@ public class MoveIntakeElbow extends Command {
 	}
 
 	protected void execute() {
+		
 		Robot.intake.RunElbow(_power);
 	}
 

@@ -73,6 +73,25 @@ public class DriveTrain extends Subsystem {
 		return rotationRate;
 	}
 
+	public void getNumbers()
+	{
+		double frontLeftTemp = frontLeftMotor.getMotorTemperature()*9/5 +32;
+		double frontRightTemp = frontRightMotor.getMotorTemperature()*9/5 +32;
+		double rearLeftTemp = rearLeftMotor.getMotorTemperature()*9/5 +32;
+		double rearRightTemp = rearRightMotor.getMotorTemperature()*9/5 +32;
+
+		SmartDashboard.putNumber("Front Left Motor Temperature ", frontLeftTemp);
+		SmartDashboard.putNumber("Front Right Motor Temperature ", frontRightTemp);
+		SmartDashboard.putNumber("Rear Left Motor Temperature ", rearLeftTemp);
+		SmartDashboard.putNumber("Rear Right Motor Temperature ", rearRightTemp);
+
+	}
+
+	public void periodic()
+	{
+		getNumbers();
+	}
+
 	public void StopMotors() {
 		cartesianDrive(0, 0, 0);
 	}

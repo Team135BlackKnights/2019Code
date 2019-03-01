@@ -17,14 +17,14 @@ public class OI {
 	private static Joystick[] joysticks = {leftJoystick, rightJoystick, manipJoystick};
 	//Initiallizing all the joystick buttons to the correct ids.
 	public static JoystickButton  
-		leftTrigger = new JoystickButton(leftJoystick, KOI.TRIGGER_BUTTON),
+		//leftTrigger = new JoystickButton(leftJoystick, KOI.TRIGGER_BUTTON),
 		turnTo0 = new JoystickButton(leftJoystick, KOI.BUTTON_3),
 		turnToRocketClose = new JoystickButton(leftJoystick, KOI.BUTTON_4),
 		turnToRocketFar = new JoystickButton(leftJoystick, KOI.BUTTON_5),
 		rightTrigger = new JoystickButton(rightJoystick, KOI.TRIGGER_BUTTON),
 
 		fieldOrientated = new JoystickButton(rightJoystick, KOI.THUMB_BUTTON),
-		fullSpeedTurn = new JoystickButton(leftJoystick, KOI.THUMB_BUTTON),
+		fullSpeedTurn = new JoystickButton(leftJoystick, KOI.TRIGGER_BUTTON),
 		resetButton = new JoystickButton(rightJoystick, KOI.BUTTON_12),
 		turnButton = new JoystickButton(rightJoystick, KOI.BUTTON_11),
 		RunEndgameUp = new JoystickButton(rightJoystick, KOI.BUTTON_4),
@@ -33,8 +33,8 @@ public class OI {
 		RunWheelsIn = new JoystickButton(manipJoystick, KOI.TRIGGER_BUTTON),
 		RunWheelsOut = new JoystickButton(manipJoystick, KOI.THUMB_BUTTON),
 
-		RunElbowUp = new JoystickButton(manipJoystick, KOI.BUTTON_6),
-		RunElbowDown = new JoystickButton(manipJoystick, KOI.BUTTON_4),
+		RunElbowUp = new JoystickButton(manipJoystick, KOI.BUTTON_4),
+		RunElbowDown = new JoystickButton(manipJoystick, KOI.BUTTON_6),
 
 		ReleaseHatch = new JoystickButton(manipJoystick, KOI.BUTTON_3),
 		ReleaseEndGame = new JoystickButton(rightJoystick, KOI.BUTTON_3),
@@ -77,15 +77,15 @@ public class OI {
 	}
 
 	public double GetJoystickYValue(int joystickNumber) {
-		return DeadbandJoystickValue( joysticks[joystickNumber].getY() );
+		return DeadbandJoystickValue( -joysticks[joystickNumber].getY() );
 	}
 
 	public double GetJoystickXValue(int joystickNumber) {
-		return DeadbandJoystickValue( joysticks[joystickNumber].getX() );
+		return DeadbandJoystickValue( -joysticks[joystickNumber].getX() );
 	}
 
 	public double GetJoystickZValue(int joystickNumber) {
-		return DeadbandJoystickValue( joysticks[joystickNumber].getZ() );
+		return DeadbandJoystickValue( -joysticks[joystickNumber].getZ() );
 	}
 
 	public static boolean fieldOrientated() {
