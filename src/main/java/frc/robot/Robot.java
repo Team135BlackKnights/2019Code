@@ -35,10 +35,10 @@ public class Robot extends TimedRobot {
 		intake = Intake.getInstance();
 		endgame = EndGame.getInstance();
 		limelight = Limelight.getInstance();
-		if (isComp)
-			navx = NavX.getInstance();
-		else
-			pigeon = Pigeon.getInstance();
+	//	if (isComp)
+		navx = NavX.getInstance();
+	//	else
+		pigeon = Pigeon.getInstance();
 		ultra = UltrasonicSensor.getInstance();
 		oi = OI.getInstance();
 
