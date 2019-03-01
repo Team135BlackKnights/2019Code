@@ -13,10 +13,14 @@ public class DriveWithJoysticks extends Command {
     public static boolean isFieldOrientated;
     public double robotAngle; 
     public boolean isCompBot;
+    public boolean TooHot;
+    public double stopMotors = 1;
+
 
     public DriveWithJoysticks() {
         requires(Robot.driveTrain);
         isCompBot = Robot.isComp;
+        TooHot = Robot.driveTrain.tooHot();
         if  (isCompBot)
         {
             robotAngle = Robot.navx.getFusedAngle();
@@ -36,13 +40,21 @@ public class DriveWithJoysticks extends Command {
     protected double shouldControlsBeNegative() {
         return ((robotAngle % 180) < 45) || ((robotAngle % 180) > 135) ? -1 : 1;
     }
+    protected double areMotorsTooHot()
+    {
+    if (TooHot)
+    {
+        stopMotors = 0;
+    }
+    return stopMotors;
+    }
 
     protected void execute() {
         Robot.limelight.SetLEDMode(Limelight.LED_OFF);
-
-        RightJoystickYValue = Robot.oi.GetJoystickYValue(RobotMap.KOI.RIGHT_JOYSTICK) * Robot.oi.returnRightSlider();
-        RightJoystickXValue = Robot.oi.GetJoystickXValue(RobotMap.KOI.RIGHT_JOYSTICK) * Robot.oi.returnRightSlider();
-        leftJoystickZValue = Robot.oi.GetJoystickZValue(RobotMap.KOI.LEFT_JOYSTICK) * Robot.oi.returnLeftSlider();
+        
+        RightJoystickYValue = Robot.oi.GetJoystickYValue(RobotMap.KOI.RIGHT_JOYSTICK) * Robot.oi.returnRightSlider() *areMotorsTooHot();
+        RightJoystickXValue = Robot.oi.GetJoystickXValue(RobotMap.KOI.RIGHT_JOYSTICK) * Robot.oi.returnRightSlider() *areMotorsTooHot();
+        leftJoystickZValue = Robot.oi.GetJoystickZValue(RobotMap.KOI.LEFT_JOYSTICK) * Robot.oi.returnLeftSlider() *areMotorsTooHot();
         if (OI.turnTo0.get()) {
             leftJoystickZValue += Robot.driveTrain.turnToAnglePID(90);
         }

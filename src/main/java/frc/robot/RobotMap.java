@@ -36,6 +36,7 @@ public class RobotMap {
 				FRONT_RIGHT_SPARK_ID = 1, 
 				REAR_LEFT_SPARK_ID = 2,
 				REAR_RIGHT_SPARK_ID = 3;
+			public static final double OVERHEAT_CONSTANT = 160;
 		}
 
 		public interface KLift {
