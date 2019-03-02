@@ -32,8 +32,6 @@ public class DriveTrain extends Subsystem {
 	PIDOut turner = new PIDOut();
 	PIDController turnController;
 
-	overheat = KDrivetrain.OVERHEAT_CONSTANT;
-
 	public boolean isTooHot = false;
 	
 	public DriveTrain() {
@@ -77,29 +75,21 @@ public class DriveTrain extends Subsystem {
 		SmartDashboard.putNumber("Drivetrain PID Rate", rotationRate);
 		return rotationRate;
 	}
-	double frontLeftTemp = frontLeftMotor.getMotorTemperature()*9/5 +32;
-	double frontRightTemp = frontRightMotor.getMotorTemperature()*9/5 +32;
-	double rearLeftTemp = rearLeftMotor.getMotorTemperature()*9/5 +32;
-	double rearRightTemp = rearRightMotor.getMotorTemperature()*9/5 +32;
-
-	double avgTemp = (frontLeftTemp + frontRightTemp + rearLeftTemp + rearRightTemp)/4;
-
+	
 	public void getNumbers()
 	{
-		
+		double frontLeftTemp = frontLeftMotor.getMotorTemperature()*9/5 +32;
+		double frontRightTemp = frontRightMotor.getMotorTemperature()*9/5 +32;
+		double rearLeftTemp = rearLeftMotor.getMotorTemperature()*9/5 +32;
+		double rearRightTemp = rearRightMotor.getMotorTemperature()*9/5 +32;
+
 		SmartDashboard.putNumber("Front Left Motor Temperature ", frontLeftTemp);
 		SmartDashboard.putNumber("Front Right Motor Temperature ", frontRightTemp);
 		SmartDashboard.putNumber("Rear Left Motor Temperature ", rearLeftTemp);
 		SmartDashboard.putNumber("Rear Right Motor Temperature ", rearRightTemp);
 
-		SmartDashboard.putNumber("Average motor Temperature", avgTemp);
 	}
-	public boolean tooHot()
-	{
-		if(avgTemp >){isTooHot = true;} 
-		return isTooHot;
-	}
-	
+
 	public void periodic()
 	{
 		getNumbers();
