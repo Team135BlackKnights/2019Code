@@ -11,7 +11,6 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import frc.robot.Robot;
-import frc.robot.RobotMap;
 import frc.robot.RobotMap.Robot.*;
 import frc.robot.commands.MotorCommands.*;
 import frc.robot.util.PIDIn;
