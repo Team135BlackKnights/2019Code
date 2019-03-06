@@ -15,10 +15,7 @@ public class Robot extends TimedRobot {
 	public static Intake intake;
 	public static EndGame endgame;
 	public static Limelight limelight;
-	public static NavX navx;
-	public static Pigeon pigeon;
-	public static UltrasonicSensor ultra;
-
+	
 	public static boolean isComp;
 
 	Command autonomousCommand;
@@ -35,12 +32,7 @@ public class Robot extends TimedRobot {
 		intake = Intake.getInstance();
 		endgame = EndGame.getInstance();
 		limelight = Limelight.getInstance();
-	//	if (isComp)
-		navx = NavX.getInstance();
-	//	else
-		pigeon = Pigeon.getInstance();
-		ultra = UltrasonicSensor.getInstance();
-		oi = OI.getInstance();
+		//oi = OI.getInstance();
 
 		Robot.limelight.SetLEDMode(Limelight.LED_OFF);
 	}

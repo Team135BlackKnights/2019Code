@@ -1,7 +1,5 @@
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.PIDController;
-import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import com.revrobotics.CANSparkMax.IdleMode;
@@ -11,11 +9,8 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import frc.robot.Robot;
-import frc.robot.RobotMap;
 import frc.robot.RobotMap.Robot.*;
 import frc.robot.commands.MotorCommands.*;
-import frc.robot.util.PIDIn;
-import frc.robot.util.PIDOut;
 
 public class DriveTrain extends Subsystem {
 	public static DriveTrain instance;
@@ -27,26 +22,9 @@ public class DriveTrain extends Subsystem {
 	public CANSparkMax rearRightMotor = new CANSparkMax(KDrivetrain.REAR_RIGHT_SPARK_ID, MotorType.kBrushless);
 
 	MecanumDrive chassis = new MecanumDrive(frontLeftMotor, rearLeftMotor, frontRightMotor, rearRightMotor);
-	
-	PIDIn gyro;
-	PIDOut turner = new PIDOut();
-	PIDController turnController;
-
-	public boolean isTooHot = false;
+	public static int Forward, Backward, Left, Right;
 	
 	public DriveTrain() {
-		if (isCompBot)
-		{
-			gyro = new PIDIn(() -> Robot.navx.getFusedAngle(), PIDSourceType.kDisplacement);
-		}
-		else {
-			gyro = new PIDIn(() -> Robot.pigeon.getFusedAngle(), PIDSourceType.kDisplacement);
-		}
-		turnController = new PIDController(0.04f, .01f, 0.01f, gyro, turner);
-		turnController.setInputRange(0.0, 360.0f);
-		turnController.setOutputRange(-.5, .5);
-		turnController.setAbsoluteTolerance(10);
-		turnController.setContinuous(true);
 		
 		ConfigSpark(frontLeftMotor);
 		ConfigSpark(frontRightMotor);
@@ -67,15 +45,28 @@ public class DriveTrain extends Subsystem {
 	spark.setIdleMode(IdleMode.kBrake);
 	spark.setInverted(false);
 	}
-
-	public double turnToAnglePID(double angleSetpoint) {
-		turnController.setSetpoint(angleSetpoint);
-		turnController.enable();
-		double rotationRate = turnController.get();
-		SmartDashboard.putNumber("Drivetrain PID Rate", rotationRate);
-		return rotationRate;
+	public void DriveDirection(int direction)
+	{	
+		if (direction == Forward)
+		{
+			cartesianDrive(0,.3, 0);
+		}
+		else if (direction == Right)
+		{
+			cartesianDrive(.3, 0, 0);
+		}
+		else if (direction == Backward)
+		{
+			cartesianDrive(0,-.3,0);
+		}
+		else if (direction == Left)
+		{
+			cartesianDrive(-.3, 0, 0);
+		}
 	}
+
 	
+
 	public void getNumbers()
 	{
 		double frontLeftTemp = frontLeftMotor.getMotorTemperature()*9/5 +32;

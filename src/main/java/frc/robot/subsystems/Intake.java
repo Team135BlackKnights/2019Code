@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap.Robot.*;
+import frc.robot.commands.MotorCommands.RunIntakePOV;
 
 public class Intake extends Subsystem {
 	public static Intake instance;
@@ -61,6 +62,8 @@ public class Intake extends Subsystem {
 
 	@Override
 	protected void initDefaultCommand() {
+		setDefaultCommand(new RunIntakePOV(2));
+
 	}
 
 	public static Intake getInstance() {
