@@ -35,8 +35,8 @@ public class OI {
 		RunEndgameUP_POV = new JoystickButton(rightJoystick, KOI.BUTTON_4),
 		RunEndgameDown = new JoystickButton(rightJoystick, KOI.BUTTON_6),
 
-		RunWheelsIn = new JoystickButton(manipJoystick, KOI.TRIGGER_BUTTON),
-		RunWheelsOut = new JoystickButton(manipJoystick, KOI.THUMB_BUTTON),
+		RunWheelsIn = new JoystickButton(manipJoystick, KOI.THUMB_BUTTON),
+		RunWheelsOut = new JoystickButton(manipJoystick, KOI.TRIGGER_BUTTON),
 
 		RunElbowUP_POV = new JoystickButton(manipJoystick, KOI.BUTTON_6),
 		RunElbowDown = new JoystickButton(manipJoystick, KOI.BUTTON_4),
