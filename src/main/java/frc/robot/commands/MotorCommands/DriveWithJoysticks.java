@@ -31,7 +31,7 @@ public class DriveWithJoysticks extends Command {
         RightJoystickYValue = Robot.oi.GetJoystickYValue(RobotMap.KOI.RIGHT_JOYSTICK) * Robot.oi.returnRightSlider();
         RightJoystickXValue = Robot.oi.GetJoystickXValue(RobotMap.KOI.RIGHT_JOYSTICK) * Robot.oi.returnRightSlider();
         LeftJoystickZValue = Robot.oi.GetJoystickZValue(RobotMap.KOI.LEFT_JOYSTICK) * Robot.oi.returnLeftSlider();
-      
+        
          if (OI.PovDirection(KOI.RIGHT_JOYSTICK, OI.UP_POV))
          {
              Robot.driveTrain.cartesianDrive(0, POV_DRIVE_SPEED, 0);
@@ -56,14 +56,19 @@ public class DriveWithJoysticks extends Command {
              SmartDashboard.putString("POV DIRECTION","Left");
 
          }
+         
          else if (OI.fullSpeedTurn())
          {
-             Robot.driveTrain.cartesianDrive(RightJoystickXValue, RightJoystickYValue, -LeftJoystickZValue);
+             Robot.driveTrain.cartesianDrive(Math.pow(RightJoystickXValue, 2) * (RightJoystickXValue < 0 ? -1 : 1), 
+             Math.pow(RightJoystickYValue, 2) * (RightJoystickYValue < 0 ? -1 : 1), 
+             -Math.pow(LeftJoystickZValue, 2)* (LeftJoystickZValue < 0 ? -1 : 1));
          }
          else 
-         {
-             Robot.driveTrain.cartesianDrive(RightJoystickXValue, RightJoystickYValue,-LeftJoystickZValue *.35);
-         }
+        {
+            Robot.driveTrain.cartesianDrive(Math.pow(RightJoystickXValue, 2) * (RightJoystickXValue < 0 ? -1 : 1),
+                Math.pow(RightJoystickYValue, 2) * (RightJoystickYValue < 0 ? -1 : 1), 
+                -Math.pow(LeftJoystickZValue, 2) * (LeftJoystickZValue < 0 ? -1 : 1) * .35);
+       }
          SmartDashboard.putNumber("Right Pov Value", OI.GetAnglePov(1));
         }
 

@@ -79,7 +79,8 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void teleopPeriodic() {
-		//Scheduler.getInstance().run();
+		Scheduler.getInstance().run();
+		/*
 		if (LEDBRIGHTNESS > 254)
 		adder = -1;
 		if (LEDBRIGHTNESS < 1)
@@ -91,9 +92,10 @@ public class Robot extends TimedRobot {
 		toSend = "0" + toSend.charAt(0) + toSend.charAt(1);
 		if (toSend.length() == 1)
 		toSend = "00" + toSend.charAt(0);
-		System.out.println(toSend);
-		LEDON("B" + toSend + "T");
-		LEDON("B" + toSend + "B");
+		*/
+		//System.out.println(toSend);
+		//LEDON("B" + toSend + "T");
+		//LEDON("B" + toSend + "B");
 	}
 
 	@Override

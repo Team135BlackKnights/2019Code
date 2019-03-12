@@ -95,6 +95,11 @@ public class OI {
 	public static boolean fieldOrientated() {
 		return fieldOrientated.get();
 	}
+	public void isJoystickPluggedin(int joystickNumber)
+	{
+		//boolean yes = joysticks[joystickNumber].getPort();
+		//if (yes)
+	}
 
 	public static boolean fullSpeedTurn()
 	{

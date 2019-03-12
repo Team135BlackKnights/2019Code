@@ -26,7 +26,7 @@ public class RobotMap {
 			BUTTON_12 = 12;
 
 		public static final double 
-			JOYSTICK_DEADBAND = .1;
+			JOYSTICK_DEADBAND = .15;
 	}
 
 	public interface Robot {
