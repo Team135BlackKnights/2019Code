@@ -44,7 +44,7 @@ public class DriveTrain extends Subsystem {
 	
 	public DriveTrain() {
 		ConfigSparks();
-		InitPID();
+		//InitPID();
 	}
 	public void ConfigSpark(CANSparkMax spark)
 	{
@@ -275,8 +275,8 @@ public class DriveTrain extends Subsystem {
 	public void periodic()
 	{
 		getMotorTemps();
-		getEncoderReadouts();
-		SmartDashPID();
+		//getEncoderReadouts();
+		//SmartDashPID();
 	}
 
 	public void StopMotors() {

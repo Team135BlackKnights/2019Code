@@ -27,14 +27,14 @@ public class DriveWithJoysticks extends Command {
         RightJoystickYValue = Robot.oi.GetJoystickYValue(RobotMap.KOI.RIGHT_JOYSTICK) * Robot.oi.returnRightSlider();
         RightJoystickXValue = Robot.oi.GetJoystickXValue(RobotMap.KOI.RIGHT_JOYSTICK) * Robot.oi.returnRightSlider();
         LeftJoystickZValue = Robot.oi.GetJoystickZValue(RobotMap.KOI.LEFT_JOYSTICK) * Robot.oi.returnLeftSlider();
-     
+        
          if (OI.fullSpeedTurn())
          {
-             Robot.driveTrain.cartesianPID(RightJoystickXValue, RightJoystickYValue, -LeftJoystickZValue);
+             Robot.driveTrain.cartesianDrive(RightJoystickXValue, RightJoystickYValue, -LeftJoystickZValue);
          }
          else 
          {
-             Robot.driveTrain.cartesianPID(RightJoystickXValue, RightJoystickYValue,-LeftJoystickZValue *.40);
+             Robot.driveTrain.cartesianDrive(RightJoystickXValue, RightJoystickYValue,-LeftJoystickZValue *.40);
          }
         }
 
