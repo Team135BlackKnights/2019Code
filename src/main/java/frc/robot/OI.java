@@ -2,11 +2,9 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.MotorCommands.*;
 import frc.robot.commands.PnuematicCommands.*;
 
-import frc.robot.commands.Sensors.*;
 import frc.robot.RobotMap.KOI;
 
 public class OI {
@@ -15,10 +13,6 @@ public class OI {
 		rightJoystick = new Joystick(KOI.RIGHT_JOYSTICK),
 		manipJoystick = new Joystick(KOI.MANIP_JOYSTICK);
 
-		public static double povValue;
-		public static boolean PovDirection;
-		public static final int 
-		UP_POV =0, RIGHT_POV =1, LEFT_POV = 2, DOWN_POV = 3;
 	public static Joystick[] joysticks = {leftJoystick, rightJoystick, manipJoystick};
 
 	public static JoystickButton 
@@ -35,8 +29,8 @@ public class OI {
 		RunEndgameUP_POV = new JoystickButton(rightJoystick, KOI.BUTTON_4),
 		RunEndgameDown = new JoystickButton(rightJoystick, KOI.BUTTON_6),
 
-		RunWheelsIn = new JoystickButton(manipJoystick, KOI.THUMB_BUTTON),
-		RunWheelsOut = new JoystickButton(manipJoystick, KOI.TRIGGER_BUTTON),
+		RunWheelsIn = new JoystickButton(manipJoystick, KOI.TRIGGER_BUTTON),
+		RunWheelsOut = new JoystickButton(manipJoystick, KOI.THUMB_BUTTON),
 
 		RunElbowUP_POV = new JoystickButton(manipJoystick, KOI.BUTTON_6),
 		RunElbowDown = new JoystickButton(manipJoystick, KOI.BUTTON_4),
@@ -52,19 +46,17 @@ public class OI {
 		LifttoPos1 = new JoystickButton(manipJoystick, KOI.BUTTON_10),
 		LifttoPos2 = new JoystickButton(manipJoystick, KOI.BUTTON_11),
 		LifttoPos3 = new JoystickButton(manipJoystick, KOI.BUTTON_12),
-		resetEncoder = new JoystickButton(manipJoystick, KOI.BUTTON_6);
+		resetEncoder = new JoystickButton(manipJoystick, KOI.BUTTON_8);
 
 	public static OI instance;
 
 	public OI() {
-		//resetButton.toggleWhenActive(new ResetGyro());
-
 		ReleaseHatch.whenActive(new ReleaseHatch(true));
 		ReleaseEndGame.whenActive(new ReleaseEndgame(false));
 		IntakeEndGame.whenActive(new ReleaseEndgame(true));
 
-		RunWheelsIn.whileHeld(new RunIntakeWheels(-1));
-		RunWheelsOut.whileHeld(new RunIntakeWheels(1));
+		RunWheelsIn.whileHeld(new RunIntakeWheels(1));
+		RunWheelsOut.whileHeld(new RunIntakeWheels(-1));
 
 		RunElbowDown.whileHeld(new MoveIntakeElbow(1));
 		RunElbowUP_POV.whileHeld(new MoveIntakeElbow(-1));
@@ -73,7 +65,6 @@ public class OI {
 		RunEndgameDown.whileHeld(new RunEndGame(-1));
 
 		CompressorToggle.toggleWhenPressed(new ToggleCompressor());
-		resetEncoder.whenPressed(new resetEncoderLift());
 	}
 
 	private double DeadbandJoystickValue(double joystickValue) {
@@ -95,11 +86,6 @@ public class OI {
 	public static boolean fieldOrientated() {
 		return fieldOrientated.get();
 	}
-	public void isJoystickPluggedin(int joystickNumber)
-	{
-		//boolean yes = joysticks[joystickNumber].getPort();
-		//if (yes)
-	}
 
 	public static boolean fullSpeedTurn()
 	{
@@ -110,46 +96,6 @@ public class OI {
 	{
 		return joysticks[joystickNumber].getPOV();
 	}
-	public static boolean PovDirection(int joystickNumber,int povDirection)
-	{
-		povValue = GetAnglePov(joystickNumber);
-
-		switch(povDirection) {
-			case (UP_POV):
-				if (povValue >= 315.0 || (povValue <= 45.0 && povValue != -1)) {
-					PovDirection = true;
-				}
-				else {
-					PovDirection = false;
-				}
-				break;
-			case (RIGHT_POV):
-				if (povValue >= 45.0 && povValue <= 135.0) {
-					PovDirection = true;
-				}
-				else {
-					PovDirection = false;
-				}
-				break;
-			case (DOWN_POV):
-				if (povValue >= 135.0 && povValue <= 225.0) {
-					PovDirection = true;
-				}
-				else {
-					PovDirection = false;
-				}
-				break;
-			case (LEFT_POV):
-				if (povValue >= 225.0 && povValue <= 315.0) {
-					PovDirection = true;
-				}
-				else {
-					PovDirection = false;
-				}
-				break;
-			}
-			return PovDirection;
-		}
 
 	public static int liftButtons() {
 		if (LifttoPos0.get()) {
@@ -180,9 +126,6 @@ public class OI {
 	public double returnRightSlider() {
 		return (-((Math.abs(rightJoystick.getRawAxis(3)) < KOI.JOYSTICK_DEADBAND) ? 
 			0 : rightJoystick.getRawAxis(3)) + 1) / 2;
-	}
-	public void periodic() {
-		SmartDashboard.putNumber("RIGHT POV", GetAnglePov(1));
 	}
 
 	public static OI getInstance() {if (instance == null) {instance = new OI();}return instance;}

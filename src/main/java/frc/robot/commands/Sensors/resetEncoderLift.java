@@ -1,7 +1,6 @@
 package frc.robot.commands.Sensors;
 
 import edu.wpi.first.wpilibj.command.InstantCommand;
-import frc.robot.Robot;
 
 public class resetEncoderLift extends InstantCommand {
   public resetEncoderLift() {

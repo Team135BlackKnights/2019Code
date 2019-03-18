@@ -30,6 +30,8 @@ public class DriveTrain extends Subsystem {
 	public CANPIDController frontLeftPID, rearLeftPID, frontRightPID, rearRightPID;
 
 	public double frontLeftSetpoint, rearLeftSetpoint, frontRightSetpoint, rearRightSetpoint;
+	
+	public boolean isPIDDrive ;
 
 	public double
 	FL_P, FL_I, FL_D, FR_P, FR_I, FR_D,
@@ -43,6 +45,7 @@ public class DriveTrain extends Subsystem {
 	public static int Forward, Backward, Left, Right;
 	
 	public DriveTrain() {
+
 		ConfigSparks();
 		InitPID();
 	}
@@ -71,12 +74,12 @@ public class DriveTrain extends Subsystem {
 		frontRightPID = frontRightMotor.getPIDController();
 		rearRightPID = rearRightMotor.getPIDController();
 
-		FL_P = 8.59; FR_P = 8.59;
-		FL_I = -3.28; FR_I = -3.28;
+		FL_P = 5e-5; FR_P = 5e-5;
+		FL_I = 1e-6; FR_I = 1e-6;
 		FL_D = 0;	 FR_D = 0;
 
-		RL_P = 8.59; RR_P = 8.59;
-		RL_I = -3.28; RR_I = -3.28;
+		RL_P = 5e-5; RR_P = 5e-5;
+		RL_I = 1e-6; RR_I = 1e-6;
 		RL_D = 0;	 RR_D = 0;
 		
 		kMax =1; kMin =-1;
@@ -105,23 +108,29 @@ public class DriveTrain extends Subsystem {
 	 {
 		chassis.driveCartesian(x, y, z, gyro);
 	}
-	public void cartesianPID(double x, double y , double z)
-	{
+	public void cartesianPID(double x, double y , double zRotation)
+	{	
+		int isTurning;
+		if (zRotation !=0)
+		{
+			isTurning = -1;
+		}
+		else {
+			isTurning = -1;
+		}
 			frontLeft = 0; rearLeft = 1; frontRight = 2; rearRight = 3;
 			Vector2d input = new Vector2d(y, x);
 
 			double[] wheelSpeeds = new double[4];
-			wheelSpeeds[frontLeft] = -input.x + input.y + z;
-			wheelSpeeds[rearLeft] = input.x + input.y + z;
-			wheelSpeeds[frontRight] = -input.x + input.y + z;
-			wheelSpeeds[rearRight] = input.x + input.y + z;
-
-			normalize(wheelSpeeds);
+   		 wheelSpeeds[frontLeft] = input.x + input.y + zRotation;
+   		 wheelSpeeds[frontRight] = -input.x + input.y - zRotation;
+   		 wheelSpeeds[rearLeft] = -input.x + input.y + zRotation;
+   		 wheelSpeeds[rearRight] = input.x + input.y - zRotation;
 
 			frontLeftSetpoint = wheelSpeeds[frontLeft] * maxRPM;
-			rearLeftSetpoint = -wheelSpeeds[rearLeft] * maxRPM;
+			rearLeftSetpoint = wheelSpeeds[rearLeft] * maxRPM *isTurning;
 			frontRightSetpoint = wheelSpeeds[frontRight] * maxRPM;
-			rearRightSetpoint = -wheelSpeeds[rearRight] * maxRPM;
+			rearRightSetpoint = wheelSpeeds[rearRight] * maxRPM *isTurning;
 
 			frontLeftPID.setReference(frontLeftSetpoint, ControlType.kVelocity);
 			rearLeftPID.setReference(rearLeftSetpoint, ControlType.kVelocity);
@@ -129,21 +138,6 @@ public class DriveTrain extends Subsystem {
 			rearRightPID.setReference(rearRightSetpoint, ControlType.kVelocity);	
 	 }
 
-	 public void normalize(double[] wheelSpeeds) 
-	 {
-	 double maxMagnitude = Math.abs(wheelSpeeds[0]);
-	 for (int i = 1; i < wheelSpeeds.length; i++) {
-	   double temp = Math.abs(wheelSpeeds[i]);
-	   if (maxMagnitude < temp) {
-		 maxMagnitude = temp;
-	   }
-	 }
-	 if (maxMagnitude > 1.0) {
-	   for (int i = 0; i < wheelSpeeds.length; i++) {
-		 wheelSpeeds[i] = wheelSpeeds[i] / maxMagnitude;
-	   }
-	 }
-	}
 	
 	public void DriveDirection(int direction, double power)
 	{	
@@ -264,19 +258,18 @@ public class DriveTrain extends Subsystem {
 	
 	}
 
-	public void SmartdashDrive()
-	{
-		distance = SmartDashboard.getNumber("Distance To Drive:", 0);
-		SmartDashboard.putNumber("Distance to Drive: ", distance);
-
-		driveToPID(distance);
-	}
-
 	public void periodic()
 	{
+		isPIDDrive = SmartDashboard.getBoolean("Is PID DRIVE", false);
+		SmartDashboard.putBoolean("Is PID DRIVE", isPIDDrive);
+
 		getMotorTemps();
-		getEncoderReadouts();
-		SmartDashPID();
+		if (isPIDDrive)
+		{
+			getEncoderReadouts();
+			SmartDashPID();
+		}
+	
 	}
 
 	public void StopMotors() {
