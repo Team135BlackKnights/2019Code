@@ -26,13 +26,13 @@ public class OI {
 		fullSpeedTurn = new JoystickButton(leftJoystick, KOI.TRIGGER_BUTTON),
 		resetButton = new JoystickButton(rightJoystick, KOI.BUTTON_12),
 		turnButton = new JoystickButton(rightJoystick, KOI.BUTTON_11),
-		RunEndgameUP_POV = new JoystickButton(rightJoystick, KOI.BUTTON_4),
+		RunEndgameUp = new JoystickButton(rightJoystick, KOI.BUTTON_4),
 		RunEndgameDown = new JoystickButton(rightJoystick, KOI.BUTTON_6),
 
 		RunWheelsIn = new JoystickButton(manipJoystick, KOI.TRIGGER_BUTTON),
 		RunWheelsOut = new JoystickButton(manipJoystick, KOI.THUMB_BUTTON),
 
-		RunElbowUP_POV = new JoystickButton(manipJoystick, KOI.BUTTON_6),
+		RunElbowUp = new JoystickButton(manipJoystick, KOI.BUTTON_6),
 		RunElbowDown = new JoystickButton(manipJoystick, KOI.BUTTON_4),
 
 		ReleaseHatch = new JoystickButton(manipJoystick, KOI.BUTTON_3),
@@ -59,9 +59,9 @@ public class OI {
 		RunWheelsOut.whileHeld(new RunIntakeWheels(-1));
 
 		RunElbowDown.whileHeld(new MoveIntakeElbow(1));
-		RunElbowUP_POV.whileHeld(new MoveIntakeElbow(-1));
+		RunElbowUp.whileHeld(new MoveIntakeElbow(-1));
 
-		RunEndgameUP_POV.whileHeld(new RunEndGame(1));
+		RunEndgameUp.whileHeld(new RunEndGame(1));
 		RunEndgameDown.whileHeld(new RunEndGame(-1));
 
 		CompressorToggle.toggleWhenPressed(new ToggleCompressor());
@@ -85,16 +85,6 @@ public class OI {
 
 	public static boolean fieldOrientated() {
 		return fieldOrientated.get();
-	}
-
-	public static boolean fullSpeedTurn()
-	{
-		return fullSpeedTurn.get();
-	}
-
-	public static int GetAnglePov(int joystickNumber)
-	{
-		return joysticks[joystickNumber].getPOV();
 	}
 
 	public static int liftButtons() {

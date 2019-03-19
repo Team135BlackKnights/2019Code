@@ -17,17 +17,11 @@ public class Robot extends TimedRobot {
 	public static Limelight limelight;
 	
 
-	public static boolean isComp;
+	public static boolean isComp = true;
 
 	Command autonomousCommand;
-	SendableChooser<String> chooser = new SendableChooser<>();
-	static SendableChooser<Boolean> isCompBot = new SendableChooser<>();
 	@Override
 	public void robotInit() {
-		isCompBot.setDefaultOption("IsCompBot",true); 
-		isCompBot.addOption("IsPracticeBot", false);
-		SmartDashboard.putData(isCompBot);
-		isComp = isCompBot.getSelected();
 		driveTrain = DriveTrain.getInstance();
 		lift = Lift.getInstance();
 		intake = Intake.getInstance();
