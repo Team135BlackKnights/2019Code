@@ -26,7 +26,7 @@ public class RobotMap {
 			BUTTON_12 = 12;
 
 		public static final double 
-			JOYSTICK_DEADBAND = .1;
+			JOYSTICK_DEADBAND = .15;
 	}
 
 	public interface Robot {
@@ -36,10 +36,7 @@ public class RobotMap {
 				FRONT_RIGHT_SPARK_ID = 1, 
 				REAR_LEFT_SPARK_ID = 2,
 				REAR_RIGHT_SPARK_ID = 3;
-
-			public static final int 
-			COUNTS_PER_REV = 4096,
-			WHEEL_DIAMETER = 6;
+			public static final double OVERHEAT_CONSTANT = 160;
 		}
 
 		public interface KLift {
@@ -49,16 +46,13 @@ public class RobotMap {
 				LIFT_LEFT_SPARK = 5, 
 				LIFT_RIGHT_SPARK = 6,
 
-				LIFT_TOLERANCE = 2, // ticks
-				LIFT_PIDTOLERANCE = 20,
+				LIFT_TOLERANCE = 15, // ticks
+				
+				LIFT_SETPOINT_0 = 10, 
+				LIFT_SETPOINT_1 = 48, 
+				LIFT_SETPOINT_2 = 342,
+				LIFT_SETPOINT_3 = 674;
 
-				LIFT_SETPOINT_0 = 4, 
-				LIFT_SETPOINT_1 = 8, 
-				LIFT_SETPOINT_2 = 70,
-				LIFT_SETPOINT_3 = 124;
-			public static final double 
-				STATICP = 0.5,
-				ERRORP = 0.5;
 			public static final int[] 
 				LIFT_SETPOINTS = { LIFT_SETPOINT_0, LIFT_SETPOINT_1, LIFT_SETPOINT_2, LIFT_SETPOINT_3 };
 
@@ -91,7 +85,13 @@ public class RobotMap {
 
 		public interface Sensors {
 			public static final int 
-				
+				LEFT_TRIG = 1, 
+				LEFT_ECHO = 0, 
+				RIGHT_TRIG = 3, 
+				RIGHT_ECHO = 2, 
+				INTAKE_TRIG = 5,
+				INTAKE_ECHO = 4,
+
 				INTAKE_BUTTON_ID = 9, 
 				ENDGAME_SWITCH_ID = 6,
 
