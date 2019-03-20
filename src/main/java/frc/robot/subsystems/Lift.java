@@ -19,11 +19,12 @@ public class Lift extends Subsystem {
 
 	public CANEncoder encoder;
 
-	public static double setpoint = 0;
+	public double kP = 1.0;
+	public static double setpoint = 10;
 	public static int setpointIndex = 0;
+	public double motorValue = 0;
 
 	private Lift() {
-		setpoint = getEncoderPosition();
 		LeftLiftSpark = new CANSparkMax(KLift.LIFT_LEFT_SPARK, MotorType.kBrushless);
 		RightLiftSpark = new CANSparkMax(KLift.LIFT_RIGHT_SPARK, MotorType.kBrushless);
 
@@ -78,6 +79,14 @@ public class Lift extends Subsystem {
 			}
 			SmartDashboard.putNumber("Error", error);
 			SmartDashboard.putNumber("Lift Motor Value", direction * KLift.ERRORP * Math.abs(error) / ( (targetPosition > encoderPosition) ? targetPosition : encoderPosition));
+			/*
+			double dividevalue = Math.abs(targetPosition) < 1.0 ? 1.0 : Math.abs(targetPosition);
+			dividevalue /= Math.abs(error) > 30 ? 2.0 : 1.0;
+			SmartDashboard.putNumber("RunLiftValue", kP * (error) / dividevalue + 0.35 * direction);
+			RunLift(kP * (error) / dividevalue + 0.35 * direction);
+			encoderPosition = getEncoderPosition();
+			error = targetPosition - encoderPosition;
+			*/
 		} 
 		else 
 		{
