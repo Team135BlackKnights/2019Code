@@ -4,16 +4,17 @@ import frc.robot.*;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class MoveIntakeElbow extends Command {
+public class MoveIntakeElbow extends Command 
+{
 	private double _power;
 
-	public MoveIntakeElbow(double power) {
+	public MoveIntakeElbow(double power) 
+	{
 		requires(Robot.intake);
 		_power = power;
 	}
 
 	protected void execute() {
-		
 		Robot.intake.RunElbow(_power);
 	}
 

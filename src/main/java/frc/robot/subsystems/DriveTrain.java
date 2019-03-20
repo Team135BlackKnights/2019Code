@@ -12,10 +12,8 @@ import frc.robot.Robot;
 import frc.robot.RobotMap.Robot.*;
 import frc.robot.commands.MotorCommands.*;
 
-import edu.wpi.first.wpilibj.drive.*;
-
-
-public class DriveTrain extends Subsystem {
+public class DriveTrain extends Subsystem
+{
 	public static DriveTrain instance;
 	public boolean isCompBot = Robot.isComp;
 	public int frontLeft, rearLeft, frontRight, rearRight;
@@ -28,10 +26,9 @@ public class DriveTrain extends Subsystem {
 	public CANEncoder frontLeftEncoder, rearLeftEncoder, frontRightEncoder, rearRightEncoder;
 
 	MecanumDrive chassis = new MecanumDrive(frontLeftMotor, rearLeftMotor, frontRightMotor, rearRightMotor);
-
-	public static int Forward, Backward, Left, Right;
 	
-	public DriveTrain() {
+	public DriveTrain()
+	{
 		ConfigSpark(frontLeftMotor);
 		ConfigSpark(frontRightMotor);
 		ConfigSpark(rearLeftMotor);
@@ -43,7 +40,8 @@ public class DriveTrain extends Subsystem {
 		spark.setInverted(false);
 	}
 	
-	public void cartesianDrive(double x, double y, double z) {
+	public void cartesianDrive(double x, double y, double z)
+	{
 		chassis.driveCartesian(x, y, z);
 	}
 
@@ -60,19 +58,12 @@ public class DriveTrain extends Subsystem {
 		SmartDashboard.putNumber("Rear Right Motor Temperature ", rearRightMotor.getMotorTemperature()*9/5 +32);
 	}
 
-	public void StopMotors() {
+	public void StopMotors()
+	{
 		cartesianDrive(0, 0, 0);
 	}
 
-	public static DriveTrain getInstance() {
-		if (instance == null) {
-			instance = new DriveTrain();
-		}
-		return instance;
-	}
+	public void initDefaultCommand() {setDefaultCommand(new DriveWithJoysticks());}
 
-	public void initDefaultCommand() {
-		setDefaultCommand(new DriveWithJoysticks());
-	}
-
+	public static DriveTrain getInstance() {if (instance == null) {instance = new DriveTrain();}return instance;}
 }
