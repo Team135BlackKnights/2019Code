@@ -5,7 +5,7 @@ import frc.robot.Robot;
 
 public class resetEncoderLift extends InstantCommand {
   public resetEncoderLift() {
-    //requires(Robot.lift);
+    requires(Robot.lift);
   }
 
   // Called just before this Command runs the first time

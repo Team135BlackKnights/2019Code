@@ -29,15 +29,15 @@ public class OI {
 		RunEndgameUp = new JoystickButton(rightJoystick, KOI.BUTTON_4),
 		RunEndgameDown = new JoystickButton(rightJoystick, KOI.BUTTON_6),
 
-		RunWheelsIn = new JoystickButton(manipJoystick, KOI.TRIGGER_BUTTON),
-		RunWheelsOut = new JoystickButton(manipJoystick, KOI.THUMB_BUTTON),
+		RunWheelsOut = new JoystickButton(manipJoystick, KOI.TRIGGER_BUTTON),
+		RunWheelsIn = new JoystickButton(manipJoystick, KOI.THUMB_BUTTON),
 
 		RunElbowUp = new JoystickButton(manipJoystick, KOI.BUTTON_6),
 		RunElbowDown = new JoystickButton(manipJoystick, KOI.BUTTON_4),
 
 		ReleaseHatch = new JoystickButton(manipJoystick, KOI.BUTTON_3),
-		ReleaseEndGame = new JoystickButton(rightJoystick, KOI.BUTTON_3),
-		IntakeEndGame = new JoystickButton(rightJoystick, KOI.BUTTON_5),
+		ReleaseEndGame = new JoystickButton(rightJoystick, KOI.BUTTON_5),
+		IntakeEndGame = new JoystickButton(rightJoystick, KOI.BUTTON_3),
 
 		RunEndGame = new JoystickButton(manipJoystick, KOI.THUMB_BUTTON),
 		CompressorToggle = new JoystickButton(manipJoystick, KOI.BUTTON_7),

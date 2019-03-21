@@ -66,7 +66,7 @@ public class Lift extends Subsystem {
 		} 
 		else if ((Math.abs(error) > KLift.LIFT_TOLERANCE)) {
 			if (Math.abs(error) > KLift.LIFT_PIDTOLERANCE)
-				RunLift(direction);
+				RunLift(direction * 0.8);
 			else
 			{
 				RunLift(direction * 

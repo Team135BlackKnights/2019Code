@@ -26,7 +26,7 @@ public class RobotMap {
 			BUTTON_12 = 12;
 
 		public static final double 
-			JOYSTICK_DEADBAND = .1;
+			JOYSTICK_DEADBAND = .2;
 	}
 
 	public interface Robot {
@@ -49,16 +49,16 @@ public class RobotMap {
 				LIFT_LEFT_SPARK = 5, 
 				LIFT_RIGHT_SPARK = 6,
 
-				LIFT_TOLERANCE = 2, // ticks
-				LIFT_PIDTOLERANCE = 20,
+				LIFT_TOLERANCE = 1, // ticks
+				LIFT_PIDTOLERANCE = 5,
 
 				LIFT_SETPOINT_0 = 4, 
-				LIFT_SETPOINT_1 = 8, 
-				LIFT_SETPOINT_2 = 70,
-				LIFT_SETPOINT_3 = 124;
+				LIFT_SETPOINT_1 = 10, 
+				LIFT_SETPOINT_2 = 72,
+				LIFT_SETPOINT_3 = 125;
 			public static final double 
-				STATICP = 0.5,
-				ERRORP = 0.5;
+				STATICP = 0.1,
+				ERRORP = 0.1;
 			public static final int[] 
 				LIFT_SETPOINTS = { LIFT_SETPOINT_0, LIFT_SETPOINT_1, LIFT_SETPOINT_2, LIFT_SETPOINT_3 };
 
