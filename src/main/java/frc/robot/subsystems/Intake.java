@@ -40,22 +40,34 @@ public class Intake extends Subsystem {
 		compressor.stop();
 	}
 
-	public void setCompressorOn()
-	 {compressor.setClosedLoopControl(true);}
+	public void setCompressorOn() {
+		compressor.setClosedLoopControl(true);
+	}
 
-	public void RunIntake(double power) 
-	{intake.set(ControlMode.PercentOutput, power);}
+	public void RunIntake(double power) {
+		intake.set(ControlMode.PercentOutput, power);
+	}
 
-	public void RunElbow(double power) 
-	{intakeElbow.set(ControlMode.PercentOutput, power);}
+	public void RunElbow(double power) {
+		intakeElbow.set(ControlMode.PercentOutput, power);
+	}
 
-	public void MoveSolenoid(boolean position) 
-	{solenoid.set(position);}
+	public void MoveSolenoid(boolean position) {
+		solenoid.set(position);
+	}
 
-	public void periodic() {}
+	public void periodic() {
+	}
 
 	@Override
-	protected void initDefaultCommand() {}
+	protected void initDefaultCommand() {
 
-	public static Intake getInstance() {if (instance == null) {instance = new Intake();}return instance;}
+	}
+
+	public static Intake getInstance() {
+		if (instance == null) {
+			instance = new Intake();
+		}
+		return instance;
+	}
 }

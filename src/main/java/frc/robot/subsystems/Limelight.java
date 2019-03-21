@@ -49,14 +49,17 @@ public class Limelight extends Subsystem {
 		return limelightData;
 	}
 
-	public void SetLEDMode(int onOrOff) 
-	{ledModeEntry.setNumber(onOrOff);}
+	public void SetLEDMode(int onOrOff) {
+		ledModeEntry.setNumber(onOrOff);
+	}
 
-	public void SetCameraMode(int cameraMode) 
-	{cameraModeEntry.setNumber(cameraMode);}
+	public void SetCameraMode(int cameraMode) {
+		cameraModeEntry.setNumber(cameraMode);
+	}
 
-	public void SetCameraPipeline(int pipeline) 
-	{limelightPipelineEntry.setNumber(pipeline);}
+	public void SetCameraPipeline(int pipeline) {
+		limelightPipelineEntry.setNumber(pipeline);
+	}
 	public void initLimelight(int ledMode, int pipeline)
 	{
 		SetLEDMode(ledMode);

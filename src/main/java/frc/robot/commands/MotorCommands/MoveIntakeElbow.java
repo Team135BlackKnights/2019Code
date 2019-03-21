@@ -14,13 +14,20 @@ public class MoveIntakeElbow extends Command
 		_power = power;
 	}
 
-	protected void execute()
-	{Robot.intake.RunElbow(_power);}
+	protected void execute() {
+		Robot.intake.RunElbow(_power);
+	}
 
 	@Override
-	protected boolean isFinished() {return false;}
+	protected boolean isFinished() {
+		return false;
+	}
 
-	protected void end() {Robot.intake.RunElbow(0);}
+	protected void end() {
+		Robot.intake.RunElbow(0);
+	}
 
-	protected void interrupted() {end();}
+	protected void interrupted() {
+		end();
+	}
 }

@@ -31,5 +31,8 @@ public class RunLift extends Command {
   }
 
   @Override
-  protected boolean isFinished() {return false;}
+  protected boolean isFinished() {
+    return false;
+  }
+
 }

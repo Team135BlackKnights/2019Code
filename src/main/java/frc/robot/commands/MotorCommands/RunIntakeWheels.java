@@ -10,13 +10,20 @@ public class RunIntakeWheels extends Command {
 		this.power = power;
 	}
 
-	protected void execute()
-	{Robot.intake.RunIntake(this.power);}
+	protected void execute() {
+		Robot.intake.RunIntake(this.power);
+	}
 
 	@Override
-	protected boolean isFinished() {return false;}
+	protected boolean isFinished() {
+		return false;
+	}
 
-	protected void end() {Robot.intake.RunIntake(0);}
+	protected void end() {
+		Robot.intake.RunIntake(0);
+	}
 
-	protected void interrupted() {end();}
+	protected void interrupted() {
+		end();
+	}
 }

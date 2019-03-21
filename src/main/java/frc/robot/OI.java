@@ -82,10 +82,15 @@ public class OI {
 	public double GetJoystickZValue(int joystickNumber) {
 		return DeadbandJoystickValue( -joysticks[joystickNumber].getZ() );
 	}
-	public boolean IsTurnFast()
+
+	public static boolean fieldOrientated() {
+		return fieldOrientated.get();
+	}
+	public static boolean turnFast()
 	{
 		return fullSpeedTurn.get();
 	}
+
 	public static int liftButtons() {
 		if (LifttoPos0.get()) {
 			return 0;
