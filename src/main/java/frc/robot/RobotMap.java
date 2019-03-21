@@ -93,11 +93,8 @@ public class RobotMap {
 			public static final int 
 				
 				INTAKE_BUTTON_ID = 9, 
-				ENDGAME_SWITCH_ID = 6,
+				ENDGAME_SWITCH_ID = 6;
 
-				LEFT_SONAR = 0,
-				RIGHT_SONAR = 1,
-				INTAKE_SONAR = 2;
 		}
 	}
 }

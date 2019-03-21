@@ -34,22 +34,13 @@ public class Lift extends Subsystem {
 		encoder = new CANEncoder(LeftLiftSpark);
 	}
 
-	public double getEncoderVelocity() {
-		return encoder.getVelocity();
-	}
+	public double getEncoderVelocity() {return encoder.getVelocity();}
 
-	public double getEncoderPosition() {
-		return encoder.getPosition();
-	}
+	public double getEncoderPosition() {return encoder.getPosition();}
 
-	public void resetEncoders() {
-		encoder.setPosition(0);
-	}
+	public void resetEncoders() {encoder.setPosition(0);}
 
-	public void RunLift(double power) {
-		LeftLiftSpark.set(power);
-		RightLiftSpark.set(power);
-	}
+	public void RunLift(double power) {	LeftLiftSpark.set(power);	RightLiftSpark.set(power);}
 
 	public void setToPosition() {
 		double encoderPosition = getEncoderPosition();
@@ -72,21 +63,11 @@ public class Lift extends Subsystem {
 				RunLift(direction * 
 				(KLift.STATICP + 
 				(KLift.ERRORP * Math.abs(error) / 
-				( (targetPosition > encoderPosition) ? targetPosition : encoderPosition)
-				)
-				)
-				);
+				( (targetPosition > encoderPosition) ? targetPosition : encoderPosition))));
 			}
 			SmartDashboard.putNumber("Error", error);
 			SmartDashboard.putNumber("Lift Motor Value", direction * KLift.ERRORP * Math.abs(error) / ( (targetPosition > encoderPosition) ? targetPosition : encoderPosition));
-			/*
-			double dividevalue = Math.abs(targetPosition) < 1.0 ? 1.0 : Math.abs(targetPosition);
-			dividevalue /= Math.abs(error) > 30 ? 2.0 : 1.0;
-			SmartDashboard.putNumber("RunLiftValue", kP * (error) / dividevalue + 0.35 * direction);
-			RunLift(kP * (error) / dividevalue + 0.35 * direction);
-			encoderPosition = getEncoderPosition();
-			error = targetPosition - encoderPosition;
-			*/
+
 		} 
 		else 
 		{
@@ -95,15 +76,15 @@ public class Lift extends Subsystem {
 	}
 
 	public void periodic() {
-		SmartDashboard.putNumber("Lift Encoder Position", getEncoderPosition());
+	//	SmartDashboard.putNumber("Lift Encoder Position", getEncoderPosition());
 		SmartDashboard.putData("Reset Lift Encoder", new resetEncoderLift());
-		setToPosition();
+		Robot.driveTrain.chassis.feedWatchdog();
+
 	}
 
 	@Override
-	protected void initDefaultCommand() {
-		setDefaultCommand(new RunLift(-1));
 	}
+	protected void initDefaultCommand() {setDefaultCommand(new RunLift(-1));}
 
 	public static Lift getInstance() {if (instance == null) {instance = new Lift();}return instance;}
 }

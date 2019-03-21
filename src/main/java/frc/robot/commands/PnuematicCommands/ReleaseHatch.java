@@ -7,8 +7,7 @@ import edu.wpi.first.wpilibj.command.Command;
 public class ReleaseHatch extends Command {
 	private static boolean solenoidPosition = true;
 
-	public ReleaseHatch(boolean pistonsInOut) {
-	}
+	public ReleaseHatch(boolean pistonsInOut) {}
 
 	protected void execute() {
 		solenoidPosition = !solenoidPosition;
@@ -16,14 +15,9 @@ public class ReleaseHatch extends Command {
 	}
 
 	@Override
-	protected boolean isFinished() {
-		return true;
-	}
+	protected boolean isFinished() {return true;}
 
-	protected void end() {
-	}
+	protected void end() {}
 
-	protected void interrupted() {
-		end();
-	}
+	protected void interrupted() {end();}
 }
