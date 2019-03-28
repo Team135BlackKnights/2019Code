@@ -60,9 +60,6 @@ public class OI {
 		RunElbowDown.whileHeld(new MoveIntakeElbow(1));
 		RunElbowUp.whileHeld(new MoveIntakeElbow(-1));
 
-		RunEndgameUp.whileHeld(new RunEndGame(1));
-		RunEndgameDown.whileHeld(new RunEndGame(-1));
-
 		CompressorToggle.toggleWhenPressed(new ToggleCompressor());
 	}
 
@@ -84,6 +81,14 @@ public class OI {
 
 	public static boolean fieldOrientated() {
 		return fieldOrientated.get();
+	}
+	public boolean isUpEndPressed()
+	{
+		return RunEndgameUp.get();
+	}
+	public boolean isDownEndPressed()
+	{
+		return RunEndgameDown.get();
 	}
 	public static boolean turnFast()
 	{

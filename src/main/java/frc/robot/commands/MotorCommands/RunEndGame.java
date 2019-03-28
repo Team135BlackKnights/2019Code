@@ -1,37 +1,29 @@
 package frc.robot.commands.MotorCommands;
 
 import frc.robot.*;
+import frc.robot.subsystems.*;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 public class RunEndGame extends Command {
-	private double _power;
-	public static boolean beginingMatch = true,
-	disableEndgame = false;
-	public double desiredPos, releasePos;
 
-	public RunEndGame(double power) {
+
+	public RunEndGame() {
 		requires(Robot.endgame);
-		_power = power;
-		
+	
 	}
 
-	protected void execute() {
-		if ( (!disableEndgame && _power > 0) || _power < 0)
-		{
-			Robot.endgame.RunEndGame(_power);
-		}
-		if (beginingMatch)
-		{
-			beginingMatch = Robot.endgame.isSwitchPressed();
-		}
-		else
-		{
-			disableEndgame = Robot.endgame.isSwitchPressed();
-		}
-
-	
-		 } 
+	protected void execute() 
+	{
+	if (!Robot.oi.isEndGamePressed()){}
+	else {
+		EndGame.setpoint = 234;
+	}
+	while(Robot.endgame.getEncoderPosition() > 135)
+	{
+		Robot.endgame.movePiston(true);
+	}
+	} 
 		
 	  
 	  

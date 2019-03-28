@@ -10,7 +10,9 @@ import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.RobotMap.Robot.*;
-import frc.robot.commands.Sensors.resetEncoderLift;
+import frc.robot.commands.Sensors.*;
+import frc.robot.*;
+import frc.robot.commands.MotorCommands.*;
 
 public class EndGame extends Subsystem {
 
@@ -22,6 +24,10 @@ public class EndGame extends Subsystem {
 	pistoon;
 	public boolean TF = false;
 	public DigitalInput limitSwitch;
+	public static double setpoint =0;
+	public static double Tolerance = 5;
+	public static double PTolerance = 10;
+
 
 
 	private EndGame() {
@@ -43,6 +49,42 @@ public class EndGame extends Subsystem {
 	public void RunEndGame(double power) {
 		endGameMotor.set(power);
 	}
+	public void setToPosition()
+	{
+		double currentPosition = getEncoderPosition();
+		double desiredPosition = setpoint;
+
+		double direction = (desiredPosition - currentPosition) < 0 ? -1.0: 1.0;
+
+		double distanceFrom = desiredPosition - currentPosition;
+
+		if (Robot.oi.isUpEndPressed())
+		{
+			RunEndGame(1);
+			setpoint = currentPosition;
+		}
+		else if (Robot.oi.isDownEndPressed())
+		{
+			RunEndGame(-1);
+			setpoint = currentPosition;
+		}
+		else if((Math.abs(distanceFrom) >Tolerance))
+		{
+			if (Math.abs(distanceFrom) >PTolerance)
+			{
+				RunEndGame(direction * .75);
+			}
+			else 
+			{
+				RunEndGame(direction * (Math.abs(distanceFrom)/(desiredPosition > currentPosition ? desiredPosition : currentPosition)));
+			}
+		}
+		else 
+		{
+			RunEndGame(0);
+		}
+		}
+	
 	public double getEncoderPosition()
 	{
 		return endgameEncoder.getPosition();
@@ -78,6 +120,7 @@ public class EndGame extends Subsystem {
 
 	@Override
 	protected void initDefaultCommand() {
+		setDefaultCommand(new RunEndGame());
 	}
 
 	public static EndGame getInstance() {
@@ -89,6 +132,6 @@ public class EndGame extends Subsystem {
 	public void periodic()
 	{
 		getData();
-
+		SmartDashboard.putData("Reset EndEncoder" , new resetEncoderEndgame());
 	}
 }
