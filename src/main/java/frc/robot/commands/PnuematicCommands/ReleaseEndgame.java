@@ -13,6 +13,7 @@ public class ReleaseEndgame extends Command {
 	protected void execute() {
 		solenoidPosition = !solenoidPosition;
 		Robot.endgame.movePiston(solenoidPosition);
+		
 	}
 
 	@Override

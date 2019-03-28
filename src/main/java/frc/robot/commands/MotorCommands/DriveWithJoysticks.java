@@ -7,6 +7,8 @@ public class DriveWithJoysticks extends Command
 {
 
     private double RightJoystickXValue, RightJoystickYValue, LeftJoystickZValue;
+    private double sliderValue; 
+    public double desiredPos, releasePos;
     public DriveWithJoysticks()
     {
         requires(Robot.driveTrain);
@@ -19,16 +21,41 @@ public class DriveWithJoysticks extends Command
         
     protected void execute() 
     {
-        RightJoystickYValue = Robot.oi.GetJoystickYValue(RobotMap.KOI.RIGHT_JOYSTICK) * Robot.oi.returnRightSlider();
-        RightJoystickXValue = -Robot.oi.GetJoystickXValue(RobotMap.KOI.RIGHT_JOYSTICK) * Robot.oi.returnRightSlider();
-        LeftJoystickZValue = Robot.oi.GetJoystickZValue(RobotMap.KOI.LEFT_JOYSTICK) * Robot.oi.returnLeftSlider();
-       if (OI.turnFast())
+        sliderValue = 1;// ((Robot.oi.returnRightSlider() *.75) +.25);
+        RightJoystickYValue = Robot.oi.GetJoystickYValue(RobotMap.KOI.RIGHT_JOYSTICK) * sliderValue;
+        RightJoystickXValue = -Robot.oi.GetJoystickXValue(RobotMap.KOI.RIGHT_JOYSTICK) * sliderValue;
+        LeftJoystickZValue = Robot.oi.GetJoystickZValue(RobotMap.KOI.LEFT_JOYSTICK) * sliderValue;
+       if (OI.SlowDown())
        {
-        Robot.driveTrain.cartesianDrive(RightJoystickXValue, RightJoystickYValue,-LeftJoystickZValue);
+        Robot.driveTrain.cartesianDrive(RightJoystickXValue/2, RightJoystickYValue/2,-LeftJoystickZValue*.4);
        }
        else {
         Robot.driveTrain.cartesianDrive(RightJoystickXValue, RightJoystickYValue,-LeftJoystickZValue *.40);
-     } }
+     } 
+        if (Robot.oi.isEndGamePressed())
+        {
+               
+      desiredPos = 234;
+      releasePos = 135;
+   
+    while (Robot.endgame.getEncoderPosition() < desiredPos)
+   {
+    Robot.endgame.RunEndGame(1);
+    Robot.driveTrain.cartesianDrive(RightJoystickXValue, RightJoystickYValue,-LeftJoystickZValue *.40);
+
+   }
+    Robot.endgame.RunEndGame(0);
+    Robot.driveTrain.cartesianDrive(RightJoystickXValue, RightJoystickYValue,-LeftJoystickZValue *.40);
+
+   if (Robot.endgame.getEncoderPosition() >= releasePos)
+		{
+            Robot.endgame.movePiston(true);
+            Robot.driveTrain.cartesianDrive(RightJoystickXValue, RightJoystickYValue,-LeftJoystickZValue *.40);
+        }
+    
+        }
+    }
+
 
     protected boolean isFinished() { return false; }
 

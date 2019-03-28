@@ -26,7 +26,6 @@ public class DriveTrain extends Subsystem
 	public CANEncoder frontLeftEncoder, rearLeftEncoder, frontRightEncoder, rearRightEncoder;
 
 	MecanumDrive chassis = new MecanumDrive(frontLeftMotor, rearLeftMotor, frontRightMotor, rearRightMotor);
-	
 	public DriveTrain()
 	{
 		ConfigSpark(frontLeftMotor);

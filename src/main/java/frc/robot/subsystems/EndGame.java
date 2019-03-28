@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.RobotMap.Robot.*;
+import frc.robot.commands.Sensors.resetEncoderLift;
 
 public class EndGame extends Subsystem {
 
@@ -42,6 +43,10 @@ public class EndGame extends Subsystem {
 	public void RunEndGame(double power) {
 		endGameMotor.set(power);
 	}
+	public double getEncoderPosition()
+	{
+		return endgameEncoder.getPosition();
+	}
 
 	public void movePiston(boolean TF) {
 		piston.set(TF);
@@ -49,6 +54,10 @@ public class EndGame extends Subsystem {
 	public void movePistoon(boolean TF)
 	{
 		pistoon.set(TF);
+	}
+	public void resetEncoder()
+	{
+		endgameEncoder.setPosition(0);
 	}
 	
 	public boolean isSwitchPressed()
@@ -80,5 +89,6 @@ public class EndGame extends Subsystem {
 	public void periodic()
 	{
 		getData();
+
 	}
 }

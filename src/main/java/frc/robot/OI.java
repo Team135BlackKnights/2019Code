@@ -36,7 +36,7 @@ public class OI {
 		RunElbowDown = new JoystickButton(manipJoystick, KOI.BUTTON_4),
 
 		ReleaseHatch = new JoystickButton(manipJoystick, KOI.BUTTON_3),
-		ReleaseEndGame = new JoystickButton(rightJoystick, KOI.BUTTON_5),
+		EndGameButton = new JoystickButton(rightJoystick, KOI.THUMB_BUTTON),
 		IntakeEndGame = new JoystickButton(rightJoystick, KOI.BUTTON_3),
 
 		RunEndGame = new JoystickButton(manipJoystick, KOI.THUMB_BUTTON),
@@ -52,9 +52,8 @@ public class OI {
 
 	public OI() {
 		ReleaseHatch.whenActive(new ReleaseHatch(true));
-		ReleaseEndGame.whenActive(new ReleaseEndgame(false));
 		IntakeEndGame.whenActive(new ReleaseEndgame(true));
-
+		//EndGameButton.whenActive(new EndgameSetToPos());
 		RunWheelsIn.whileHeld(new RunIntakeWheels(1));
 		RunWheelsOut.whileHeld(new RunIntakeWheels(-1));
 
@@ -89,6 +88,15 @@ public class OI {
 	public static boolean turnFast()
 	{
 		return fullSpeedTurn.get();
+	}
+	public boolean isEndGamePressed()
+	{
+		return EndGameButton.get();
+	}
+
+	public static boolean SlowDown()
+	{
+		return leftTrigger.get() || rightTrigger.get();
 	}
 
 	public static int liftButtons() {

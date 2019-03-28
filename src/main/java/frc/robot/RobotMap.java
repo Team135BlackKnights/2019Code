@@ -50,12 +50,12 @@ public class RobotMap {
 				LIFT_RIGHT_SPARK = 6,
 
 				LIFT_TOLERANCE = 1, // ticks
-				LIFT_PIDTOLERANCE = 5,
+				LIFT_PIDTOLERANCE = 8,
 
-				LIFT_SETPOINT_0 = 4, 
-				LIFT_SETPOINT_1 = 10, 
-				LIFT_SETPOINT_2 = 72,
-				LIFT_SETPOINT_3 = 125;
+				LIFT_SETPOINT_0 = 1, 
+				LIFT_SETPOINT_1 = 9, 
+				LIFT_SETPOINT_2 = 71,
+				LIFT_SETPOINT_3 = 124;
 			public static final double 
 				STATICP = 0.1,
 				ERRORP = 0.1;

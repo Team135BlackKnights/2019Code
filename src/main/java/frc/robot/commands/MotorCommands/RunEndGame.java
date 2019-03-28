@@ -8,9 +8,12 @@ public class RunEndGame extends Command {
 	private double _power;
 	public static boolean beginingMatch = true,
 	disableEndgame = false;
+	public double desiredPos, releasePos;
+
 	public RunEndGame(double power) {
 		requires(Robot.endgame);
 		_power = power;
+		
 	}
 
 	protected void execute() {
@@ -26,7 +29,14 @@ public class RunEndGame extends Command {
 		{
 			disableEndgame = Robot.endgame.isSwitchPressed();
 		}
-	}
+
+	
+		 } 
+		
+	  
+	  
+
+	
 
 	@Override
 	protected boolean isFinished() {
