@@ -8,7 +8,6 @@ public class DriveWithJoysticks extends Command
 
     private double RightJoystickXValue, RightJoystickYValue, LeftJoystickZValue;
     private double sliderValue; 
-    public double desiredPos, releasePos;
     public DriveWithJoysticks()
     {
         requires(Robot.driveTrain);
@@ -32,30 +31,7 @@ public class DriveWithJoysticks extends Command
        else {
         Robot.driveTrain.cartesianDrive(RightJoystickXValue, RightJoystickYValue,-LeftJoystickZValue *.40);
      } 
-        if (Robot.oi.isEndGamePressed())
-        {
-               
-      desiredPos = 234;
-      releasePos = 135;
-   
-    while (Robot.endgame.getEncoderPosition() < desiredPos)
-   {
-    Robot.endgame.RunEndGame(1);
-    Robot.driveTrain.cartesianDrive(RightJoystickXValue, RightJoystickYValue,-LeftJoystickZValue *.40);
-
-   }
-    Robot.endgame.RunEndGame(0);
-    Robot.driveTrain.cartesianDrive(RightJoystickXValue, RightJoystickYValue,-LeftJoystickZValue *.40);
-
-   if (Robot.endgame.getEncoderPosition() >= releasePos)
-		{
-            Robot.endgame.movePiston(true);
-            Robot.driveTrain.cartesianDrive(RightJoystickXValue, RightJoystickYValue,-LeftJoystickZValue *.40);
-        }
-    
-        }
     }
-
 
     protected boolean isFinished() { return false; }
 

@@ -53,7 +53,7 @@ public class OI {
 	public OI() {
 		ReleaseHatch.whenActive(new ReleaseHatch(true));
 		IntakeEndGame.whenActive(new ReleaseEndgame(true));
-		//EndGameButton.whenActive(new EndgameSetToPos());
+
 		RunWheelsIn.whileHeld(new RunIntakeWheels(1));
 		RunWheelsOut.whileHeld(new RunIntakeWheels(-1));
 
@@ -79,8 +79,9 @@ public class OI {
 		return DeadbandJoystickValue( -joysticks[joystickNumber].getZ() );
 	}
 
-	public static boolean fieldOrientated() {
-		return fieldOrientated.get();
+	public boolean isButtonPressed(JoystickButton button)
+	{
+		return button.get();
 	}
 	public boolean isUpEndPressed()
 	{

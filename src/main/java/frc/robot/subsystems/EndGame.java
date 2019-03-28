@@ -5,7 +5,6 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
-import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -20,24 +19,17 @@ public class EndGame extends Subsystem {
 	public CANSparkMax endGameMotor;
 	public CANEncoder endgameEncoder;
 	public Solenoid 
-	piston,
-	pistoon;
+	piston;
 	public boolean TF = false;
-	public DigitalInput limitSwitch;
-	public static double setpoint =0;
-	public static double Tolerance = 5;
-	public static double PTolerance = 10;
-
-
+	public static double setpoint =0,
+	Tolerance = 5,
+	PTolerance = 10;
 
 	private EndGame() {
 		initializeMotor();
 		endgameEncoder = endGameMotor.getEncoder();
 		piston = new Solenoid(Pneumatics.ENDGAME_PISTON);
-		pistoon = new Solenoid(Pneumatics.ENDGAME_PISTOON);
 		piston.set(false);
-		pistoon.set(false);
-		limitSwitch = new DigitalInput(Sensors.ENDGAME_SWITCH_ID);
 
 	}
 
@@ -58,12 +50,13 @@ public class EndGame extends Subsystem {
 
 		double distanceFrom = desiredPosition - currentPosition;
 
-		if (Robot.oi.isUpEndPressed())
+		if (Robot.oi.isButtonPressed(Robot.oi.RunEndgameUp))
 		{
 			RunEndGame(1);
 			setpoint = currentPosition;
 		}
-		else if (Robot.oi.isDownEndPressed())
+		else if (Robot.oi.isButtonPressed(Robot.oi.RunEndgameDown))
+
 		{
 			RunEndGame(-1);
 			setpoint = currentPosition;
@@ -82,8 +75,7 @@ public class EndGame extends Subsystem {
 		else 
 		{
 			RunEndGame(0);
-		}
-		}
+		}}
 	
 	public double getEncoderPosition()
 	{
@@ -93,29 +85,18 @@ public class EndGame extends Subsystem {
 	public void movePiston(boolean TF) {
 		piston.set(TF);
 	}
-	public void movePistoon(boolean TF)
-	{
-		pistoon.set(TF);
-	}
+	
 	public void resetEncoder()
 	{
 		endgameEncoder.setPosition(0);
 	}
-	
-	public boolean isSwitchPressed()
-	{
-		return limitSwitch.get();
-	}
+
 	public void getData()
 	{
-		double endGameVel = endgameEncoder.getVelocity();
 		double endGamePos = endgameEncoder.getPosition();
-		boolean switchPos = isSwitchPressed();
 
-		SmartDashboard.putNumber("EndGame Velocity: ", endGameVel);
 		SmartDashboard.putNumber("EndGame Position: ", endGamePos);
 
-		SmartDashboard.putBoolean("Is Switch Set", switchPos);
 	}
 
 	@Override
@@ -123,12 +104,7 @@ public class EndGame extends Subsystem {
 		setDefaultCommand(new RunEndGame());
 	}
 
-	public static EndGame getInstance() {
-		if (instance == null) {
-			instance = new EndGame();
-		}
-		return instance;
-	}
+	public static EndGame getInstance() {if (instance == null) {	instance = new EndGame();}return instance;}
 	public void periodic()
 	{
 		getData();
