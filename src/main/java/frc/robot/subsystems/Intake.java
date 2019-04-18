@@ -61,6 +61,7 @@ public class Intake extends Subsystem {
 
 	@Override
 	protected void initDefaultCommand() {
+
 	}
 
 	public static Intake getInstance() {

@@ -21,24 +21,24 @@ public class Limelight extends Subsystem {
 	NetworkTableEntry cameraModeEntry = limelightTable.getEntry("camMode");
 	NetworkTableEntry limelightPipelineEntry = limelightTable.getEntry("pipeline");
 
-	public static final int NUMBER_OF_LIMELIGHT_CHARACTERISTICS = 5;
-	public static final int VALID_TARGET = 0;
-	public static final int HORIZONTAL_OFFSET = 1;
-	public static final int VERTICAL_OFFSET = 2;
-	public static final int TARGET_AREA = 3;
-	public static final int TARGET_SKEW = 4;
-	public static double[] limelightData = new double[NUMBER_OF_LIMELIGHT_CHARACTERISTICS];
+	public final int NUMBER_OF_LIMELIGHT_CHARACTERISTICS = 5;
+	public final int VALID_TARGET = 0;
+	public final int HORIZONTAL_OFFSET = 1;
+	public final int VERTICAL_OFFSET = 2;
+	public final int TARGET_AREA = 3;
+	public final int TARGET_SKEW = 4;
+	public double[] limelightData = new double[NUMBER_OF_LIMELIGHT_CHARACTERISTICS];
 
-	public static int LED_ON = 0;
-	public static int LED_OFF = 1;
-	public static int LED_BLINKING = 2;
+	public int LED_ON = 0;
+	public int LED_OFF = 1;
+	public int LED_BLINKING = 2;
 
-	public static int VISION_PROCESSOR = 0;
-	public static int DRIVER_CAMERA = 1;
+	public int VISION_PROCESSOR = 0;
+	public int DRIVER_CAMERA = 1;
 
-	public static int VISION_PIPELINE = 0;
-	public static int HATCH_PIPELINE = 1;
-	public static int BALL_PIPELINE = 2;
+	public int VISION_PIPELINE = 0;
+	public int HATCH_PIPELINE = 1;
+	public int BALL_PIPELINE = 2;
 
 	public double[] GetLimelightData() {
 		limelightData[VALID_TARGET] = validTargetEntry.getDouble(0.0);
@@ -60,15 +60,14 @@ public class Limelight extends Subsystem {
 	public void SetCameraPipeline(int pipeline) {
 		limelightPipelineEntry.setNumber(pipeline);
 	}
+	public void initLimelight(int ledMode, int pipeline)
+	{
+		SetLEDMode(ledMode);
+		SetCameraPipeline(pipeline);
+	}
 
 	@Override
-	public void periodic() {
-		// SmartDashboard.putNumberArray("Limelight data values", limelightData);
-		// SmartDashboard.putNumber("Valid Target?", limelightData[VALID_TARGET]);
-		// SmartDashboard.putNumber("Horizontol Offset",
-		// limelightData[HORIZONTAL_OFFSET]);
-		// SmartDashboard.putNumber("Target Area", limelightData[TARGET_AREA]);
-	}
+	public void periodic() 	{}
 
 	public static Limelight getInstance() {if (instance == null) {instance = new Limelight();}return instance;}
 

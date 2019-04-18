@@ -3,8 +3,8 @@ package frc.robot.commands.Sensors;
 import edu.wpi.first.wpilibj.command.InstantCommand;
 import frc.robot.Robot;
 
-public class resetEncoderLift extends InstantCommand {
-  public resetEncoderLift() {
+public class resetEncoderEndgame extends InstantCommand {
+  public resetEncoderEndgame() {
     requires(Robot.lift);
   }
 
@@ -16,7 +16,7 @@ public class resetEncoderLift extends InstantCommand {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.lift.resetEncoders();
+    Robot.endgame.resetEncoder();
   }
 
   // Make this return true when this Command no longer needs to run execute()
