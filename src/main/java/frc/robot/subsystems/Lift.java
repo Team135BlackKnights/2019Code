@@ -22,7 +22,7 @@ public class Lift extends Subsystem {
 	public static double setpoint = 0;
 	public static int setpointIndex = 0;
 
-	private Lift() {
+	private Lift() { // Here we are configuring everything in the lift subsystem 
 		LeftLiftSpark = new CANSparkMax(KLift.LIFT_LEFT_SPARK, MotorType.kBrushless);
 		RightLiftSpark = new CANSparkMax(KLift.LIFT_RIGHT_SPARK, MotorType.kBrushless);
 
@@ -52,6 +52,8 @@ public class Lift extends Subsystem {
 	}
 
 	public void setToPosition() {
+		// This is a command that when it is run in a loop, will keep the lift at 
+		//the same position until told other wise, and allows it to be set to a position
 		double encoderPosition = getEncoderPosition();
 		double targetPosition = setpoint;
 

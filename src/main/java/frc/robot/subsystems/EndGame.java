@@ -22,7 +22,7 @@ public class EndGame extends Subsystem {
 	public Solenoid 
 	piston,
 	pistoon;
-	public boolean TF = false;
+	public boolean TF = false; 
 	public DigitalInput limitSwitch;
 	public static double setpoint =0;
 	public static double Tolerance = 5;
@@ -30,7 +30,7 @@ public class EndGame extends Subsystem {
 
 
 
-	private EndGame() {
+	private EndGame() { // this is where we set the ids of the electrical components for the endgame manipulator
 		initializeMotor();
 		endgameEncoder = endGameMotor.getEncoder();
 		piston = new Solenoid(Pneumatics.ENDGAME_PISTON);
@@ -49,9 +49,11 @@ public class EndGame extends Subsystem {
 	public void RunEndGame(double power) {
 		endGameMotor.set(power);
 	}
-	public void setToPosition()
+	public void setToPosition() 
 	{
-		double currentPosition = getEncoderPosition();
+		// This is a command that when it is run in a loop, will keep the endgame manipulator at
+		//the same position until told other wise, and allows it to be set to a position
+		double currentPosition = getEncoderPosition(); 
 		double desiredPosition = setpoint;
 
 		double direction = (desiredPosition - currentPosition) < 0 ? -1.0: 1.0;
@@ -106,7 +108,7 @@ public class EndGame extends Subsystem {
 	{
 		return limitSwitch.get();
 	}
-	public void getData()
+	public void getData()// getting readouts from the motor and displaying them to the smartdashboard
 	{
 		double endGameVel = endgameEncoder.getVelocity();
 		double endGamePos = endgameEncoder.getPosition();
@@ -116,19 +118,14 @@ public class EndGame extends Subsystem {
 		SmartDashboard.putNumber("EndGame Position: ", endGamePos);
 
 		SmartDashboard.putBoolean("Is Switch Set", switchPos);
+
+		
 	}
 
 	@Override
-	protected void initDefaultCommand() {
-		setDefaultCommand(new RunEndGame());
-	}
+	protected void initDefaultCommand() {setDefaultCommand(new RunEndGame());}
 
-	public static EndGame getInstance() {
-		if (instance == null) {
-			instance = new EndGame();
-		}
-		return instance;
-	}
+	public static EndGame getInstance() {if (instance == null) {instance = new EndGame();}return instance;}
 	public void periodic()
 	{
 		getData();

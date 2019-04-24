@@ -5,8 +5,9 @@ import frc.robot.*;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class ReleaseHatch extends Command {
+	//This command when ran will set the hatch manipulator to the state it is currently not at
 	private static boolean solenoidPosition = true;
-
+	
 	public ReleaseHatch(boolean pistonsInOut) {
 	}
 

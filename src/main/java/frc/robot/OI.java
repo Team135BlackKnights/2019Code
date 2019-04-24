@@ -9,6 +9,7 @@ import frc.robot.commands.Sensors.*;
 import frc.robot.RobotMap.KOI;
 
 public class OI {
+	// This is where we setup the joysticks and buttons so that we can run the robot with operator control
 	public static Joystick 
 		leftJoystick = new Joystick(KOI.LEFT_JOYSTICK),
 		rightJoystick = new Joystick(KOI.RIGHT_JOYSTICK),
@@ -56,6 +57,7 @@ public class OI {
 	public static OI instance;
 
 	public OI() {
+		// making each button we created run a command when pressed
 		//resetButton.toggleWhenActive(new ResetGyro());
 
 		ReleaseHatch.whenActive(new ReleaseHatch(true));

@@ -1,7 +1,7 @@
 package frc.robot;
 
 public class RobotMap {
-
+	// This is where we store all the values that we will want to need to keep constant and use for the robot
 	public interface KOI {
 		public static boolean 
 			TurnLeft = true, 

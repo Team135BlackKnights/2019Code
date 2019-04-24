@@ -4,6 +4,7 @@ import frc.robot.*;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class RunIntakeWheels extends Command {
+	// Here we set the intake wheels to a power delcared when the command is called for
 	private double power;
 
 	public RunIntakeWheels(double power) {

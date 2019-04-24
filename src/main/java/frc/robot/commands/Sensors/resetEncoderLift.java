@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.command.InstantCommand;
 import frc.robot.Robot;
 
 public class resetEncoderLift extends InstantCommand {
+  // this command when ran, will reset the encoder on the lift
   public resetEncoderLift() {
     requires(Robot.lift);
   }

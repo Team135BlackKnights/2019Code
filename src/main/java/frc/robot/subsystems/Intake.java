@@ -18,7 +18,7 @@ public class Intake extends Subsystem {
 	public Solenoid solenoid;
 	public Compressor compressor;
 
-	private Intake() {
+	private Intake() {// this is where we initialize everything in the intake subsystem
 		intakeElbow = new TalonSRX(KIntake.INTAKE_ELBOW_TALON);
 		intake = new VictorSPX(KIntake.INTAKE_VICTOR);
 
@@ -56,13 +56,10 @@ public class Intake extends Subsystem {
 		solenoid.set(position);
 	}
 
-	public void periodic() {
-	}
+	public void periodic() {}
 
 	@Override
-	protected void initDefaultCommand() {
-
-	}
+	protected void initDefaultCommand() {}
 
 	public static Intake getInstance() {
 		if (instance == null) {

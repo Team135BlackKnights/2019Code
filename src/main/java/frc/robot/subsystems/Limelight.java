@@ -40,7 +40,7 @@ public class Limelight extends Subsystem {
 	public int HATCH_PIPELINE = 1;
 	public int BALL_PIPELINE = 2;
 
-	public double[] GetLimelightData() {
+	public double[] GetLimelightData() { // creating an array so we can get to any of the values that we need from network tables
 		limelightData[VALID_TARGET] = validTargetEntry.getDouble(0.0);
 		limelightData[HORIZONTAL_OFFSET] = horizontalOffsetEntry.getDouble(0.0);
 		limelightData[VERTICAL_OFFSET] = verticalOffsetEntry.getDouble(0.0);

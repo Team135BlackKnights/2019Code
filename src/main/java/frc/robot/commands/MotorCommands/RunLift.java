@@ -8,6 +8,7 @@ import frc.robot.RobotMap.Robot.KLift;
 import frc.robot.subsystems.Lift;
 
 public class RunLift extends Command {
+  // This is the command where we take an input, either buttons or the joystick and set the lift to the desired position
   boolean isButton;
 
   public RunLift(int position) {

@@ -6,6 +6,7 @@ import frc.robot.subsystems.*;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class RunEndGame extends Command {
+	// This will run the endgame manipulator and allows for the pistons to auto release when at a certain point
 
 
 	public RunEndGame() {

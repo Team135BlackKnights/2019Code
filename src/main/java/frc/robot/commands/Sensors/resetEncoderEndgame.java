@@ -4,8 +4,9 @@ import edu.wpi.first.wpilibj.command.InstantCommand;
 import frc.robot.Robot;
 
 public class resetEncoderEndgame extends InstantCommand {
+  // this command when ran will reset the encoder on the endgame manipulator
   public resetEncoderEndgame() {
-    requires(Robot.lift);
+    requires(Robot.endgame);
   }
 
   // Called just before this Command runs the first time
