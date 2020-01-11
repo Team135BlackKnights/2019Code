@@ -7,7 +7,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import com.revrobotics.*;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-
 import frc.robot.RobotMap.Robot.*;
 import frc.robot.commands.MotorCommands.*;
 

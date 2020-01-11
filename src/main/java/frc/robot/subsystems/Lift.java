@@ -8,7 +8,6 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.MotorCommands.*;
-import frc.robot.commands.Sensors.*;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.robot.RobotMap.Robot.*;
@@ -90,7 +89,7 @@ public class Lift extends Subsystem {
 
 	public void periodic() {
 		SmartDashboard.putNumber("Lift Encoder Position", getEncoderPosition());
-		SmartDashboard.putData("Reset Lift Encoder", new resetEncoderLift());
+		//SmartDashboard.putData("Reset Lift Encoder", new resetEncoderLift());
 		setToPosition();
 	}
 

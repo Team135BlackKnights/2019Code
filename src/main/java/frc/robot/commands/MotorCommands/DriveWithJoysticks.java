@@ -32,7 +32,7 @@ public class DriveWithJoysticks extends Command
        else {
         Robot.driveTrain.cartesianDrive(RightJoystickXValue, RightJoystickYValue,-LeftJoystickZValue *.40);
      } 
-        }
+}
     
 
 
